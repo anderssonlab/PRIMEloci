@@ -1,0 +1,8 @@
+ID	Class	Name	BigWigPlus	BigWigMinus	Rep	Type
+1	K562_C	K562_C1	K562_C1_STAR.plus.bw	K562_C1_STAR.minus.bw	1	C
+2	K562_C	K562_C2	K562_C2_STAR.plus.bw	K562_C2_STAR.minus.bw	2	C
+3	K562_C	K562_C3	K562_C3_STAR.plus.bw	K562_C3_STAR.minus.bw	3	C
+4	K562_N	K562_N4	K562_N4_STAR.plus.bw	K562_N4_STAR.minus.bw	1	N
+5	K562_N	K562_N5	K562_N5_STAR.plus.bw	K562_N5_STAR.minus.bw	2	N
+6	K562_N	K562_N6	K562_N6_STAR.plus.bw	K562_N6_STAR.minus.bw	3	N
+

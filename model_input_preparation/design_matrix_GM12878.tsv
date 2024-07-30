@@ -1,0 +1,14 @@
+ID	Class	Name	BigWigPlus	BigWigMinus	Rep	Type	Number
+1	GM12878_C_1mio	GM12878_reseq_C_1mio_1	CAGE_reseq_C_1mio_1_STAR.plus.bw	CAGE_reseq_C_1mio_1_STAR.minus.bw	1	C	1mio
+2	GM12878_C_1mio	GM12878_reseq_C_1mio_2	CAGE_reseq_C_1mio_2_STAR.plus.bw	CAGE_reseq_C_1mio_2_STAR.minus.bw	2	C	1mio
+3	GM12878_C_1mio	GM12878_reseq_C_1mio_3	CAGE_reseq_C_1mio_3_STAR.plus.bw	CAGE_reseq_C_1mio_3_STAR.minus.bw	3	C	1mio
+4	GM12878_C_500k	GM12878_reseq_C_500k_1	CAGE_reseq_C_500k_1_STAR.plus.bw	CAGE_reseq_C_500k_1_STAR.minus.bw	1	C	500k
+5	GM12878_C_500k	GM12878_reseq_C_500k_2	CAGE_reseq_C_500k_2_STAR.plus.bw	CAGE_reseq_C_500k_2_STAR.minus.bw	2	C	500k
+6	GM12878_C_500k	GM12878_reseq_C_500k_3	CAGE_reseq_C_500k_3_STAR.plus.bw	CAGE_reseq_C_500k_3_STAR.minus.bw	3	C	500k
+7	GM12878_N_1mio	GM12878_reseq_N_1mio_1	CAGE_reseq_N_1mio_1_STAR.plus.bw	CAGE_reseq_N_1mio_1_STAR.minus.bw	1	N	1mio
+8	GM12878_N_1mio	GM12878_reseq_N_1mio_2	CAGE_reseq_N_1mio_2_STAR.plus.bw	CAGE_reseq_N_1mio_2_STAR.minus.bw	2	N	1mio
+9	GM12878_N_1mio	GM12878_reseq_N_1mio_3	CAGE_reseq_N_1mio_3_STAR.plus.bw	CAGE_reseq_N_1mio_3_STAR.minus.bw	3	N	1mio
+10	GM12878_N_5mio	GM12878_reseq_N_5mio_1	CAGE_reseq_N_5mio_1_STAR.plus.bw	CAGE_reseq_N_5mio_1_STAR.minus.bw	1	N	5mio
+11	GM12878_N_5mio	GM12878_reseq_N_5mio_2	CAGE_reseq_N_5mio_2_STAR.plus.bw	CAGE_reseq_N_5mio_2_STAR.minus.bw	2	N	5mio
+12	GM12878_N_5mio	GM12878_reseq_N_5mio_3	CAGE_reseq_N_5mio_3_STAR.plus.bw	CAGE_reseq_N_5mio_3_STAR.minus.bw	3	N	5mio
+
