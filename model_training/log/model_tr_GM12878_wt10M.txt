@@ -1,0 +1,44 @@
+[zmk214@scarbrna01fl model_training]$ python3 train_model.py --model_name model_tr_GM12878_wt10M --model_dir ./ --profile_main_dir ../../model_PRIMEloci/1_prep_data_for_training/GM12878_wt10M_profiles --keep_word tr
+profiles_subtnorm_pos_tr_GM12878_reseq_C_1mio_1.csv contains 23847 rows
+profiles_subtnorm_pos_tr_GM12878_reseq_C_1mio_2.csv contains 26259 rows
+profiles_subtnorm_pos_tr_GM12878_reseq_C_1mio_3.csv contains 38634 rows
+profiles_subtnorm_pos_tr_GM12878_reseq_C_500k_1.csv contains 40133 rows
+profiles_subtnorm_pos_tr_GM12878_reseq_C_500k_2.csv contains 26869 rows
+profiles_subtnorm_pos_tr_GM12878_reseq_C_500k_3.csv contains 29153 rows
+profiles_subtnorm_pos_tr_GM12878_reseq_N_10mio_1.csv contains 120617 rows
+profiles_subtnorm_pos_tr_GM12878_reseq_N_10mio_2.csv contains 89076 rows
+profiles_subtnorm_pos_tr_GM12878_reseq_N_10mio_3.csv contains 138075 rows
+profiles_subtnorm_pos_tr_GM12878_reseq_N_1mio_1.csv contains 26596 rows
+profiles_subtnorm_pos_tr_GM12878_reseq_N_1mio_2.csv contains 27467 rows
+profiles_subtnorm_pos_tr_GM12878_reseq_N_1mio_3.csv contains 23710 rows
+profiles_subtnorm_pos_tr_GM12878_reseq_N_5mio_1.csv contains 61735 rows
+profiles_subtnorm_pos_tr_GM12878_reseq_N_5mio_2.csv contains 64139 rows
+profiles_subtnorm_pos_tr_GM12878_reseq_N_5mio_3.csv contains 45175 rows
+profiles_subtnorm_neg_tr_GM12878_reseq_C_1mio_1.csv contains 23847 rows
+profiles_subtnorm_neg_tr_GM12878_reseq_C_1mio_2.csv contains 26259 rows
+profiles_subtnorm_neg_tr_GM12878_reseq_C_1mio_3.csv contains 38634 rows
+profiles_subtnorm_neg_tr_GM12878_reseq_C_500k_1.csv contains 40133 rows
+profiles_subtnorm_neg_tr_GM12878_reseq_C_500k_2.csv contains 26869 rows
+profiles_subtnorm_neg_tr_GM12878_reseq_C_500k_3.csv contains 29153 rows
+profiles_subtnorm_neg_tr_GM12878_reseq_N_10mio_1.csv contains 120617 rows
+profiles_subtnorm_neg_tr_GM12878_reseq_N_10mio_2.csv contains 89076 rows
+profiles_subtnorm_neg_tr_GM12878_reseq_N_10mio_3.csv contains 138075 rows
+profiles_subtnorm_neg_tr_GM12878_reseq_N_1mio_1.csv contains 26596 rows
+profiles_subtnorm_neg_tr_GM12878_reseq_N_1mio_2.csv contains 27467 rows
+profiles_subtnorm_neg_tr_GM12878_reseq_N_1mio_3.csv contains 23710 rows
+profiles_subtnorm_neg_tr_GM12878_reseq_N_5mio_1.csv contains 61735 rows
+profiles_subtnorm_neg_tr_GM12878_reseq_N_5mio_2.csv contains 64139 rows
+profiles_subtnorm_neg_tr_GM12878_reseq_N_5mio_3.csv contains 45175 rows
+Training data shape:
+(1562970, 401)
+(1562970,)
+[LightGBM] [Info] Number of positive: 781485, number of negative: 781485
+[LightGBM] [Warning] Auto-choosing row-wise multi-threading, the overhead of testing was 0.292181 seconds.
+You can set `force_row_wise=true` to remove the overhead.
+And if memory is not enough, you can set `force_col_wise=true`.
+[LightGBM] [Info] Total Bins 102183
+[LightGBM] [Info] Number of data points in the train set: 1562970, number of used features: 401
+[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.500000 -> initscore=0.000000
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+Training set score: 0.7017

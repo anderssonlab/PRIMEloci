@@ -1,0 +1,51 @@
+[zmk214@scarbrna01fl model_training]$ python3 train_model.py --model_name model_trvl_K562_wt10M --model_dir ./ --profile_main_dir ../../model_PRIMEloci/1_prep_data_for_training/K562_wt10M_profiles --drop_word te
+profiles_subtnorm_pos_tr_K562_C1.csv contains 21572 rows
+profiles_subtnorm_pos_tr_K562_C2.csv contains 22474 rows
+profiles_subtnorm_pos_tr_K562_C3.csv contains 22535 rows
+profiles_subtnorm_pos_tr_K562_N1_10mio.csv contains 132689 rows
+profiles_subtnorm_pos_tr_K562_N2_10mio.csv contains 148577 rows
+profiles_subtnorm_pos_tr_K562_N3_10mio.csv contains 118551 rows
+profiles_subtnorm_pos_tr_K562_N4.csv contains 54685 rows
+profiles_subtnorm_pos_tr_K562_N5.csv contains 49303 rows
+profiles_subtnorm_pos_tr_K562_N6.csv contains 59263 rows
+profiles_subtnorm_pos_vl_K562_C1.csv contains 5386 rows
+profiles_subtnorm_pos_vl_K562_C2.csv contains 5617 rows
+profiles_subtnorm_pos_vl_K562_C3.csv contains 5629 rows
+profiles_subtnorm_pos_vl_K562_N1_10mio.csv contains 33170 rows
+profiles_subtnorm_pos_vl_K562_N2_10mio.csv contains 37150 rows
+profiles_subtnorm_pos_vl_K562_N3_10mio.csv contains 29640 rows
+profiles_subtnorm_pos_vl_K562_N4.csv contains 13673 rows
+profiles_subtnorm_pos_vl_K562_N5.csv contains 12323 rows
+profiles_subtnorm_pos_vl_K562_N6.csv contains 14811 rows
+profiles_subtnorm_neg_tr_K562_C1.csv contains 21572 rows
+profiles_subtnorm_neg_tr_K562_C2.csv contains 22474 rows
+profiles_subtnorm_neg_tr_K562_C3.csv contains 22535 rows
+profiles_subtnorm_neg_tr_K562_N1_10mio.csv contains 132689 rows
+profiles_subtnorm_neg_tr_K562_N2_10mio.csv contains 148577 rows
+profiles_subtnorm_neg_tr_K562_N3_10mio.csv contains 118551 rows
+profiles_subtnorm_neg_tr_K562_N4.csv contains 54685 rows
+profiles_subtnorm_neg_tr_K562_N5.csv contains 49303 rows
+profiles_subtnorm_neg_tr_K562_N6.csv contains 59263 rows
+profiles_subtnorm_neg_vl_K562_C1.csv contains 5386 rows
+profiles_subtnorm_neg_vl_K562_C2.csv contains 5617 rows
+profiles_subtnorm_neg_vl_K562_C3.csv contains 5629 rows
+profiles_subtnorm_neg_vl_K562_N1_10mio.csv contains 33170 rows
+profiles_subtnorm_neg_vl_K562_N2_10mio.csv contains 37150 rows
+profiles_subtnorm_neg_vl_K562_N3_10mio.csv contains 29640 rows
+profiles_subtnorm_neg_vl_K562_N4.csv contains 13673 rows
+profiles_subtnorm_neg_vl_K562_N5.csv contains 12323 rows
+profiles_subtnorm_neg_vl_K562_N6.csv contains 14811 rows
+Training data shape:
+(1574096, 401)
+(1574096,)
+[LightGBM] [Info] Number of positive: 787048, number of negative: 787048
+[LightGBM] [Warning] Auto-choosing row-wise multi-threading, the overhead of testing was 0.343210 seconds.
+You can set `force_row_wise=true` to remove the overhead.
+And if memory is not enough, you can set `force_col_wise=true`.
+[LightGBM] [Info] Total Bins 102163
+[LightGBM] [Info] Number of data points in the train set: 1574096, number of used features: 401
+[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.500000 -> initscore=0.000000
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+Training set score: 0.7224

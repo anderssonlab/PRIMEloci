@@ -36,10 +36,8 @@ rnorm_int <- function(number) {
 #' get_random_number(10)
 get_random_number <- function(n) {
   unif_int <- round(runif(n = n, min = -30, max = 30), 0)
-  #hist(unif_int, breaks = 30)
 
   norm_int <- rnorm_int(n)
-  #hist(norm_int, breaks = 30)
 
   return(list("unif" = unif_int, "norm" = norm_int))
 }

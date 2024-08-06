@@ -21,7 +21,7 @@
 #' around the thick positions
 #' and stores the results in a GRangesList object.
 #'
-#' @import RangedSummarizedExperiment
+#' @import SummarizedExperiment
 #' @import GenomicRanges
 #' @import IRanges
 #' @import CAGEfightR

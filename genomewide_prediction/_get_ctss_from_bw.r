@@ -1,15 +1,15 @@
 #!/usr/bin/env Rscript
 
-writeLines("\n### Running get_ctss_from_bw.r ###")
+writeLines("\n### Running _get_ctss_from_bw.r ###")
 
 writeLines("\n# Importing R libraries..")
 suppressPackageStartupMessages({
   library(argparse)
   library(CAGEfightR)
   library(GenomicRanges)
+  library(PRIMEloci)
 })
 
-source("../R/ctss.r")
 
 ### ARGPARSE
 parser <- ArgumentParser()

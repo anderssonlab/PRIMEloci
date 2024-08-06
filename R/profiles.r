@@ -1,11 +1,3 @@
-suppressPackageStartupMessages({
-  library(assertthat)
-  source("../R/general.r")
-  source("../R/manipulate_gr.r")
-  source("../../PRIME/R/heatmap.R")
-})
-
-
 #' Convert Row Name Strands to No-strand
 #'
 #' This function converts the strand information
@@ -185,6 +177,9 @@ strands_norm_subtraction_all <- function(windows, ext_dis, len_vec) {
 #' @param output_subdir_name Subdirectory name within \code{outdir_dir_name}
 #' where output files will be stored.
 #' @param ext_dis Numeric value specifying the extension distance.
+#' @param addtn_to_filename Additional text to append to the output file names.
+#' @param save_count_profiles Logical value indicating
+#' whether to save count profiles.
 #'
 #' @details
 #' This function iterates through each column of \code{ctss_rse},
@@ -192,6 +187,8 @@ strands_norm_subtraction_all <- function(windows, ext_dis, len_vec) {
 #' and saves them as CSV files.
 #' It also creates corresponding metadata files based on
 #' row names of the profiles.
+#'
+#' @importFrom PRIME heatmapData
 #'
 #' @examples
 #' \dontrun{
@@ -207,6 +204,7 @@ wrapup_make_profiles <- function(ctss_rse,
                                  output_dir_name,
                                  output_subdir_name,
                                  ext_dis,
+                                 addtn_to_filename = "",
                                  save_count_profiles = FALSE) {
   for (i in seq_along(SummarizedExperiment::colnames(ctss_rse))) {
 
@@ -237,10 +235,10 @@ wrapup_make_profiles <- function(ctss_rse,
 
     # Combine metadata of granges with specific functions
     # Add later
-
+    print("Start heatmapData")
     # Run heatmap from PRIME to get the count profiles
-    count_profiles <- heatmapData(current_region_gr, ctss_gr)
-
+    count_profiles <- PRIME::heatmapData(current_region_gr, ctss_gr)
+    print("End heatmapData")
     rm(current_region_gr, ctss_gr)
 
     current_datetime <- Sys.time()
@@ -280,7 +278,8 @@ wrapup_make_profiles <- function(ctss_rse,
                                "metadata",
                                output_subdir_name,
                                paste0("metadata_count_", output_subdir_name,
-                                      "_", colnames(ctss_rse)[i], ".csv")),
+                                      addtn_to_filename, "_",
+                                      colnames(ctss_rse)[i], ".csv")),
               row.names = FALSE)
     rm(combined_count_metadata)
 
@@ -290,7 +289,8 @@ wrapup_make_profiles <- function(ctss_rse,
     #                           "metadata_subtnorm",
     #                           output_subdir_name,
     #                           paste0("metadata_subtnorm_", output_subdir_name,
-    #                                  "_", colnames(ctss_rse)[i], ".csv")),
+    #                                  addtn_to_filename, "_",
+    #                                  colnames(ctss_rse)[i], ".csv")),
     #          row.names = FALSE)
     #rm(combined_subtnorm_metadata) # nolint
 
@@ -301,7 +301,8 @@ wrapup_make_profiles <- function(ctss_rse,
                                  "profiles",
                                  output_subdir_name,
                                  paste0("profiles_count_", output_subdir_name,
-                                        "_", colnames(ctss_rse)[i], ".csv")),
+                                        addtn_to_filename, "_",
+                                        colnames(ctss_rse)[i], ".csv")),
                 row.names = TRUE)
     }
     rm(combined_count_profiles)
@@ -312,7 +313,8 @@ wrapup_make_profiles <- function(ctss_rse,
                                "profiles_subtnorm",
                                output_subdir_name,
                                paste0("profiles_subtnorm_", output_subdir_name,
-                                      "_", colnames(ctss_rse)[i], ".csv")),
+                                      addtn_to_filename, "_",
+                                      colnames(ctss_rse)[i], ".csv")),
               row.names = TRUE)
     rm(combined_subtnorm_profiles)
 

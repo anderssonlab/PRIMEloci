@@ -5,13 +5,15 @@ from lightgbm import LGBMClassifier
 
 import argparse
 
+#import pyPRIMEloci
+
 from python.extraction import extract_filenames
 from python.extraction import extract_ranges
 from python.extraction import extract_profiles
 
 
 # Function to load environment variables from .env file
-def load_env_vars(script_dir, profile_main_dir, subdir_name, model_path, threshold):
+def load_env_vars(script_dir, profile_main_dir, subdir_name, model_path):
     
     # Set the working directory
     os.chdir(script_dir)
@@ -33,15 +35,10 @@ def load_env_vars(script_dir, profile_main_dir, subdir_name, model_path, thresho
     else:
         print(f"Directory '{profile_main_dir}/predictions/{subdir_name}' already exists.") 
 
-    # Convert threshold to float
-    # threshold = float(threshold)
-
-    return script_dir, profile_main_dir, subdir_name, model, threshold
-profile_main_dir = "/path/to/directory"
-print(f"Directory '{profile_main_dir}/predictions' created successfully.")
+    return script_dir, profile_main_dir, subdir_name, model
 
 
-def wrapup_model_prediction(script_dir, profile_dir, profile_filename, metadata_dir, metadata_filename, model, output_dir, threshold):
+def wrapup_model_prediction(script_dir, profile_dir, profile_filename, metadata_dir, metadata_filename, model, output_dir, name_prefix, threshold):
 
     # Example usage of extract_filenames
 
@@ -86,11 +83,11 @@ def wrapup_model_prediction(script_dir, profile_dir, profile_filename, metadata_
         ranges_df[col] = metadata_df[col]
 
     # Save results to .bed files
-    output_all_results = os.path.join(output_dir, f'pred_all_{filenames_without_extensions}.bed')
+    output_all_results = os.path.join(output_dir, f'{name_prefix}_pred_all_{filenames_without_extensions}.bed')
     ranges_df.to_csv(output_all_results, sep='\t', header=True, index=False)
 
     # Save selected results if score >= threshold
-    output_slt_results = os.path.join(output_dir, f'pred_slt_{threshold}_{filenames_without_extensions}.bed')
+    output_slt_results = os.path.join(output_dir, f'{name_prefix}_pred_slt{threshold}_{filenames_without_extensions}.bed')
     selected_ranges = ranges_df[ranges_df['score'] >= threshold]
     selected_ranges.to_csv(output_slt_results, sep='\t', header=True, index=False)
 
@@ -105,7 +102,8 @@ if __name__ == "__main__":
                         help='Sub-directory name in the main profile directory')
     parser.add_argument('-m', '--model_path', type=str, required=True, 
                         help='Path to the input model')
-    
+    parser.add_argument('-n', '--name_prefix', type=str, required=True, 
+                        help='Name added to the output files, indicate model name and library (celltype) name') 
     parser.add_argument('-t', '--threshold', type=float, default=0.5,
                         help='Threshold value for prediction')
 
@@ -117,12 +115,14 @@ if __name__ == "__main__":
     profile_sub_dir = args.profile_sub_dir.split(',')
     model_path = args.model_path
 
+    name_prefix = args.name_prefix
+
     threshold = args.threshold
 
     for subdir_name in profile_sub_dir:
 
         # Load environment variables and model
-        script_dir, profile_main_dir, subdir_name, model, threshold = load_env_vars(script_dir, profile_main_dir, subdir_name, model_path, threshold)
+        script_dir, profile_main_dir, subdir_name, model = load_env_vars(script_dir, profile_main_dir, subdir_name, model_path)
 
         profile_dir = profile_main_dir+"/profiles_subtnorm/"+subdir_name
         metadata_dir = profile_main_dir+"/metadata/"+subdir_name
@@ -140,4 +140,5 @@ if __name__ == "__main__":
                                     metadata_file_ls[i],
                                     model,
                                     output_dir,
+                                    name_prefix,
                                     threshold)

@@ -7,9 +7,9 @@ suppressPackageStartupMessages({
   library(argparse)
   library(CAGEfightR)
   library(GenomicRanges)
+  library(PRIMEloci)
 })
 
-source("../R/tc.r")
 
 ### ARGPARSE
 parser <- ArgumentParser()

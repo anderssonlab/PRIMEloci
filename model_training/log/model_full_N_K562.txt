@@ -1,0 +1,33 @@
+[zmk214@scarbrna01fl model_training]$ python3 train_model.py --model_name model_full_N_K562 --model_dir ./ --profile_main_dir ../../model_PRIMEloci/1_prep_data_for_training/K562_profiles --keep_word _N
+profiles_subtnorm_pos_te_K562_N4.csv contains 11362 rows
+profiles_subtnorm_pos_te_K562_N5.csv contains 10338 rows
+profiles_subtnorm_pos_te_K562_N6.csv contains 11910 rows
+profiles_subtnorm_pos_tr_K562_N4.csv contains 54684 rows
+profiles_subtnorm_pos_tr_K562_N5.csv contains 49292 rows
+profiles_subtnorm_pos_tr_K562_N6.csv contains 59265 rows
+profiles_subtnorm_pos_vl_K562_N4.csv contains 13673 rows
+profiles_subtnorm_pos_vl_K562_N5.csv contains 12323 rows
+profiles_subtnorm_pos_vl_K562_N6.csv contains 14816 rows
+profiles_subtnorm_neg_te_K562_N4.csv contains 11362 rows
+profiles_subtnorm_neg_te_K562_N5.csv contains 10338 rows
+profiles_subtnorm_neg_te_K562_N6.csv contains 11910 rows
+profiles_subtnorm_neg_tr_K562_N4.csv contains 54684 rows
+profiles_subtnorm_neg_tr_K562_N5.csv contains 49292 rows
+profiles_subtnorm_neg_tr_K562_N6.csv contains 59265 rows
+profiles_subtnorm_neg_vl_K562_N4.csv contains 13673 rows
+profiles_subtnorm_neg_vl_K562_N5.csv contains 12323 rows
+profiles_subtnorm_neg_vl_K562_N6.csv contains 14816 rows
+Training data shape:
+(475326, 401)
+(475326,)
+[LightGBM] [Info] Number of positive: 237663, number of negative: 237663
+[LightGBM] [Warning] Auto-choosing col-wise multi-threading, the overhead of testing was 0.103789 seconds.
+You can set `force_col_wise=true` to remove the overhead.
+[LightGBM] [Info] Total Bins 102249
+[LightGBM] [Info] Number of data points in the train set: 475326, number of used features: 401
+[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.500000 -> initscore=0.000000
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+[LightGBM] [Warning] No further splits with positive gain, best gain: -inf
+Training set score: 0.8178

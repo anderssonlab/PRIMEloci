@@ -5,14 +5,9 @@ suppressPackageStartupMessages({
   library(argparse)
   library(CAGEfightR)
   library(GenomicRanges)
+  library(PRIMEloci)
 })
 
-# Source additional script
-source("../R/general.r")
-source("../R/manipulate_gr.r")
-source("../R/directories.r")
-source("../R/profiles.r")
-source("../R/heatmap.r")
 
 # Define argument parser
 parser <- ArgumentParser()
