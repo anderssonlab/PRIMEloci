@@ -1,114 +1,124 @@
-\documentclass{article}
-\usepackage{hyperref}
+```markdown
+# PRIMEloci
 
-\begin{document}
+PRIMEloci is a tool designed to handle specific tasks related to the PRIME project. The tool is structured to process various forms of input data and produce comprehensive results that can be used for further analysis.
 
-\title{PRIMEloci}
-\maketitle
+## Overview
 
-\section*{Overview}
+PRIMEloci provides a set of functionalities to manage and manipulate data efficiently. The following steps describe the overall workflow and the tools involved:
 
-PRIMEloci is a collection of scripts designed for processing and analyzing CAGE-seq data, predicting transcription start site (TSS) profiles, and filtering prediction results. This repository provides a flexible and modular approach to run various steps in the analysis pipeline, allowing users to execute specific steps or the entire pipeline based on their needs.
+1. **Data Extraction**:
+   - Extract relevant data using `extraction.py`.
+   - Example command: `python extraction.py input_data output_data`
+   
+2. **Data Manipulation**:
+   - Manipulate prediction results using `manipulate_prediction_result.py`.
+   - Example command: `python manipulate_prediction_result.py input_data output_data`
+   
+3. **Plotting**:
+   - Generate EPC plots using `plot_epc.py`.
+   - Example command: `python plot_epc.py input_data output_plot`
+   
+4. **Profiling for Training**:
+   - Profile data for training models using `profile_for_training.py`.
+   - Example command: `python profile_for_training.py input_data profile_data`
+   
+5. **Predicting Profile Probabilities**:
+   - Predict profile probabilities using `_predict_profile_probabilities.py`.
+   - Example command: `python _predict_profile_probabilities.py input_model input_data output_probabilities`
+   
+6. **Training Models**:
+   - Train models using `train_model.py`.
+   - Example command: `python train_model.py training_data model_output`
 
-\tableofcontents
+## Installation
 
-\section{Installation}
+To install the PRIMEloci package, follow these steps:
 
-Clone the repository:
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/yourusername/PRIMEloci.git
+   ```
 
-\begin{verbatim}
-git clone https://github.com/yourusername/PRIMEloci.git
-cd PRIMEloci
-\end{verbatim}
+2. Navigate to the project directory:
+   ```sh
+   cd PRIMEloci
+   ```
 
-Make the main script executable:
+3. Install the package:
+   ```sh
+   pip install .
+   ```
 
-\begin{verbatim}
-chmod +x run_scripts.sh
-\end{verbatim}
+## Dependencies
 
-\section{Usage}
+PRIMEloci requires the following Python libraries:
+- `lightgbm`
+- `matplotlib`
+- `numpy`
+- `pandas`
+- `seaborn`
+- `scikit-learn`
 
-\subsection{Configuration}
+You can install these dependencies using:
+```sh
+pip install lightgbm matplotlib numpy pandas seaborn scikit-learn
+```
 
-All the parameter settings are stored in the \texttt{config.sh} file. Modify this file to match your data paths and desired parameters.
+## Usage
 
-\subsection{Running Scripts}
+Here are some example commands to get you started with PRIMEloci:
 
-To run the scripts, use the \texttt{run_scripts.sh} file. This script accepts options to specify which steps to run.
+1. **Data Extraction**:
+   ```sh
+   python extraction.py input_data output_data
+   ```
 
-\subsubsection{Examples}
+2. **Data Manipulation**:
+   ```sh
+   python manipulate_prediction_result.py input_data output_data
+   ```
 
-Run all steps:
+3. **Plotting**:
+   ```sh
+   python plot_epc.py input_data output_plot
+   ```
 
-\begin{verbatim}
-./run_scripts.sh --all
-\end{verbatim}
+4. **Profiling for Training**:
+   ```sh
+   python profile_for_training.py input_data profile_data
+   ```
 
-Run specific steps:
+5. **Predicting Profile Probabilities**:
+   ```sh
+   python _predict_profile_probabilities.py input_model input_data output_probabilities
+   ```
 
-\begin{verbatim}
-./run_scripts.sh -1 -3 -4
-\end{verbatim}
+6. **Training Models**:
+   ```sh
+   python train_model.py training_data model_output
+   ```
 
-\section{Scripts}
+## License
 
-\subsection{get\_ctss\_from\_bw.R}
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+```
 
-Extracts CAGE-seq data from bigWig files.
+### Steps to Create the README.md File
 
-\textbf{Usage:}
+1. **Create or Open the README.md File**:
+   - If you don't already have a `README.md` file, create one in the root of your repository. If you have one, open it.
 
-\begin{verbatim}
-Rscript _get_ctss_from_bw.r -i <CAGE_DIR> -m <DESIGN_MATRIX> -o <OUTPUT_DIR> -c <CTSS_RSE_NAME> -k
-\end{verbatim}
+2. **Copy the Content**:
+   - Copy the content from the above block and paste it into your `README.md` file.
 
-\subsection{get\_tc\_grl.R}
+3. **Save and Commit**:
+   - Save the `README.md` file.
+   - Commit the changes to your repository:
+     ```sh
+     git add README.md
+     git commit -m "Add README with project overview"
+     git push origin main
+     ```
 
-Generates TSS cluster data from extracted CAGE-seq data.
-
-\textbf{Usage:}
-
-\begin{verbatim}
-Rscript _get_tc_from_ctss.r -c <OUTPUT_DIR>/<CTSS_RSE_NAME> -o <OUTPUT_DIR> -t <TC_GRL_NAME> -e <EXTENSION_DISTANCE>
-\end{verbatim}
-
-\subsection{get\_tc\_profiles.R}
-
-Profiles the TSS clusters.
-
-\textbf{Usage:}
-
-\begin{verbatim}
-Rscript _get_tc_profiles.r -c <OUTPUT_DIR>/<CTSS_RSE_NAME> -t <OUTPUT_DIR>/<TC_GRL_NAME> -o <OUTPUT_DIR> -n <PROFILE_MAIN_DIR> -r <PROFILE_SUB_DIR>
-\end{verbatim}
-
-\subsection{predict\_profile\_probabilities.py}
-
-Predicts TSS profile probabilities using a pre-trained model.
-
-\textbf{Usage:}
-
-\begin{verbatim}
-python3 _predict_profile_probabilities.py -w <SCRIPT_DIR> -m <MODEL_PATH> -p <OUTPUT_DIR>/<PROFILE_MAIN_DIR> -r <PROFILE_SUB_DIR> -n <PREFIX_OUT_NAME> -t <THRESHOLD>
-\end{verbatim}
-
-\subsection{filter\_bed\_to\_reduced\_gr.R}
-
-Filters prediction results to produce a reduced set of genomic ranges.
-
-\textbf{Usage:}
-
-\begin{verbatim}
-Rscript _filter_bed_to_reduced_gr.r -i <FILE>
-\end{verbatim}
-
-\section{Contributing}
-
-Contributions are welcome! Please submit a pull request or open an issue to discuss any changes or improvements.
-
-\section{License}
-
-This project is licensed under the MIT License - see the \href{LICENSE}{LICENSE} file for details.
-
-\end{document}
+Alternatively, I can generate the `README.md` file for you and provide it as a downloadable file. Let me know which option you prefer!
