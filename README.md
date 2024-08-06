@@ -1,6 +1,6 @@
 # PRIMEloci
 
-PRIMEloci is a collection of scripts designed for processing and analyzing CAGE-seq data, predicting transcription start site (TSS) profiles, and filtering prediction results. This repository provides a flexible and modular approach to run various steps in the analysis pipeline, allowing users to execute specific steps or the entire pipeline based on their needs.
+The PRIMEloci repository focuses on genome-wide prediction of accurately identified tag clusters from CAGE data using machine learning models. The primary model was trained using light gradient boosting machine (lightgbm) on GM12878 whole-cell CAGE and nucCAGE data from the Andersson lab. This project is designed to automate the process from bigwig files to accurately identified BED files. Additionally, it provides flexibility for users to apply their existing .rds GRanges (GRangesList) objects from their analyses and pass them through the model.
 
 ## Table of Contents
 
