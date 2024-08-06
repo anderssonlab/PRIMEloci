@@ -69,15 +69,29 @@ These steps will set up the necessary environment for running PRIMEloci scripts.
 
 ## Usage
 
-### Configuration
+To use PRIMEloci, follow these steps:
 
-All the parameter settings are stored in the `config.sh` file. Modify this file to match your data paths and desired parameters.
+1. **Navigate to the Genome-wide Prediction Directory**
 
-### Running Scripts
+   ```bash
+   cd genomewide_prediction
+   ```
 
-To run the scripts, use the `run_scripts.sh` file. This script accepts options to specify which steps to run.
+2. **Configure Parameters**
 
-#### Examples
+   Modify the `config.sh` file to set all necessary variables. This file contains all the parameter settings required for the scripts to run. Ensure you set the paths for your CAGE bigWig directory and the design matrix describing the CAGE bigWig files.
+
+3. **Run the Scripts**
+
+   To execute the entire workflow, run:
+
+   ```bash
+   ./run_scripts.sh --all
+   ```
+
+   This will process the CAGE bigWig data from the initial extraction to the final output of non-overlapping lists in .bed and .rds formats.
+
+**Examples**
 
 Run all steps:
 
@@ -91,58 +105,57 @@ Run specific steps:
 ./run_scripts.sh -1 -3 -4
 ```
 
-### Script Details
+**Script Details**
 
-#### 1. get_ctss_from_bw.R
+1. **get_ctss_from_bw.R**
 
-Extracts CAGE-seq data from bigWig files.
+   Extracts CAGE-seq data from bigWig files.
 
-**Usage:**
+   **Usage:**
 
-```bash
-Rscript _get_ctss_from_bw.r -i <CAGE_DIR> -m <DESIGN_MATRIX> -o <OUTPUT_DIR> -c <CTSS_RSE_NAME> -k
-```
+   ```bash
+   Rscript _get_ctss_from_bw.r -i <CAGE_DIR> -m <DESIGN_MATRIX> -o <OUTPUT_DIR> -c <CTSS_RSE_NAME> -k
+   ```
 
-#### 2. get_tc_grl.R
+2. **get_tc_grl.R**
 
-Generates TSS cluster data from extracted CAGE-seq data.
+   Generates TSS cluster data from extracted CAGE-seq data.
 
-**Usage:**
+   **Usage:**
 
-```bash
-Rscript _get_tc_from_ctss.r -c <OUTPUT_DIR>/<CTSS_RSE_NAME> -o <OUTPUT_DIR> -t <TC_GRL_NAME> -e <EXTENSION_DISTANCE>
-```
+   ```bash
+   Rscript _get_tc_from_ctss.r -c <OUTPUT_DIR>/<CTSS_RSE_NAME> -o <OUTPUT_DIR> -t <TC_GRL_NAME> -e <EXTENSION_DISTANCE>
+   ```
 
-#### 3. get_tc_profiles.R
+3. **get_tc_profiles.R**
 
-Profiles the TSS clusters.
+   Profiles the TSS clusters.
 
-**Usage:**
+   **Usage:**
 
-```bash
-Rscript _get_tc_profiles.r -c <OUTPUT_DIR>/<CTSS_RSE_NAME> -t <OUTPUT_DIR>/<TC_GRL_NAME> -o <OUTPUT_DIR> -n <PROFILE_MAIN_DIR> -r <PROFILE_SUB_DIR>
-```
+   ```bash
+   Rscript _get_tc_profiles.r -c <OUTPUT_DIR>/<CTSS_RSE_NAME> -t <OUTPUT_DIR>/<TC_GRL_NAME> -o <OUTPUT_DIR> -n <PROFILE_MAIN_DIR> -r <PROFILE_SUB_DIR>
+   ```
 
-#### 4. predict_profile_probabilities.py
+4. **predict_profile_probabilities.py**
 
-Predicts TSS profile probabilities using a pre-trained model.
+   Predicts TSS profile probabilities using a pre-trained model.
 
-**Usage:**
+   **Usage:**
 
-```bash
-python3 _predict_profile_probabilities.py -w <SCRIPT_DIR> -m <MODEL_PATH> -p <OUTPUT_DIR>/<PROFILE_MAIN_DIR> -r <PROFILE_SUB_DIR> -n <PREFIX_OUT_NAME> -t <THRESHOLD>
-```
+   ```bash
+   python3 _predict_profile_probabilities.py -w <SCRIPT_DIR> -m <MODEL_PATH> -p <OUTPUT_DIR>/<PROFILE_MAIN_DIR> -r <PROFILE_SUB_DIR> -n <PREFIX_OUT_NAME> -t <THRESHOLD>
+   ```
 
-#### 5. filter_bed_to_reduced_gr.R
+5. **filter_bed_to_reduced_gr.R**
 
-Filters prediction results to produce a reduced set of genomic ranges.
+   Filters prediction results to produce a reduced set of genomic ranges.
 
-**Usage:**
+   **Usage:**
 
-```bash
-Rscript _filter_bed_to_reduced_gr.r -i <FILE>
-```
-
+   ```bash
+   Rscript _filter_bed_to_reduced_gr.r -i <FILE>
+   ```
 ## Contributing
 
 Contributions are welcome! Please submit a pull request or open an issue to discuss any changes or improvements.
@@ -152,5 +165,3 @@ Contributions are welcome! Please submit a pull request or open an issue to disc
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
-
-You can copy and paste this directly into your `README.md` file on GitHub. If you need any additional modifications or have further questions, feel free to ask!
