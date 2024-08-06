@@ -20,30 +20,54 @@ The PRIMEloci repository focuses on genome-wide prediction of accurately identif
 
 ## Overview
 
-PRIMEloci provides a set of scripts for:
+PRIMEloci provides a streamlined, automated workflow for handling CAGE-seq data, focusing on accurate prediction of tag clusters using machine learning models. The process involves five key steps:
 
-1. Extracting CAGE-seq data.
-2. Generating TSS cluster data.
-3. Profiling TSS clusters.
-4. Predicting TSS profile probabilities using a machine learning model.
-5. Filtering prediction results.
+1. **Extracting CAGE-seq Data**: Create TSS objects from bigwig files.
+2. **Generating TSS Cluster Data**: Identify tag clusters (TC) from the TSS objects.
+3. **Profiling TSS Clusters**: Prepare profiles from TSS and TC data for model input.
+4. **Predicting TSS Profile Probabilities**: Use machine learning models to predict TSS profile probabilities.
+5. **Filtering Prediction Results**: Produce non-overlapping lists in .bed and .rds formats for further R analysis.
 
-The scripts are designed to be run individually or as part of a pipeline, with flexibility provided via a main bash script that allows for selective execution of each step.
+Scripts can be run individually or as part of a pipeline, with a main bash script for selective execution. Advanced users can also prepare data and train models to customize the workflow. The detailed steps are outlined below.
 
 ## Installation
 
-Clone the repository:
+**Installation**
 
-```bash
-git clone https://github.com/yourusername/PRIMEloci.git
-cd PRIMEloci
-```
+To install PRIMEloci, follow these steps:
 
-Make the main script executable:
+1. **Clone the Repository**:
 
-```bash
-chmod +x run_scripts.sh
-```
+   ```bash
+   git clone https://github.com/yourusername/PRIMEloci.git
+   cd PRIMEloci
+   ```
+
+2. **Install R Package**:
+
+   Ensure you have R version 4.2 or higher. Install the PRIMEloci package locally from the provided .tar.gz file:
+
+   ```r
+   install.packages("path/to/PRIMEloci_x.x.x.tar.gz", repos = NULL, type = "source")
+   ```
+
+   Check the DESCRIPTION file for other relevant R packages that need to be installed.
+
+3. **Install Python Packages**:
+
+   Ensure you have Python 3.9 or higher. Install the required Python packages:
+
+   ```bash
+   pip install matplotlib numpy pandas seaborn lightgbm scikit-learn
+   ```
+
+4. **Make the Main Script Executable**:
+
+   ```bash
+   chmod +x run_scripts.sh
+   ```
+
+These steps will set up the necessary environment for running PRIMEloci scripts. You can now proceed with executing the main script or individual scripts as needed.
 
 ## Usage
 
