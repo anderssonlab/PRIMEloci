@@ -32,8 +32,6 @@ Scripts can be run individually or as part of a pipeline, with a main bash scrip
 
 ## Installation
 
-**Installation**
-
 To install PRIMEloci, follow these steps:
 
 1. **Clone the Repository**:
@@ -45,7 +43,7 @@ To install PRIMEloci, follow these steps:
 
 2. **Install R Package**:
 
-   Ensure you have R version 4.2 or higher. Install the PRIMEloci package locally from the provided .tar.gz file:
+   Ensure you have R version 4.2 or higher. Open R or RStudio and run the following command to install the PRIMEloci package locally from the provided .tar.gz file:
 
    ```r
    install.packages("path/to/PRIMEloci_x.x.x.tar.gz", repos = NULL, type = "source")
