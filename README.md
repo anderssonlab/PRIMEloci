@@ -1,7 +1,3 @@
-Certainly! Here is the formatted content ready to be copied to your GitHub `README.md` file:
-
----
-
 # PRIMEloci
 
 PRIMEloci is a collection of scripts designed for processing and analyzing CAGE-seq data, predicting transcription start site (TSS) profiles, and filtering prediction results. This repository provides a flexible and modular approach to run various steps in the analysis pipeline, allowing users to execute specific steps or the entire pipeline based on their needs.
