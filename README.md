@@ -16,10 +16,10 @@ The PRIMEloci repository focuses on genome-wide prediction of accurately identif
 
 PRIMEloci provides a streamlined, automated workflow for handling CAGE-seq data, focusing on accurate prediction of tag clusters using machine learning models. The process involves five key steps:
 
-1. **Extracting CAGE-seq Data**: Create TSS objects from bigwig files.
-2. **Generating TSS Cluster Data**: Identify tag clusters (TC) from the TSS objects.
-3. **Profiling TSS Clusters**: Prepare profiles from TSS and TC data for model input.
-4. **Predicting TSS Profile Probabilities**: Use machine learning models to predict TSS profile probabilities.
+1. **Extracting CTSS Data**: Create CAGE Transcriptional Start Site (CTSS) object from bigwig files.
+2. **Generating Tag Cluster Data**: Identify tag clusters (TC) from the CTSS object.
+3. **Profiling TSS Clusters**: Prepare profiles from CTSS and TC data for model input.
+4. **Predicting TSS Profile Probabilities**: Use PRIMEloci models to predict profile probabilities.
 5. **Filtering Prediction Results**: Produce non-overlapping lists in .bed and .rds formats for further R analysis.
 
 Scripts can be run individually or as part of a pipeline, with a main bash script for selective execution. Advanced users can also prepare data and train models to customize the workflow. The detailed steps are outlined below.
