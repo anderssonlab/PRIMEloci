@@ -85,7 +85,7 @@ To use PRIMEloci, follow these steps:
 
    This will process the CAGE bigWig data from the initial extraction to the final output of non-overlapping lists in .bed and .rds formats.
 
-### Examples
+### Examples usage in some cases
 
 Run all steps:
 
@@ -93,7 +93,7 @@ Run all steps:
 ./PRIMEloci.sh --all
 ```
 
-Run CTSS and TC .rds files existed, only step 3-5 need to be run:
+Run only step as CTSS- and TC-.rds files existed:
 
 ```bash
 ./PRIMEloci.sh -p
