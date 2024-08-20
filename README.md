@@ -9,8 +9,7 @@ Additionally, it provides flexibility for users to apply their existing .rds of 
 - [Overview](#overview)
 - [Installation](#installation)
 - [Usage](#usage)
-  - [Configuration](#configuration)
-  - [Running Scripts](#running-scripts)
+- [Examples](#Examples usage in some cases)
 - [Contributing](#contributing)
 - [License](#license)
 
