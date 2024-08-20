@@ -14,7 +14,7 @@ Additionally, it provides flexibility for users to apply their existing .rds of 
 
 ## Overview
 
-PRIMEloci provides a streamlined, automated workflow for handling CAGE-seq data, focusing on accurate prediction of tag clusters using machine learning models. The process involves five key steps:
+PRIMEloci provides a streamlined, automated workflow for handling CAGE data, focusing on accurate prediction of tag clusters using machine learning models. The process involves five key steps:
 
 1. **Extracting CTSS Data**: Create CAGE Transcriptional Start Site (CTSS) object from bigwig files.
 2. **Generating Tag Cluster Data**: Identify tag clusters (TC) from the CTSS object.
