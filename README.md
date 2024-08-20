@@ -1,6 +1,6 @@
 # PRIMEloci
 
-The PRIMEloci repository focuses on genome-wide prediction of accurately identified tag clusters from CAGE data using machine learning models. The primary model was trained using light gradient boosting machine (lightgbm) on GM12878 whole-cell CAGE and nucCAGE data from the Andersson lab. This project is designed to automate the process from bigwig files to accurately identified BED files. Additionally, it provides flexibility for users to apply their existing .rds GRanges (GRangesList) objects from their analyses and pass them through the model. While the project was initially developed based on the human genome hg38, it can be adapted for use with other species.
+The PRIMEloci repository focuses on genome-wide prediction of accurately identified tag clusters from CAGE data using machine learning models. The primary model was trained using light gradient boosting machine (lightGBM) on GM12878 whole-cell CAGE and nucCAGE data from the Andersson lab. This project is designed to automate the process from bigwig files to accurately identified BED files. Additionally, it provides flexibility for users to apply their existing .rds GRanges (GRangesList) objects from their analyses and pass them through the model. While the project was initially developed based on the human genome hg38, it can be adapted for use with other species.
 
 ## Table of Contents
 
@@ -9,12 +9,6 @@ The PRIMEloci repository focuses on genome-wide prediction of accurately identif
 - [Usage](#usage)
   - [Configuration](#configuration)
   - [Running Scripts](#running-scripts)
-- [Scripts](#scripts)
-  - [get_ctss_from_bw.R](#1-get_ctss_from_bwr)
-  - [get_tc_grl.R](#2-get_tc_grlr)
-  - [get_tc_profiles.R](#3-get_tc_profilesr)
-  - [predict_profile_probabilities.py](#4-predict_profile_probabilitiespy)
-  - [filter_bed_to_reduced_gr.R](#5-filter_bed_to_reduced_grr)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -37,7 +31,7 @@ To install PRIMEloci, follow these steps:
 1. **Clone the Repository**:
 
    ```bash
-   git clone https://github.com/yourusername/PRIMEloci.git
+   git clone https://github.com/anderssonlab/PRIMEloci.git
    cd PRIMEloci
    ```
 
@@ -46,7 +40,7 @@ To install PRIMEloci, follow these steps:
    Ensure you have R version 4.2 or higher. Open R or RStudio and run the following command to install the PRIMEloci package locally from the provided .tar.gz file:
 
    ```r
-   install.packages("path/to/PRIMEloci_x.x.x.tar.gz", repos = NULL, type = "source")
+   install.packages("path/to/PRIMEloci_0.6.tar.gz", repos = NULL, type = "source")
    ```
 
    Check the DESCRIPTION file for other relevant R packages that need to be installed.
@@ -62,7 +56,7 @@ To install PRIMEloci, follow these steps:
 4. **Make the Main Script Executable**:
 
    ```bash
-   chmod +x run_scripts.sh
+   chmod +x PRIMEloci.sh
    ```
 
 These steps will set up the necessary environment for running PRIMEloci scripts. You can now proceed with executing the main script or individual scripts as needed.
@@ -86,7 +80,7 @@ To use PRIMEloci, follow these steps:
    To execute the entire workflow, run:
 
    ```bash
-   ./run_scripts.sh --all
+   ./PRIMEloci.sh --all
    ```
 
    This will process the CAGE bigWig data from the initial extraction to the final output of non-overlapping lists in .bed and .rds formats.
@@ -96,65 +90,19 @@ To use PRIMEloci, follow these steps:
 Run all steps:
 
 ```bash
-./run_scripts.sh --all
+./PRIMEloci.sh --all
+```
+
+Run CTSS and TC .rds files existed, only step 3-5 need to be run:
+
+```bash
+./PRIMEloci.sh -p
 ```
 
 Run specific steps:
 
 ```bash
-./run_scripts.sh -1 -3 -4
-```
-
-## Scripts
-
-### 1. get_ctss_from_bw.R
-
-Extracts CAGE-seq data from bigWig files.
-
-**Usage:**
-
-```bash
-Rscript _get_ctss_from_bw.r -i <CAGE_DIR> -m <DESIGN_MATRIX> -o <OUTPUT_DIR> -c <CTSS_RSE_NAME> -k
-```
-
-### 2. get_tc_grl.R
-
-Generates TSS cluster data from extracted CAGE-seq data.
-
-**Usage:**
-
-```bash
-Rscript _get_tc_from_ctss.r -c <OUTPUT_DIR>/<CTSS_RSE_NAME> -o <OUTPUT_DIR> -t <TC_GRL_NAME> -e <EXTENSION_DISTANCE>
-```
-
-### 3. get_tc_profiles.R
-
-Profiles the TSS clusters.
-
-**Usage:**
-
-```bash
-Rscript _get_tc_profiles.r -c <OUTPUT_DIR>/<CTSS_RSE_NAME> -t <OUTPUT_DIR>/<TC_GRL_NAME> -o <OUTPUT_DIR> -n <PROFILE_MAIN_DIR> -r <PROFILE_SUB_DIR>
-```
-
-### 4. predict_profile_probabilities.py
-
-Predicts TSS profile probabilities using a pre-trained model.
-
-**Usage:**
-
-```bash
-python3 _predict_profile_probabilities.py -w <SCRIPT_DIR> -m <MODEL_PATH> -p <OUTPUT_DIR>/<PROFILE_MAIN_DIR> -r <PROFILE_SUB_DIR> -n <PREFIX_OUT_NAME> -t <THRESHOLD>
-```
-
-### 5. filter_bed_to_reduced_gr.R
-
-Filters prediction results to produce a reduced set of genomic ranges.
-
-**Usage:**
-
-```bash
-Rscript _filter_bed_to_reduced_gr.r -i <FILE>
+./PRIMEloci.sh -1 -3 -4
 ```
 
 ## Contributing
