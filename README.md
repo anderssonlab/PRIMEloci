@@ -9,12 +9,6 @@ The PRIMEloci repository focuses on genome-wide prediction of accurately identif
 - [Usage](#usage)
   - [Configuration](#configuration)
   - [Running Scripts](#running-scripts)
-- [Scripts](#scripts)
-  - [get_ctss_from_bw.R](#1-get_ctss_from_bwr)
-  - [get_tc_grl.R](#2-get_tc_grlr)
-  - [get_tc_profiles.R](#3-get_tc_profilesr)
-  - [predict_profile_probabilities.py](#4-predict_profile_probabilitiespy)
-  - [filter_bed_to_reduced_gr.R](#5-filter_bed_to_reduced_grr)
 - [Contributing](#contributing)
 - [License](#license)
 
