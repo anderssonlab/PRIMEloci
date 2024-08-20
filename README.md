@@ -1,6 +1,7 @@
 # PRIMEloci
 
 The PRIMEloci repository focuses on genome-wide prediction of accurately identified tag clusters from CAGE data using machine learning models. The primary model was trained using light gradient boosting machine (lightGBM) on GM12878 whole-cell CAGE and nucCAGE data from the Andersson lab. This project is designed to automate the process from bigwig files to accurately identified BED files. 
+
 Additionally, it provides flexibility for users to apply their existing .rds of RSE, GRanges, or GRangesList objects from their analyses and pass them through the model. While the project was initially developed based on the human genome hg38, it can be adapted for use with other species.
 
 ## Table of Contents
