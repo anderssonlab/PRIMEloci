@@ -1,6 +1,7 @@
 import os
 import pickle
 import pandas as pd
+import pyarrow.parquet as pq
 from lightgbm import LGBMClassifier
 
 import argparse
@@ -10,11 +11,14 @@ import argparse
 from python.extraction import extract_filenames
 from python.extraction import extract_ranges
 from python.extraction import extract_profiles
+from python.helpfn_for_prediction import set_index_if_exists
+from python.helpfn_for_prediction import adjust_genomic_positions_for_bed
+from python.helpfn_for_prediction import move_metadata_columns_to_ranges
 
 
 # Function to load environment variables from .env file
 def load_env_vars(script_dir, profile_main_dir, subdir_name, model_path):
-    
+
     # Set the working directory
     os.chdir(script_dir)
 
@@ -38,10 +42,9 @@ def load_env_vars(script_dir, profile_main_dir, subdir_name, model_path):
     return script_dir, profile_main_dir, subdir_name, model
 
 
-def wrapup_model_prediction(script_dir, profile_dir, profile_filename, metadata_dir, metadata_filename, model, output_dir, name_prefix, threshold):
+def wrapup_model_prediction(script_dir, profile_dir, profile_filename, metadata_dir, metadata_filename, model, output_dir, name_prefix, threshold, file_format='parquet'):
 
     # Example usage of extract_filenames
-
     filenames_without_extensions = os.path.splitext(profile_filename)[0]
     print(filenames_without_extensions)
 
@@ -49,14 +52,21 @@ def wrapup_model_prediction(script_dir, profile_dir, profile_filename, metadata_
     input_profiles_subtnorm_path = os.path.join(profile_dir, profile_filename)
     input_metadata_path = os.path.join(metadata_dir, metadata_filename)
 
-    # Read CSV files
-    subtnorm_df = pd.read_csv(input_profiles_subtnorm_path,
-                              header=0,
-                              index_col=0)
-    metadata_df = pd.read_csv(input_metadata_path,
-                              header=0,
-                              index_col=None)
+    # Read files based on the specified format
+    if file_format == 'parquet':
+        subtnorm_df = pd.read_parquet(input_profiles_subtnorm_path)
+        metadata_df = pd.read_parquet(input_metadata_path)
+    elif file_format == 'csv':
+        subtnorm_df = pd.read_csv(input_profiles_subtnorm_path, header=0, index_col=None)
+        metadata_df = pd.read_csv(input_metadata_path, header=0, index_col=None)
+    else:
+        raise ValueError("Unsupported file format. Please use 'parquet' or 'csv'.")
 
+    # Set "rownames" as index if it exists
+    subtnorm_df = set_index_if_exists(subtnorm_df)
+    metadata_df = set_index_if_exists(metadata_df)
+
+    # Ensure lengths match
     if len(subtnorm_df) != len(metadata_df):
         raise ValueError("The metadata and profile subtnorm dataframes do not have the same length")
         sys.exit(1)
@@ -71,25 +81,30 @@ def wrapup_model_prediction(script_dir, profile_dir, profile_filename, metadata_
 
     ranges_df['name'] = filenames_without_extensions
 
-    # Reorder columns
+    # Reorder columns and ensure chromStart and chromEnd are integers
     ranges_df = ranges_df.reindex(columns=['chrom', 'chromStart', 'chromEnd', 'name', 'score', 'strand'])
+    ranges_df['chromStart'] = ranges_df['chromStart'].astype(int)
+    ranges_df['chromEnd'] = ranges_df['chromEnd'].astype(int)
 
-    # Extract extra column from metadata
+    # Sort the DataFrame by 'chrom' and 'chromStart'
+    ranges_df = ranges_df.sort_values(by=['chrom', 'chromStart'])
+
+    # Adjust genomic positions for BED format
+    ranges_df = adjust_genomic_positions_for_bed(ranges_df)
+
+    # Move extra metadata columns to ranges_df
     columns_to_keep = ["seqnames", "start", "end", "width", "strand", 'chrom', 'chromStart', 'chromEnd', 'name', 'score']
-    columns_to_move = [col for col in metadata_df.columns if col not in columns_to_keep]
-
-    # Move columns to ranges_df
-    for col in columns_to_move:
-        ranges_df[col] = metadata_df[col]
+    ranges_df = move_metadata_columns_to_ranges(ranges_df, metadata_df, columns_to_keep)
 
     # Save results to .bed files
-    output_all_results = os.path.join(output_dir, f'{name_prefix}_pred_all_{filenames_without_extensions}.bed')
+    output_all_results = os.path.join(output_dir, f'{name_prefix}_pred_all_{filenames_without_extensions}.bed') 
     ranges_df.to_csv(output_all_results, sep='\t', header=True, index=False)
 
     # Save selected results if score >= threshold
     output_slt_results = os.path.join(output_dir, f'{name_prefix}_pred_slt{threshold}_{filenames_without_extensions}.bed')
     selected_ranges = ranges_df[ranges_df['score'] >= threshold]
     selected_ranges.to_csv(output_slt_results, sep='\t', header=True, index=False)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Script to predict genomewide TC normalized data.')
@@ -106,6 +121,8 @@ if __name__ == "__main__":
                         help='Name added to the output files, indicate model name and library (celltype) name') 
     parser.add_argument('-t', '--threshold', type=float, default=0.5,
                         help='Threshold value for prediction')
+    parser.add_argument('-f', '--file_format', type=str, default='parquet', choices=['parquet', 'csv'],
+                        help='File format for input files (default: parquet)')
 
     args = parser.parse_args()
 
@@ -116,8 +133,10 @@ if __name__ == "__main__":
     model_path = args.model_path
 
     name_prefix = args.name_prefix
+    file_format = args.file_format
 
     threshold = args.threshold
+
 
     for subdir_name in profile_sub_dir:
 
@@ -141,4 +160,5 @@ if __name__ == "__main__":
                                     model,
                                     output_dir,
                                     name_prefix,
-                                    threshold)
+                                    threshold,
+                                    file_format=file_format)

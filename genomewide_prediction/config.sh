@@ -22,12 +22,13 @@ EXTENSION_DISTANCE=200
 # CTSS_RSE_NAME, TC_GRL_NAME, OUTPUT_DIR from above
 PROFILE_MAIN_DIR="example_tc_profiles"
 PROFILE_SUB_DIR="tcs"
+PROFILE_FILE_TYPE="parquet"
 # add -s if you want to save count profiles
 
 
 ### 4 ### predict_profile_probabilities.py
 
-# OUTPUT_DIR, PROFILE_MAIN_DIR, and PROFILE_SUB_DIR from above
+# OUTPUT_DIR, PROFILE_MAIN_DIR, PROFILE_SUB_DIR, and PROFILE_FILE_TYPE from above
 SCRIPT_DIR="."
 MODEL_PATH="../example/resources/model_Meena_v3_gm12878_fullModel_C.sav"
 PREFIX_OUT_NAME="K562-on-GM12878-C-model"

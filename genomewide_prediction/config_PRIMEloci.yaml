@@ -1,0 +1,14 @@
+# must set parameters
+output_dir: "../example/results"
+profile_main_dir: "example_tc_profiles"
+python_script_dir: "."
+model_path: "../example/resources/model_Meena_v3_gm12878_fullModel_C.sav"
+prefix_out_name: "K562-on-GM12878-C-model"
+
+# do not need to be changed
+profile_sub_dir: "tcs"
+profile_file_type: "parquet"
+threshold: 0.2
+save_count_profiles: false
+ext_dis: 200
+partial_name: "pred_slt.*\\.bed"

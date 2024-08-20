@@ -7,17 +7,22 @@
 get_highest_non_overlap(gr, num_cores = parallel::detectCores() - 1)
 }
 \arguments{
-\item{gr}{A GenomicRanges::GRanges object with a 'score' metadata column.}
+\item{gr}{A `GenomicRanges::GRanges` object with a 'score' metadata column.}
 
-\item{num_cores}{The number of cores to use for parallel processing.
-Default is parallel::detectCores() - 1.}
+\item{num_cores}{The number of cores to use for parallel processing. 
+Default is `parallel::detectCores() - 1`.}
 }
 \value{
-A GenomicRanges::GRanges object with
-the highest non-overlapping ranges for all chromosomes.
+A `GenomicRanges::GRanges` object with the highest non-overlapping 
+ranges for all chromosomes.
 }
 \description{
-This function takes a GenomicRanges::GRanges object
-and returns the highest non-overlapping ranges
-for all chromosomes, processed in parallel.
+This function takes a `GenomicRanges::GRanges` object and returns the highest 
+non-overlapping ranges for all chromosomes, processed in parallel.
+}
+\details{
+The function splits the input `GRanges` object by chromosome and then 
+processes each chromosome in parallel to find the highest non-overlapping 
+ranges based on the 'score' metadata column. The results from each 
+chromosome are then combined and sorted.
 }

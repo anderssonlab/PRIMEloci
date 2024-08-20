@@ -168,7 +168,7 @@ strands_norm_subtraction_all <- function(windows, ext_dis, len_vec) {
 #' data in \code{ctss_rse} and generates
 #' count profiles and subtracted normalized profiles,
 #' saving them along with metadata
-#' as CSV files in specified directories.
+#' as CSV or Parquet files in specified directories.
 #'
 #' @param ctss_rse SummarizedExperiment object containing count data.
 #' @param regions_gr GRanges or GRangesList object specifying genomic regions.
@@ -180,21 +180,24 @@ strands_norm_subtraction_all <- function(windows, ext_dis, len_vec) {
 #' @param addtn_to_filename Additional text to append to the output file names.
 #' @param save_count_profiles Logical value indicating
 #' whether to save count profiles.
+#' @param file_type Character string indicating the file type for output 
+#' ("csv" or "parquet"). Default is "parquet".
 #'
 #' @details
 #' This function iterates through each column of \code{ctss_rse},
 #' processes the data to generate count and subtracted normalized profiles,
-#' and saves them as CSV files.
+#' and saves them as CSV or Parquet files.
 #' It also creates corresponding metadata files based on
 #' row names of the profiles.
 #'
 #' @importFrom PRIME heatmapData
+#' @importFrom arrow write_parquet
 #'
 #' @examples
 #' \dontrun{
 #' # Example usage:
 #' wrapup_make_profiles(ctss_rse, regions_gr, dir_results, outdir_dir_name,
-#'                      outdir_subdir_name, ext_dis)
+#'                      outdir_subdir_name, ext_dis, file_type = "parquet")
 #' }
 #'
 #' @export
@@ -205,16 +208,16 @@ wrapup_make_profiles <- function(ctss_rse,
                                  output_subdir_name,
                                  ext_dis,
                                  addtn_to_filename = "",
-                                 save_count_profiles = FALSE) {
+                                 save_count_profiles = FALSE,
+                                 file_type = "parquet") {
   for (i in seq_along(SummarizedExperiment::colnames(ctss_rse))) {
 
-    print(colnames(ctss_rse)[i])
+    print(SummarizedExperiment::colnames(ctss_rse)[i])
 
     current_datetime <- Sys.time()
     formatted_datetime <- format(current_datetime, "%Y-%m-%d %H:%M:%S")
     print(formatted_datetime)
 
-    # Dynamically assign regions_gr based on its type
     if (inherits(regions_gr, "GRangesList")) {
       current_region_gr <- regions_gr[[i]]
     } else if (inherits(regions_gr, "GRanges")) {
@@ -223,22 +226,14 @@ wrapup_make_profiles <- function(ctss_rse,
       stop("regions_gr is neither GRanges nor GRangesList")
     }
 
-    # Apply this to all coln_assay
     ctss_gr <- cast_rse_to_granges(ctss_rse, assay = "counts", coln_assay = i)
 
-    # For the granges object that has strand information
-    # Convert all regions to * (instead of +/-)
-    # Remove repeat regions without consider metadata,
-    # if any (it might be diff just because of +/-)
     current_region_gr <- convert_strand_to_nostrand_gr(current_region_gr)
     current_region_gr <- remove_metadata_and_duplicates(current_region_gr)
 
-    # Combine metadata of granges with specific functions
-    # Add later
-    print("Start heatmapData")
-    # Run heatmap from PRIME to get the count profiles
+    print("Start making profile")
     count_profiles <- PRIME::heatmapData(current_region_gr, ctss_gr)
-    print("End heatmapData")
+    print("Finish making profile")
     rm(current_region_gr, ctss_gr)
 
     current_datetime <- Sys.time()
@@ -247,86 +242,101 @@ wrapup_make_profiles <- function(ctss_rse,
 
     len_vec <- ext_dis * 2 + 1
 
-    # Combine $`*`$`+` and $`*`$`-`
-    combined_count_profiles <- combine_plus_minus_profiles(count_profiles,
-                                                           len_vec)
+    combined_count_profiles <- combine_plus_minus_profiles(count_profiles, len_vec)
     rm(count_profiles)
 
-    # Filtering based on count_profiles
-    # Add later
+    combined_subtnorm_profiles <- strands_norm_subtraction_all(combined_count_profiles, ext_dis, len_vec)
 
-    # Create subtracted normalized profiles
-    combined_subtnorm_profiles <- strands_norm_subtraction_all(combined_count_profiles, # nolint: line_length_linter.
-                                                               ext_dis,
-                                                               len_vec)
-
-    # Create metadata of ranges from rownames
-    combined_count_metadata <- create_granges_from_rownames(rownames(combined_count_profiles)) # nolint: line_length_linter.
+    combined_count_metadata <- create_granges_from_rownames(rownames(combined_count_profiles))
     sum_count <- data.frame(rowSums(combined_count_profiles))
     colnames(sum_count) <- "sum_count"
     combined_count_metadata$sum_count <- sum_count
-    #combined_subtnorm_metadata <- create_granges_from_rownames(rownames(combined_subtnorm_profiles)) # nolint
 
-    # Call annotation and others for metadata
-    # Add later
+    # Add rownames as a column before saving
+    combined_count_metadata$rownames <- rownames(combined_count_metadata)
 
-    # Save objects
-
-    write.csv(data.frame(combined_count_metadata),
-              file = file.path(output_dir,
-                               output_dir_name,
-                               "metadata",
-                               output_subdir_name,
-                               paste0("metadata_count_", output_subdir_name,
-                                      addtn_to_filename, "_",
-                                      colnames(ctss_rse)[i], ".csv")),
-              row.names = FALSE)
-    rm(combined_count_metadata)
-
-    #write.csv(data.frame(combined_subtnorm_metadata),
-    #          file = file.path(output_dir,
-    #                           output_dir_name,
-    #                           "metadata_subtnorm",
-    #                           output_subdir_name,
-    #                           paste0("metadata_subtnorm_", output_subdir_name,
-    #                                  addtn_to_filename, "_",
-    #                                  colnames(ctss_rse)[i], ".csv")),
-    #          row.names = FALSE)
-    #rm(combined_subtnorm_metadata) # nolint
-
-    if (save_count_profiles) {
-      write.csv(combined_count_profiles,
+    if (file_type == "csv") {
+      # Save as CSV without rownames
+      write.csv(as.data.frame(combined_count_metadata),
                 file = file.path(output_dir,
                                  output_dir_name,
-                                 "profiles",
+                                 "metadata",
                                  output_subdir_name,
-                                 paste0("profiles_count_", output_subdir_name,
+                                 paste0("metadata_count_", output_subdir_name,
                                         addtn_to_filename, "_",
-                                        colnames(ctss_rse)[i], ".csv")),
-                row.names = TRUE)
+                                        SummarizedExperiment::colnames(ctss_rse)[i], ".csv")),
+                row.names = FALSE)
+    } else if (file_type == "parquet") {
+      # Save as Parquet
+      arrow::write_parquet(as.data.frame(combined_count_metadata),
+                           file.path(output_dir,
+                                     output_dir_name,
+                                     "metadata",
+                                     output_subdir_name,
+                                     paste0("metadata_count_", output_subdir_name,
+                                            addtn_to_filename, "_",
+                                            SummarizedExperiment::colnames(ctss_rse)[i], ".parquet")))
+    }
+    rm(combined_count_metadata)
+
+    if (save_count_profiles) {
+      combined_count_profiles$rownames <- rownames(combined_count_profiles)
+
+      if (file_type == "csv") {
+        # Save as CSV without rownames
+        write.csv(as.data.frame(combined_count_profiles),
+                  file = file.path(output_dir,
+                                   output_dir_name,
+                                   "profiles",
+                                   output_subdir_name,
+                                   paste0("profiles_count_", output_subdir_name,
+                                          addtn_to_filename, "_",
+                                          SummarizedExperiment::colnames(ctss_rse)[i], ".csv")),
+                  row.names = FALSE)
+      } else if (file_type == "parquet") {
+        # Save as Parquet
+        arrow::write_parquet(as.data.frame(combined_count_profiles),
+                             file.path(output_dir,
+                                       output_dir_name,
+                                       "profiles",
+                                       output_subdir_name,
+                                       paste0("profiles_count_", output_subdir_name,
+                                              addtn_to_filename, "_",
+                                              SummarizedExperiment::colnames(ctss_rse)[i], ".parquet")))
+      }
     }
     rm(combined_count_profiles)
 
-    write.csv(combined_subtnorm_profiles,
-              file = file.path(output_dir,
-                               output_dir_name,
-                               "profiles_subtnorm",
-                               output_subdir_name,
-                               paste0("profiles_subtnorm_", output_subdir_name,
-                                      addtn_to_filename, "_",
-                                      colnames(ctss_rse)[i], ".csv")),
-              row.names = TRUE)
-    rm(combined_subtnorm_profiles)
+    combined_subtnorm_profiles$rownames <- rownames(combined_subtnorm_profiles)
 
-    # Clear space
-    #rm(current_region_gr, ctss_gr, count_profiles,
-    #   combined_count_profiles, combined_subtnorm_profiles,
-    #   combined_count_metadata, combined_subtnorm_metadata)
+    if (file_type == "csv") {
+      # Save as CSV without rownames
+      write.csv(as.data.frame(combined_subtnorm_profiles),
+                file = file.path(output_dir,
+                                 output_dir_name,
+                                 "profiles_subtnorm",
+                                 output_subdir_name,
+                                 paste0("profiles_subtnorm_", output_subdir_name,
+                                        addtn_to_filename, "_",
+                                        SummarizedExperiment::colnames(ctss_rse)[i], ".csv")),
+                row.names = FALSE)
+    } else if (file_type == "parquet") {
+      # Save as Parquet
+      arrow::write_parquet(as.data.frame(combined_subtnorm_profiles),
+                           file.path(output_dir,
+                                     output_dir_name,
+                                     "profiles_subtnorm",
+                                     output_subdir_name,
+                                     paste0("profiles_subtnorm_", output_subdir_name,
+                                            addtn_to_filename, "_",
+                                            SummarizedExperiment::colnames(ctss_rse)[i], ".parquet")))
+    }
+    rm(combined_subtnorm_profiles)
 
     gc()
 
     current_datetime <- Sys.time()
     formatted_datetime <- format(current_datetime, "%Y-%m-%d %H:%M:%S")
-    print(formatted_datetime)
+    print(current_datetime)
   }
 }

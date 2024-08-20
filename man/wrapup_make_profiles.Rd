@@ -12,7 +12,8 @@ wrapup_make_profiles(
   output_subdir_name,
   ext_dis,
   addtn_to_filename = "",
-  save_count_profiles = FALSE
+  save_count_profiles = FALSE,
+  file_type = "parquet"
 )
 }
 \arguments{
@@ -33,18 +34,21 @@ where output files will be stored.}
 
 \item{save_count_profiles}{Logical value indicating
 whether to save count profiles.}
+
+\item{file_type}{Character string indicating the file type for output 
+("csv" or "parquet"). Default is "parquet".}
 }
 \description{
 This function processes multiple columns of
 data in \code{ctss_rse} and generates
 count profiles and subtracted normalized profiles,
 saving them along with metadata
-as CSV files in specified directories.
+as CSV or Parquet files in specified directories.
 }
 \details{
 This function iterates through each column of \code{ctss_rse},
 processes the data to generate count and subtracted normalized profiles,
-and saves them as CSV files.
+and saves them as CSV or Parquet files.
 It also creates corresponding metadata files based on
 row names of the profiles.
 }
@@ -52,7 +56,7 @@ row names of the profiles.
 \dontrun{
 # Example usage:
 wrapup_make_profiles(ctss_rse, regions_gr, dir_results, outdir_dir_name,
-                     outdir_subdir_name, ext_dis)
+                     outdir_subdir_name, ext_dis, file_type = "parquet")
 }
 
 }

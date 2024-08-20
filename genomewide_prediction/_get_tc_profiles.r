@@ -30,6 +30,9 @@ parser$add_argument("-r", "--output_subdir_name",
 parser$add_argument("-s", "--save_count_profiles", action = "store_true",
                     default = FALSE,
                     help = "Flag to save count profile. Default is FALSE.")
+parser$add_argument("-f", "--file_format", type = "character", default = "parquet",
+                    choices = c("parquet", "csv"),
+                    help = "File format for output files. Choose between 'parquet' or 'csv'. Default is 'parquet'.")
 
 # Parameters
 parser$add_argument("-e", "--ext_dis", default = 200,
@@ -46,6 +49,7 @@ infile_tc_grl <- args$infile_tc_grl
 
 outdir_dir <- args$output_dir
 outdir_dir_name <- args$name
+file_format <- args$file_format
 save_count_profiles <- args$save_count_profiles
 
 ext_dis <- as.numeric(args$ext_dis)
@@ -79,7 +83,8 @@ create_profiles <- function(subdir_name) {
                                              outdir_dir_name,
                                              subdir_name,
                                              ext_dis,
-                                             save_count_profiles = save_count_profiles)) # nolint: line_length_linter.
+                                             save_count_profiles = save_count_profiles, # nolint: line_length_linter.
+                                             file_type = file_format))
 }
 
 lapply(outdir_subdir_name, create_profiles)
