@@ -9,7 +9,6 @@ Additionally, it provides flexibility for users to apply their existing .rds of 
 - [Overview](#overview)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Examples](#Examples usage in some cases)
 - [Contributing](#contributing)
 - [License](#license)
 
