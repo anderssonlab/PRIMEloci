@@ -73,7 +73,7 @@ To use PRIMEloci, follow these steps:
 
 2. **Configure Parameters**
 
-   Modify the `bash_config_PRIMEloci.sh` file to set all necessary variables. This file contains all the parameter settings required for the scripts to run. The default parameters was set to use the K562 CAGE files located in path/to/PRIMEloci/example/resources.
+   Modify the `bash_config_PRIMEloci.sh` file to set all necessary variables. This file contains all the parameter settings required for the scripts to run. The default parameters was set to use the K562 CAGE files located in `path/to/PRIMEloci/example/resources`.
 
 3. **Run the Scripts**
 
