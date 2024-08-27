@@ -1,8 +1,6 @@
 # PRIMEloci
 
-The PRIMEloci repository focuses on genome-wide prediction of accurately identified tag clusters from CAGE data using machine learning models. The primary model was trained using light gradient boosting machine (lightGBM) on GM12878 whole-cell CAGE and nucCAGE data from the Andersson lab. This project is designed to automate the process from bigwig files to accurately identified TC .bed files. 
-
-Additionally, it provides flexibility for users to apply their existing .rds of RSE, GRanges, or GRangesList objects from their analyses and pass them through the model. While the project was initially developed based on the human genome hg38, it can be adapted for use with other species.
+The PRIMEloci repository offers tools for genome-wide prediction of accurately identified tag clusters (TCs) from CAGE data using machine learning models. The core model, based on LightGBM, was trained on GM12878 whole-cell CAGE and nucCAGE data from the Andersson lab. PRIMEloci automates the workflow from bigWig files to accurately identified TC .bed and .rds files, providing flexibility for users to either use bash scripts for a full pipeline execution or directly interact with R functions for a more programmatic approach. While the project was initially developed based on the human genome hg38, it can be adapted for use with other species.
 
 ## Table of Contents
 
@@ -14,15 +12,18 @@ Additionally, it provides flexibility for users to apply their existing .rds of 
 
 ## Overview
 
-PRIMEloci provides a streamlined, automated workflow for handling CAGE data, focusing on accurate prediction of tag clusters using machine learning models. The process involves five key steps:
+The workflow focuses on the accurate prediction of tag clusters using machine learning, encompassing five key steps:
 
-1. **Extracting CTSS data**: Create CAGE transcriptional start site (CTSS) object from bigwig files.
-2. **Generating tag cluster sata**: Identify tag clusters (TC) from the CTSS object.
-3. **Generating the processed profiles**: Prepare CAGE processed profiles from CTSS and TC data for model input.
-4. **Predicting Profile Probabilities**: Use PRIMEloci models to predict profile probabilities.
-5. **Filtering Prediction Results**: Produce non-overlapping lists in .bed and .rds formats for further R analysis.
+1. **Extracting CTSS data**: Generate CAGE transcriptional start site (CTSS) objects from bigWig files.
+2. **Identifying Tag Clusters**: Derive tag clusters (TCs) from the CTSS data.
+3. **Processing Profiles**: Prepare processed CAGE profiles for input into the prediction model.
+4. **Predicting Profile Probabilities**: Utilize PRIMEloci models to predict profile probabilities.
+5. **Filtering Results**: Output non-overlapping TC lists in .bed and .rds formats for further analysis in R.
 
-Scripts can be run individually or as part of a pipeline, with a main bash script for selective execution. Advanced users can also prepare data and train models to customize the workflow [LINK to nucCAGE repo].
+PRIMEloci offers two primary ways to utilize its genome-wide prediction:
+
+Bash Script: Execute a full pipeline or some parts of the pipeline using pre-configured bash scripts, ideal for users who prefer a command-line interface or need to automate large-scale data processing tasks. Each step can be run individually or as part of a pipeline with a main bash script for selective execution. Advanced users can also prepare data and train models to customize the workflow [LINK to nucCAGE repo].
+R Functions: Directly use R functions provided in the PRIMEloci package, allowing for more control, customization, and integration with other R-based workflows. When using the PRIMEloci R functions, users typically handle steps 1 and 2 (CTSS and TC identification using CAGEfighR functions) within R, while the run_PRIMEloci() function covers steps 3 through 5, processing existing CTSS and TC data through the prediction model and generating the final output.
 
 ## Installation
 
@@ -61,7 +62,7 @@ To install PRIMEloci, follow these steps:
 
 These steps will set up the necessary environment for running PRIMEloci scripts. You can now proceed with executing the main script or individual scripts as needed.
 
-## Usage
+## Usage of bash script
 
 To use PRIMEloci, follow these steps:
 
@@ -85,25 +86,47 @@ To use PRIMEloci, follow these steps:
 
    This will process the CAGE bigWig data from the initial extraction to the final output of non-overlapping lists in .bed and .rds formats.
 
-### Examples usage in some cases
+4. **Examples usage in some cases**
 
-Run all steps:
+   Run all steps:
 
-```bash
-./PRIMEloci.sh --all
+   ```bash
+   ./PRIMEloci.sh --all
+   ```
+
+   Run only step as CTSS- and TC-.rds files existed:
+
+   ```bash
+   ./PRIMEloci.sh -p
+   ```
+
+   Run specific steps:
+
+   ```bash
+   ./PRIMEloci.sh -4 -5
+   ```
+
+### Usage of R function in PRIMEloci package
+
+Ensure that all settings for run_PRIMEloci() are correctly configured in `path/to/PRIMEloci/genomewide_prediction/config_R_PRIMEloci.yaml`. 
+
+```R
+# load libraries
+library(PRIMEloci)
+
+# Load necessary R objects
+ctss_rse <- loadRDS("path_to_ctss_rse.rds")
+tc_grl <- loadRDS("path_to_tc_grl.rds")
+
+# Run the PRIMEloci workflow (Steps 3-5)
+gr_list <- run_PRIMEloci(
+  ctss_rse = ctss_rse,
+  tc_grl = tc_grl,
+  config_file = "config_R_PRIMEloci.yaml"
+)
 ```
 
-Run only step as CTSS- and TC-.rds files existed:
-
-```bash
-./PRIMEloci.sh -p
-```
-
-Run specific steps:
-
-```bash
-./PRIMEloci.sh -4 -5
-```
+The complete workflow, from processing bigWig files to the final steps in R, can be found in PRIMEloci_genomewide_prediction.rmd.
 
 ## Contributing
 
