@@ -16,13 +16,13 @@ Additionally, it provides flexibility for users to apply their existing .rds of 
 
 PRIMEloci provides a streamlined, automated workflow for handling CAGE data, focusing on accurate prediction of tag clusters using machine learning models. The process involves five key steps:
 
-1. **Extracting CTSS Data**: Create CAGE Transcriptional Start Site (CTSS) object from bigwig files.
-2. **Generating Tag Cluster Data**: Identify tag clusters (TC) from the CTSS object.
-3. **Profiling TSS Clusters**: Prepare profiles from CTSS and TC data for model input.
-4. **Predicting TSS Profile Probabilities**: Use PRIMEloci models to predict profile probabilities.
+1. **Extracting CTSS data**: Create CAGE transcriptional start site (CTSS) object from bigwig files.
+2. **Generating tag cluster sata**: Identify tag clusters (TC) from the CTSS object.
+3. **Generating the processed profiles**: Prepare CAGE processed profiles from CTSS and TC data for model input.
+4. **Predicting Profile Probabilities**: Use PRIMEloci models to predict profile probabilities.
 5. **Filtering Prediction Results**: Produce non-overlapping lists in .bed and .rds formats for further R analysis.
 
-Scripts can be run individually or as part of a pipeline, with a main bash script for selective execution. Advanced users can also prepare data and train models to customize the workflow. The detailed steps are outlined below.
+Scripts can be run individually or as part of a pipeline, with a main bash script for selective execution. Advanced users can also prepare data and train models to customize the workflow [LINK TO nucCAGE repo].
 
 ## Installation
 
@@ -40,7 +40,7 @@ To install PRIMEloci, follow these steps:
    Ensure you have R version 4.2 or higher. Open R or RStudio and run the following command to install the PRIMEloci package locally from the provided .tar.gz file:
 
    ```r
-   install.packages("path/to/PRIMEloci_0.6.tar.gz", repos = NULL, type = "source")
+   install.packages("path/to/PRIMEloci_0.7.tar.gz", repos = NULL, type = "source")
    ```
 
    Check the DESCRIPTION file for other relevant R packages that need to be installed.
@@ -50,7 +50,7 @@ To install PRIMEloci, follow these steps:
    Ensure you have Python 3.9 or higher. Install the required Python packages:
 
    ```bash
-   pip install matplotlib numpy pandas seaborn lightgbm scikit-learn
+   pip3 install matplotlib numpy pandas seaborn lightgbm scikit-learn
    ```
 
 4. **Make the Main Script Executable**:
@@ -73,7 +73,7 @@ To use PRIMEloci, follow these steps:
 
 2. **Configure Parameters**
 
-   Modify the `config.sh` file to set all necessary variables. This file contains all the parameter settings required for the scripts to run. Ensure you set the paths for your CAGE bigWig directory and the design matrix describing the CAGE bigWig files.
+   Modify the `bash_config_PRIMEloci.sh` file to set all necessary variables. This file contains all the parameter settings required for the scripts to run. The default parameters was set to use the K562 CAGE files located in path/to/PRIMEloci/example/resources.
 
 3. **Run the Scripts**
 
@@ -102,7 +102,7 @@ Run only step as CTSS- and TC-.rds files existed:
 Run specific steps:
 
 ```bash
-./PRIMEloci.sh -1 -3 -4
+./PRIMEloci.sh -4 -5
 ```
 
 ## Contributing
@@ -111,4 +111,3 @@ Contributions are welcome! Please submit a pull request or open an issue to disc
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
