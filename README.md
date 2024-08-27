@@ -117,16 +117,14 @@ Ensure that all settings for run_PRIMEloci() are correctly configured in `path/t
 library(PRIMEloci)
 
 # Load necessary R objects
-ctss_rse <- loadRDS("path_to_ctss_rse.rds")
-tc_grl <- loadRDS("path_to_tc_grl.rds")
+ctss_rse <- loadRDS("path/to/ctss_rse.rds")
+tc_grl <- loadRDS("path/to/tc_grl.rds")
 
 # Run the PRIMEloci workflow (Steps 3-5)
 primeloci_tc_grl <- run_PRIMEloci(ctss_rse = ctss_rse,
                                   tc_grl = tc_grl,
                                   config_file = "config_R_PRIMEloci.yaml")
 ```
-
-The example of complete workflow, from processing bigWig files to the final steps in R, can be found in PRIMEloci_genomewide_prediction.rmd.
 
 ## Contributing
 
