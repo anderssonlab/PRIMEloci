@@ -58,6 +58,7 @@ To install PRIMEloci, follow these steps:
 4. **Make the Main Script Executable**:
 
    ```bash
+   cd genomewide_prediction
    chmod +x PRIMEloci.sh
    ```
 
