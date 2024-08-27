@@ -110,7 +110,7 @@ To use PRIMEloci, follow these steps:
 
 ### Usage of R function in PRIMEloci package
 
-Ensure that all settings for run_PRIMEloci() are correctly configured in `path/to/PRIMEloci/genomewide_prediction/config_R_PRIMEloci.yaml`. 
+Ensure that all settings for `run_PRIMEloci()` are correctly configured in `path/to/PRIMEloci/genomewide_prediction/config_R_PRIMEloci.yaml`. 
 
 ```R
 # load libraries
