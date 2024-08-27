@@ -4,7 +4,7 @@
 set -e
 
 # Load the configuration
-source ./config.sh
+source ./bash_config_PRIMEloci.sh
 
 # Usage message
 usage() {
