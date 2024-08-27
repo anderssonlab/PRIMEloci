@@ -22,7 +22,7 @@ PRIMEloci provides a streamlined, automated workflow for handling CAGE data, foc
 4. **Predicting Profile Probabilities**: Use PRIMEloci models to predict profile probabilities.
 5. **Filtering Prediction Results**: Produce non-overlapping lists in .bed and .rds formats for further R analysis.
 
-Scripts can be run individually or as part of a pipeline, with a main bash script for selective execution. Advanced users can also prepare data and train models to customize the workflow [LINK TO nucCAGE repo].
+Scripts can be run individually or as part of a pipeline, with a main bash script for selective execution. Advanced users can also prepare data and train models to customize the workflow [LINK to nucCAGE repo].
 
 ## Installation
 
