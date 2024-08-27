@@ -23,6 +23,7 @@ The workflow focuses on the accurate prediction of tag clusters using machine le
 PRIMEloci offers two primary ways to utilize its genome-wide prediction:
 
 Bash Script: Execute a full pipeline or some parts of the pipeline using pre-configured bash scripts, ideal for users who prefer a command-line interface or need to automate large-scale data processing tasks. Each step can be run individually or as part of a pipeline with a main bash script for selective execution. Advanced users can also prepare data and train models to customize the workflow [LINK to nucCAGE repo].
+
 R Functions: Directly use R functions provided in the PRIMEloci package, allowing for more control, customization, and integration with other R-based workflows. When using the PRIMEloci R functions, users typically handle steps 1 and 2 (CTSS and TC identification using CAGEfighR functions) within R, while the run_PRIMEloci() function covers steps 3 through 5, processing existing CTSS and TC data through the prediction model and generating the final output.
 
 ## Installation
@@ -119,9 +120,9 @@ ctss_rse <- loadRDS("path_to_ctss_rse.rds")
 tc_grl <- loadRDS("path_to_tc_grl.rds")
 
 # Run the PRIMEloci workflow (Steps 3-5)
-gr_list <- run_PRIMEloci(ctss_rse = ctss_rse,
-                         tc_grl = tc_grl,
-                         config_file = "config_R_PRIMEloci.yaml")
+primeloci_tc_grl <- run_PRIMEloci(ctss_rse = ctss_rse,
+                                  tc_grl = tc_grl,
+                                  config_file = "config_R_PRIMEloci.yaml")
 ```
 
 The complete workflow, from processing bigWig files to the final steps in R, can be found in PRIMEloci_genomewide_prediction.rmd.
