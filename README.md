@@ -126,8 +126,6 @@ primeloci_tc_grl <- run_PRIMEloci(ctss_rse = ctss_rse,
                                   config_file = "config_R_PRIMEloci.yaml")
 ```
 
-The complete workflow, from processing bigWig files to the final steps in R, can be found in `path/to/PRIMEloci/genomewide_prediction/PRIMEloci_genomewide_prediction.rmd`.
-
 ## Contributing
 
 Contributions are welcome! Please submit a pull request or open an issue to discuss any changes or improvements.
