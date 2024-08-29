@@ -1,6 +1,6 @@
 # PRIMEloci
 
-The PRIMEloci repository offers tools for genome-wide prediction of accurately identified tag clusters (TCs) from CAGE data using machine learning models. The core model, based on LightGBM, was trained on GM12878 whole-cell CAGE and nucCAGE data from the Andersson lab. PRIMEloci automates the workflow from bigWig files to accurately identified TC .bed and .rds files, providing flexibility for users to either use bash scripts for a full pipeline execution or directly interact with R functions for a more programmatic approach. While the project was initially developed based on the human genome hg38, it can be adapted for use with other species.
+The PRIMEloci repository offers tools for genome-wide prediction of regulatory elements from CAGE data using machine learning models. The core model, based on LightGBM, was trained on GM12878 whole-cell CAGE and nucCAGE data from the Andersson lab. PRIMEloci automates the workflow from bigWig files to accurately identified enhancers and promoters, providing flexibility for users to either use bash scripts for a full pipeline execution or directly interact with R functions for a more programmatic approach. While the project was initially developed based on the human genome hg38, it can be adapted for use with other species.
 
 ## Table of Contents
 
@@ -12,13 +12,13 @@ The PRIMEloci repository offers tools for genome-wide prediction of accurately i
 
 ## Overview
 
-The workflow focuses on the accurate prediction of tag clusters using machine learning, encompassing five key steps:
+The workflow focuses on the prediction of regulatory elements using machine learning, encompassing five key steps:
 
 1. **Extracting CTSS data**: Generate CAGE transcriptional start site (CTSS) objects from bigWig files.
 2. **Identifying Tag Clusters**: Derive tag clusters (TCs) from the CTSS data.
 3. **Processing Profiles**: Prepare processed CAGE profiles for input into the prediction model.
-4. **Predicting Profile Probabilities**: Utilize PRIMEloci models to predict profile probabilities.
-5. **Filtering Results**: Output non-overlapping TC lists in .bed and .rds formats for further analysis in R.
+4. **Predicting Profile Probabilities**: Utilize PRIMEloci models to predict CAGE profile probabilities of regulatory elements.
+5. **Filtering Results**: Output non-overlapping predicted loci in .bed and .rds formats for further analysis in R.
 
 PRIMEloci offers two primary ways to utilize its genome-wide prediction:
 
