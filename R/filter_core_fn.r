@@ -1,20 +1,11 @@
-library(GenomicRanges)
-library(IRanges)
-library(parallel)
-library(PRIMEloci)
-
-library(S4Vectors)
-library(data.table)
-
-
 #' Extract the core region of a GRanges object.
 #' 
 #' @import GenomicRanges
 #' @param gr A GRanges object.
 #' @return A GRanges object representing the core region of each range (151 bp).
-extract_core <- function(gr, ext_core = 75) {
-  start_core <- start(gr) + floor((width(gr) - (ext_core * 2 + 1)) / 2)
-  end_core <- start_core + (ext_core * 2)  # 151bp total
+extract_core <- function(gr) {
+  start_core <- start(gr) + floor((width(gr) - 151) / 2)
+  end_core <- start_core + 150  # 151bp total
   GRanges(seqnames(gr), IRanges(start = start_core, end = end_core), strand = strand(gr))
 }
 
@@ -113,69 +104,3 @@ save_granges_to_bed <- function(gr, output_dir, input_basename) {
 
   cat("Reduced GRanges object saved to", output_bed, "\n")
 }
-
-# Load necessary libraries
-# Assuming these are required packages for your script to run
-library(GenomicRanges)
-library(parallel)
-
-#' Set the number of cores to use for parallel processing.
-#'
-#' This function determines the number of CPU cores to use for parallel processing. 
-#' If the user specifies `use_max_cores = TRUE`, the function will use the maximum 
-#' available cores minus one. Otherwise, the user can specify the number of cores.
-#'
-#' @import parallel
-#' @param use_max_cores Logical. Whether to use the maximum number of cores minus one. Defaults to TRUE.
-#' @param num_cores Integer. Number of cores specified by the user. Ignored if `use_max_cores = TRUE`. Defaults to NULL.
-#' @return Integer. The number of cores to use for parallel processing.
-set_num_cores <- function(use_max_cores = TRUE, num_cores = NULL) {
-  if (use_max_cores) {
-    # Default to maximum cores - 1
-    num_cores <- parallel::detectCores() - 1
-    cat("Using", num_cores, "cores (maximum available minus one).\n")
-  } else if (!is.null(num_cores)) {
-    cat("Using", num_cores, "cores as specified.\n")
-  } else {
-    stop("Please specify the number of cores when use_max_cores = FALSE.")
-  }
-  return(num_cores)
-}
-
-# Define parameters
-score_threshold <- 0.7
-
-# Set the number of cores (use use_max_cores = TRUE by default)
-num_cores <- set_num_cores(use_max_cores = TRUE)  # You can replace TRUE with FALSE and provide a specific number
-
-# Load and prepare data
-bed_file <- load_bed_file("/Users/natsudanav/Desktop/zmk214workingspace/data/resources/K562-on-PRIMEloci-sep-model_pred_all_profiles_subtnorm_tcs_K562_C.bed")
-gr <- create_granges_from_bed(bed_file)
-
-# Filter GRanges by score threshold
-filtered_gr <- gr[gr$score >= score_threshold]
-
-# Get a list of unique chromosomes
-chr_list <- unique(as.character(seqnames(filtered_gr)))
-
-# Run in parallel across chromosomes using the specified number of cores
-collapsed_gr_list <- mclapply(chr_list,
-                              process_by_chr,
-                              filtered_gr = filtered_gr,
-                              mc.cores = num_cores)
-
-# Combine all results
-collapsed_gr <- do.call(c, collapsed_gr_list)
-collapsed_gr <- sort(collapsed_gr)
-
-# Save the GRanges object to a file
-save_granges_to_bed(collapsed_gr, ".", "firsttest_N")
-saveRDS(collapsed_gr, file = "collapsed_gr_N.rds")
-
-# If output_dir is specified, save the GRanges object to the directory
-if (!is.null(output_dir) && output_dir != FALSE) {
-  input_basename <- tools::file_path_sans_ext(basename(input_bed))
-  save_granges_to_bed(selected_gr, output_dir, input_basename, bed_file)
-}
-
-writeLines("Done!")

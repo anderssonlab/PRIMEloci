@@ -20,7 +20,7 @@ parser$add_argument("-i", "--input_bed", type = "character",
                     help = "Input BED file")
 parser$add_argument("-o", "--output_dir", type = "character",
                     default = NULL,
-                    help = "Output directory, default will be the same as the input file")
+                    help = "Output directory, default will be the same as the input file") # nolint: line_length_linter.
 args <- parser$parse_args()
 
 
