@@ -42,7 +42,7 @@ def load_env_vars(script_dir, profile_main_dir, subdir_name, model_path):
     return script_dir, profile_main_dir, subdir_name, model
 
 
-def wrapup_model_prediction(script_dir, profile_dir, profile_filename, metadata_dir, metadata_filename, model, output_dir, name_prefix, threshold, file_format='parquet'):
+def wrapup_model_prediction(script_dir, profile_dir, profile_filename, metadata_dir, metadata_filename, model, output_dir, name_prefix, file_format='parquet'): # threshold
 
     # Example usage of extract_filenames
     filenames_without_extensions = os.path.splitext(profile_filename)[0]
@@ -100,10 +100,10 @@ def wrapup_model_prediction(script_dir, profile_dir, profile_filename, metadata_
     output_all_results = os.path.join(output_dir, f'{name_prefix}_pred_all_{filenames_without_extensions}.bed') 
     ranges_df.to_csv(output_all_results, sep='\t', header=True, index=False)
 
-    # Save selected results if score >= threshold
-    output_slt_results = os.path.join(output_dir, f'{name_prefix}_pred_slt{threshold}_{filenames_without_extensions}.bed')
-    selected_ranges = ranges_df[ranges_df['score'] >= threshold]
-    selected_ranges.to_csv(output_slt_results, sep='\t', header=True, index=False)
+    # # Save selected results if score >= threshold
+    # output_slt_results = os.path.join(output_dir, f'{name_prefix}_pred_slt{threshold}_{filenames_without_extensions}.bed')
+    # selected_ranges = ranges_df[ranges_df['score'] >= threshold]
+    # selected_ranges.to_csv(output_slt_results, sep='\t', header=True, index=False)
 
 
 if __name__ == "__main__":
@@ -119,8 +119,8 @@ if __name__ == "__main__":
                         help='Path to the input model')
     parser.add_argument('-n', '--name_prefix', type=str, required=True, 
                         help='Name added to the output files, indicate model name and library (celltype) name') 
-    parser.add_argument('-t', '--threshold', type=float, default=0.5,
-                        help='Threshold value for prediction')
+    #parser.add_argument('-t', '--threshold', type=float, default=0.5,
+    #                    help='Threshold value for prediction')
     parser.add_argument('-f', '--file_format', type=str, default='parquet', choices=['parquet', 'csv'],
                         help='File format for input files (default: parquet)')
 
@@ -135,7 +135,7 @@ if __name__ == "__main__":
     name_prefix = args.name_prefix
     file_format = args.file_format
 
-    threshold = args.threshold
+    #threshold = args.threshold
 
 
     for subdir_name in profile_sub_dir:
@@ -160,5 +160,5 @@ if __name__ == "__main__":
                                     model,
                                     output_dir,
                                     name_prefix,
-                                    threshold,
+                                    # threshold,
                                     file_format=file_format)

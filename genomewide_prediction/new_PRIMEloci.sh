@@ -67,42 +67,43 @@ fi
 for step in "${steps[@]}"; do
     case $step in
         1)
-            echo -e "\nRunning _get_ctss_from_bw.R"
+            echo -e "\nRunning _get_ctss_from_bw.r"
             Rscript _get_ctss_from_bw.r -i $CAGE_DIR -m $DESIGN_MATRIX -o $OUTPUT_DIR -c $CTSS_RSE_NAME -k
             ;;
         2)
-            echo -e "\nRunning _get_tc_grl.R"
+            echo -e "\nRunning _get_tc_from_ctss.r"
             Rscript _get_tc_from_ctss.r -c $OUTPUT_DIR/$CTSS_RSE_NAME -o $OUTPUT_DIR -t $TC_GRL_NAME -e $EXTENSION_DISTANCE
             ;;
         3)
-            echo -e "\nRunning sliding window on tc_grl.R"
-            Rscript sliding_window_script.R --input $OUTPUT_DIR/$TC_GRL_NAME --output $OUTPUT_DIR/tc_grl_sld.rds --slide_by 20 --expand_by 200
+            echo -e "\nRunning sliding window on _get_sld_windows.r"
+            Rscript _get_sld_windows.r -i $OUTPUT_DIR/$TC_GRL_NAME -o $OUTPUT_DIR/$SLD_TC_GRL_NAME -s $SLD_WINDOW -e $EXTENSION_DISTANCE
             ;;
         4)
             if $use_tc; then
-                echo -e "\nRunning _get_tc_profiles.R (TC input)"
+                echo -e "\nRunning _get_tc_profiles.r (TC input)"
                 Rscript _get_tc_profiles.r -c $OUTPUT_DIR/$CTSS_RSE_NAME -t $OUTPUT_DIR/$TC_GRL_NAME -o $OUTPUT_DIR -n $PROFILE_MAIN_DIR -r $PROFILE_SUB_DIR -f $PROFILE_FILE_TYPE
             elif $use_sld; then
-                echo -e "\nRunning _get_tc_profiles.R (SLD input)"
-                Rscript _get_tc_profiles.r -c $OUTPUT_DIR/$CTSS_RSE_NAME -t $OUTPUT_DIR/tc_grl_sld.rds -o $OUTPUT_DIR -n $PROFILE_MAIN_DIR -r $PROFILE_SUB_DIR -f $PROFILE_FILE_TYPE
+                echo -e "\nRunning _get_tc_profiles.r (SLD input)"
+                Rscript _get_tc_profiles.r -c $OUTPUT_DIR/CTSS_RSE_NAME -t $OUTPUT_DIR/$SLD_TC_GRL_NAME -o $OUTPUT_DIR -n $PROFILE_MAIN_DIR -r $PROFILE_SUB_DIR -f $PROFILE_FILE_TYPE
             fi
             ;;
         5)
             echo -e "\nRunning _predict_profile_probabilities.py"
-            python3 _predict_profile_probabilities.py -w $SCRIPT_DIR -m $MODEL_PATH -p $OUTPUT_DIR/$PROFILE_MAIN_DIR -r $PROFILE_SUB_DIR -n $PREFIX_OUT_NAME -t $THRESHOLD -f $PROFILE_FILE_TYPE
+            python3 _predict_profile_probabilities.py -w $SCRIPT_DIR -m $MODEL_PATH -p $OUTPUT_DIR/$PROFILE_MAIN_DIR -r $PROFILE_SUB_DIR -n $PREFIX_OUT_NAME -f $PROFILE_FILE_TYPE #-t $THRESHOLD
+            
             ;;
         6)
-            echo -e "\nRunning _filter_bed_to_reduced_gr.R (Method 1)"
+            echo -e "\nRunning _filter_max_nonoverlapping.r (Method 1)"
             for FILE in $(find "$PREDICTION_DIR" -type f -name $PARTIAL_NAME); do
                 echo "Processing $FILE..."
-                Rscript _filter_bed_to_reduced_gr.r -i "$FILE" -o $PREDICTION_DIR
+                Rscript _filter_max_nonoverlapping.r -i "$FILE" -o $PREDICTION_DIR -t $THRESHOLD
             done
             ;;
         7)
-            echo -e "\nRunning _filter_bed_to_reduced_gr.R (Method 2)"
+            echo -e "\nRunning _filter_core_overlapping.r (Method 2)"
             for FILE in $(find "$PREDICTION_DIR" -type f -name $PARTIAL_NAME); do
                 echo "Processing $FILE with Method 2..."
-                Rscript _filter_bed_to_reduced_gr_method2.r -i "$FILE" -o $PREDICTION_DIR
+                Rscript _filter_core_overlapping.r -i "$FILE" -o $PREDICTION_DIR -t $THRESHOLD
             done
             ;;
     esac

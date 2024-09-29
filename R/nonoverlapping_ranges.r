@@ -81,10 +81,14 @@ get_highest_non_overlap <- function(gr,
 #' @importFrom tools file_path_sans_ext
 #' @importFrom GenomicRanges sort
 #' @export
-wrapup_filter_bed_to_reduce <- function(input_bed, output_dir = NULL) {
+wrapup_filter_bed_to_reduce <- function(input_bed,
+                                        output_dir = NULL,
+                                        threshold) {
   # Load the bed file and create GRanges object
   bed_file <- load_bed_file(input_bed)
   gr <- create_granges_from_bed(bed_file)
+
+  filtered_gr <- gr[gr$score >= threshold]
 
   # Inform the user that processing is starting
   writeLines("Starting to get highest non-overlapping ranges...")
@@ -93,7 +97,7 @@ wrapup_filter_bed_to_reduce <- function(input_bed, output_dir = NULL) {
   print(start_time)
 
   # Get the highest non-overlapping ranges
-  selected_gr <- get_highest_non_overlap(gr)
+  selected_gr <- get_highest_non_overlap(filtered_gr)
   selected_gr <- GenomicRanges::sort(selected_gr)
   end_time <- Sys.time()
   print(end_time - start_time)

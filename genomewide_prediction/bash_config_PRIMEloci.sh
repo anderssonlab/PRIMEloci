@@ -17,6 +17,10 @@ TC_GRL_NAME="tc_grl.rds"
 EXTENSION_DISTANCE=200
 
 
+SLD_TC_GRL_NAME="sld_tc_grl.rds"
+SLD_WINDOW=20
+
+
 ### 3 ### get_tc_profiles.R
 
 # CTSS_RSE_NAME, TC_GRL_NAME, OUTPUT_DIR from above
@@ -32,7 +36,7 @@ PROFILE_FILE_TYPE="parquet"
 SCRIPT_DIR="."
 MODEL_PATH="../example/resources/PRIMEloci_GM12878_wt10M.sav"
 PREFIX_OUT_NAME="K562-on-PRIMEloci-model"
-THRESHOLD=0.2
+THRESHOLD=0.7
 
 
 ### 5 ### predict_profile_probabilities.py

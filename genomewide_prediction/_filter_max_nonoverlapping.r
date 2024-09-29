@@ -21,11 +21,15 @@ parser$add_argument("-i", "--input_bed", type = "character",
 parser$add_argument("-o", "--output_dir", type = "character",
                     default = NULL,
                     help = "Output directory, default will be the same as the input file") # nolint: line_length_linter.
+parser$add_argument("-t", "--score_threshold", type = "double", default = 0.7,
+                    help = "Score threshold for filtering GRanges.")
+
 args <- parser$parse_args()
 
 
-
 # Execute the main function
-wrapup_filter_bed_to_reduce(args$input_bed, args$output_dir)
+wrapup_filter_bed_to_reduce(args$input_bed,
+                            args$output_dir,
+                            args$score_threshold)
 
 writeLines("Done!")

@@ -17,9 +17,9 @@ parser$add_argument("-o", "--output_dir", default = "./",
                     help = "Output directory")
 parser$add_argument("-t", "--outfile_sld_tc_grl", default = "sld_tc_grl.RDS",
                     help = "Output file name for sld_tc_grl object")
-parser$add_argument("--slide_by", type = "integer", default = 20,
+parser$add_argument("-s", "--slide_by", type = "integer", default = 20,
                     help = "Slide by parameter")
-parser$add_argument("--expand_by", type = "integer", default = 200,
+parser$add_argument("-e", "--expand_by", type = "integer", default = 200,
                     help = "Expand by parameter")
 
 # Parse arguments
