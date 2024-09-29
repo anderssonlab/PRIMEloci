@@ -15,9 +15,7 @@ library(data.table)
 extract_core <- function(gr, ext_core = 75) {
   start_core <- start(gr) + floor((width(gr) - (ext_core * 2 + 1)) / 2)
   end_core <- start_core + (ext_core * 2)  # 151bp total
-  GRanges(seqnames(gr), IRanges(start = start_core,
-                                end = end_core),
-                                strand = strand(gr))
+  GRanges(seqnames(gr), IRanges(start = start_core, end = end_core), strand = strand(gr)) # nolint: line_length_linter.
 }
 
 #' Get metadata for each GRanges object.
@@ -165,7 +163,7 @@ score_threshold <- 0.7
 num_cores <- set_num_cores(use_max_cores = TRUE)
 
 # Load and prepare data
-bed_file <- load_bed_file("/Users/natsudanav/Desktop/zmk214workingspace/data/resources/K562-on-PRIMEloci-sep-model_pred_all_profiles_subtnorm_tcs_K562_C.bed")
+bed_file <- load_bed_file("/Users/natsudanav/Desktop/zmk214workingspace/data/resources/K562-on-PRIMEloci-sep-model_pred_all_profiles_subtnorm_tcs_K562_C.bed") # nolint: line_length_linter.
 gr <- create_granges_from_bed(bed_file)
 
 # Filter GRanges by score threshold
