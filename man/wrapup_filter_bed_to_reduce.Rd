@@ -4,7 +4,7 @@
 \alias{wrapup_filter_bed_to_reduce}
 \title{Process a BED file and save the highest non-overlapping ranges}
 \usage{
-wrapup_filter_bed_to_reduce(input_bed, output_dir = NULL)
+wrapup_filter_bed_to_reduce(input_bed, output_dir = NULL, threshold)
 }
 \arguments{
 \item{input_bed}{Character. The path to the input BED file.}
