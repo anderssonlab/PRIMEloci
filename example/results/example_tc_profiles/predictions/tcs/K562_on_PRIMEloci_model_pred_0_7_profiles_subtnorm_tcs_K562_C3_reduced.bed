@@ -1,4 +1,3 @@
-chrom	chromStart	chromEnd	name	score	strand	sum_count
 chr1	10410	10811	profiles_subtnorm_tcs_K562_C3	0.815943713395264	*	76
 chr1	629727	630128	profiles_subtnorm_tcs_K562_C3	0.752694234237383	*	42
 chr1	633826	634227	profiles_subtnorm_tcs_K562_C3	0.762210616538837	*	8504
