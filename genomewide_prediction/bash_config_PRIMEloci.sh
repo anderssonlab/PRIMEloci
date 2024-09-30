@@ -17,8 +17,8 @@ TC_GRL_NAME="tc_grl.rds"
 EXTENSION_DISTANCE=200
 
 
-SLD_TC_GRL_NAME="sld_tc_grl.rds"
-SLD_WINDOW=20
+SLD_TC_GRL_NAME="tc_grl_sld.rds"
+SLD_WINDOW=80
 
 
 ### 3 ### get_tc_profiles.R
@@ -34,7 +34,7 @@ PROFILE_FILE_TYPE="parquet"
 
 # OUTPUT_DIR, PROFILE_MAIN_DIR, PROFILE_SUB_DIR, and PROFILE_FILE_TYPE from above
 SCRIPT_DIR="."
-MODEL_PATH="../example/resources/PRIMEloci_GM12878_wt10M.sav"
+MODEL_PATH="../model/PRIMEloci_GM12878_model_1.0.sav"
 PREFIX_OUT_NAME="K562-on-PRIMEloci-model"
 THRESHOLD=0.7
 
@@ -43,4 +43,4 @@ THRESHOLD=0.7
 
 # OUTPUT_DIR, PROFILE_MAIN_DIR, PROFILE_SUB_DIR from above
 PREDICTION_DIR=$OUTPUT_DIR/$PROFILE_MAIN_DIR/predictions/$PROFILE_SUB_DIR
-PARTIAL_NAME="*pred_slt*.bed"
+PARTIAL_NAME="*pred_all*.bed"

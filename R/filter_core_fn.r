@@ -29,7 +29,7 @@ extract_core <- function(gr, ext_core = 75) {
 #' @importFrom IRanges IRanges
 #' @importFrom S4Vectors subjectHits
 get_metadata <- function(gr_range, filtered_gr) {
-  overlap_hits <- IRanges::subjectHits(IRanges::findOverlaps(gr_range,
+  overlap_hits <- S4Vectors::subjectHits(IRanges::findOverlaps(gr_range,
                                                              filtered_gr))
   if (length(overlap_hits) > 0) {
     overlapping_scores <- filtered_gr$score[overlap_hits]
@@ -56,6 +56,7 @@ get_metadata <- function(gr_range, filtered_gr) {
 #' @importFrom GenomicRanges GRanges reduce findOverlaps seqnames
 #' @importFrom S4Vectors subjectHits
 #' @importFrom IRanges IRanges
+#' @export
 process_by_chr <- function(chr, filtered_gr) {
   tryCatch({
     # Subset GRanges by chromosome
@@ -99,8 +100,10 @@ process_by_chr <- function(chr, filtered_gr) {
 #' @param input_basename The base name for the output files.
 #' @importFrom GenomicRanges GRanges
 #' @importFrom data.table fwrite
+#' @export
 save_granges_to_bed_2 <- function(gr, output_dir, input_basename) {
   # Save the selected GRanges object to an RDS file
+
   output_rds <- file.path(output_dir, paste0(input_basename, "_sldreduced.rds"))
   saveRDS(gr, file = output_rds)
   cat("Reduced GRanges object saved to", output_rds, "\n")

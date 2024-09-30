@@ -80,6 +80,8 @@ get_highest_non_overlap <- function(gr,
 #'
 #' @importFrom tools file_path_sans_ext
 #' @importFrom GenomicRanges sort
+#' @importFrom stringr str_replace_all
+#' @importFrom dplyr %>%
 #' @export
 wrapup_filter_bed_to_reduce <- function(input_bed,
                                         output_dir = NULL,
@@ -105,6 +107,10 @@ wrapup_filter_bed_to_reduce <- function(input_bed,
   # If output_dir is specified, save the GRanges object to the directory
   if (!is.null(output_dir) && output_dir != FALSE) {
     input_basename <- tools::file_path_sans_ext(basename(input_bed))
+    input_basename <- input_basename %>%
+      stringr::str_replace_all("all", as.character(threshold)) %>%  # Replace "all" with threshold # nolint: line_length_linter.
+      stringr::str_replace_all("[^[:alnum:]]", "_")                # Replace non-alphanumeric characters with "_" # nolint: line_length_linter.
+
     save_granges_to_bed(selected_gr, output_dir, input_basename, bed_file)
   }
 

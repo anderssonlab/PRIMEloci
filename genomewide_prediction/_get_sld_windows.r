@@ -7,6 +7,7 @@ suppressPackageStartupMessages({
   library(GenomicRanges)
   library(parallel)
   library(argparse)
+  library(PRIMEloci)
 })
 
 # Create argument parser

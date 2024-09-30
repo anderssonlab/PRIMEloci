@@ -58,7 +58,7 @@ create_granges_from_bed <- function(bed_file) {
 #' @export
 save_granges_to_bed <- function(gr, output_dir, input_basename, bed_file) {
   # Save the selected GRanges object to an RDS file
-  output_rds <- file.path(output_dir, paste0(input_basename, "_reduced.rds"))
+  output_rds <- file.path(output_dir, paste0(input_basename, "_maxreduced.rds"))
   saveRDS(gr, file = output_rds)
   cat("Reduced GRanges object saved to", output_rds, "\n")
 
@@ -81,7 +81,7 @@ save_granges_to_bed <- function(gr, output_dir, input_basename, bed_file) {
   bed_df <- bed_df[order(bed_df$chrom, bed_df$chromStart), ]
 
   # Write to BED file
-  output_bed <- file.path(output_dir, paste0(input_basename, "_reduced.bed"))
+  output_bed <- file.path(output_dir, paste0(input_basename, "_maxreduced.bed"))
   data.table::fwrite(bed_df, file = output_bed, sep = "\t", quote = FALSE, col.names = TRUE)
 
   cat("Reduced GRanges object saved to", output_bed, "\n")

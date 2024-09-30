@@ -1,10 +1,16 @@
+#!/usr/bin/env Rscript
 
+writeLines("\n### Running _filter_core_overlapping.r ###")
 
-# Load necessary libraries
-library(argparse)
-library(GenomicRanges)
-library(parallel)
-library(tools)
+writeLines("\n# Importing R libraries..")
+suppressPackageStartupMessages({
+  library(argparse)
+  library(GenomicRanges)
+  library(parallel)
+  library(tools)
+  library(stringr)
+  library(PRIMEloci)
+})
 
 # Create the argparse object
 parser <- ArgumentParser(description = "Process GRanges based on a BED file and score threshold.") # nolint: line_length_linter.
@@ -53,6 +59,10 @@ collapsed_gr <- sort(collapsed_gr)
 # If output_dir is specified, save the GRanges object to the directory
 if (!is.null(output_dir) && output_dir != FALSE) {
   input_basename <- tools::file_path_sans_ext(basename(bed_file))
+  input_basename <- input_basename %>%
+    stringr::str_replace_all("all", as.character(score_threshold)) %>%  # Replace "all" with threshold # nolint: line_length_linter.
+    stringr::str_replace_all("[^[:alnum:]]", "_")                # Replace non-alphanumeric characters with "_" # nolint: line_length_linter.
+
   save_granges_to_bed_2(collapsed_gr, output_dir, input_basename)
 }
 
