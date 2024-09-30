@@ -2,7 +2,7 @@
 % Please edit documentation in R/filter_core_fn.r
 \name{save_granges_to_bed_2}
 \alias{save_granges_to_bed_2}
-\title{Save the GRanges object as both an RDS file and a BED file.}
+\title{Save the GRanges object as both an RDS file and a BED file with specific columns.}
 \usage{
 save_granges_to_bed_2(gr, output_dir, input_basename)
 }

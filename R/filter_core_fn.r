@@ -90,7 +90,7 @@ process_by_chr <- function(chr, filtered_gr) {
   })
 }
 
-#' Save the GRanges object as both an RDS file and a BED file.
+#' Save the GRanges object as both an RDS file and a BED file with specific columns.
 #'
 #' This function saves the GRanges object to an RDS file
 #' and converts it to a BED file format, saving both in the specified directory.
@@ -103,19 +103,51 @@ process_by_chr <- function(chr, filtered_gr) {
 #' @export
 save_granges_to_bed_2 <- function(gr, output_dir, input_basename) {
   # Save the selected GRanges object to an RDS file
-
-  output_rds <- file.path(output_dir, paste0(input_basename, "_sldreduced.rds"))
+  output_rds <- file.path(output_dir, paste0(input_basename, "_corereduced.rds"))
   saveRDS(gr, file = output_rds)
   cat("Reduced GRanges object saved to", output_rds, "\n")
 
   # Convert GRanges object to a data frame
   bed_df <- as.data.frame(gr)
 
-  # Select and rearrange the columns
-  bed_df <- bed_df[, c("seqnames", "start", "end", "width", "strand", colnames(S4Vectors::mcols(gr)))] # nolint: line_length_linter.
+  # Ensure the 'thick' column exists in the metadata
+  if (!"thick" %in% colnames(S4Vectors::mcols(gr))) {
+    stop("'thick' column not found in the metadata.")
+  }
+
+  # Ensure the 'max_score' column exists in the metadata
+  if (!"max_score" %in% colnames(S4Vectors::mcols(gr))) {
+    stop("'max_score' column not found in the metadata.")
+  }
+
+  # Add the 'thickStart' and 'thickEnd' columns using the 'thick' column
+  bed_df$thickStart <- bed_df$thick - 1  # BED format requires 0-based indexing
+  bed_df$thickEnd <- bed_df$thick
+
+  # Remove the 'thick' column after creating thickStart and thickEnd
+  bed_df <- bed_df[, !colnames(bed_df) %in% "thick"]
+
+  # Generate a name column based on row index, using 'corereduced_XX'
+  bed_df$name <- paste0("corereduced_", seq_len(nrow(bed_df)))
 
   # Adjust the 'start' column to be 0-based by subtracting 1
   bed_df$start <- bed_df$start - 1
+
+  # Specify the desired column order
+  desired_cols <- c("seqnames", "start", "end", "name", "max_score", "strand", 
+                    "thickStart", "thickEnd", "width")
+
+  # Check which desired columns are available in the data frame
+  existing_desired_cols <- desired_cols[desired_cols %in% colnames(bed_df)]
+
+  # Include any additional metadata columns that exist in the data frame
+  remaining_cols <- setdiff(colnames(bed_df), existing_desired_cols)
+
+  # Combine the desired columns and the remaining metadata columns
+  reordered_cols <- c(existing_desired_cols, remaining_cols)
+
+  # Subset the data frame with the reordered columns
+  bed_df <- bed_df[, reordered_cols, drop = FALSE]
 
   # Rename the columns to match BED file format
   data.table::setnames(bed_df,
@@ -126,7 +158,7 @@ save_granges_to_bed_2 <- function(gr, output_dir, input_basename) {
   bed_df <- bed_df[order(bed_df$chrom, bed_df$chromStart), ]
 
   # Write to BED file
-  output_bed <- file.path(output_dir, paste0(input_basename, "_sldreduced.bed"))
+  output_bed <- file.path(output_dir, paste0(input_basename, "_corereduced.bed"))
   data.table::fwrite(bed_df,
                      file = output_bed,
                      sep = "\t",
