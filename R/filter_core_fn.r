@@ -25,8 +25,9 @@ extract_core <- function(gr, ext_core = 75) {
 #' @param filtered_gr A GRanges object with associated scores.
 #' @return A list containing metadata: thick position,
 #' maximum score, and all scores.
-#' @importFrom GenomicRanges GRanges seqnames
-#' @importFrom IRanges IRanges findOverlaps subjectHits
+#' @importFrom GenomicRanges GRanges seqnames findOverlaps
+#' @importFrom IRanges IRanges
+#' @importFrom S4Vectors subjectHits
 get_metadata <- function(gr_range, filtered_gr) {
   overlap_hits <- IRanges::subjectHits(IRanges::findOverlaps(gr_range,
                                                              filtered_gr))
@@ -52,7 +53,8 @@ get_metadata <- function(gr_range, filtered_gr) {
 #' @param chr The chromosome name to process.
 #' @param filtered_gr A filtered GRanges object with scores.
 #' @return A GRanges object with metadata (thick, max_score, all_scores).
-#' @importFrom GenomicRanges GRanges reduce findOverlaps subjectHits seqnames
+#' @importFrom GenomicRanges GRanges reduce findOverlaps seqnames
+#' @importFrom S4Vectors subjectHits
 #' @importFrom IRanges IRanges
 process_by_chr <- function(chr, filtered_gr) {
   tryCatch({
