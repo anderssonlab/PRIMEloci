@@ -10,6 +10,7 @@
 #' @return A GRanges object with the core regions extracted.
 #' @importFrom GenomicRanges GRanges
 #' @importFrom IRanges IRanges
+#' @export
 extract_core <- function(gr, ext_core = 75) {
   start_core <- start(gr) + floor((width(gr) - (ext_core * 2 + 1)) / 2)
   end_core <- start_core + (ext_core * 2)  # 151bp total
