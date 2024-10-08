@@ -156,10 +156,11 @@ wrapup_filter_bed_to_reduce_core <- function(input_bed,
   filtered_gr <- gr[gr$score >= threshold]
 
   # Extract core regions
-  core_gr <- extract_core(filtered_gr, ext_core = ext_core)
+  #core_gr <- extract_core(filtered_gr, ext_core = ext_core)
+  core_gr <- GenomicRanges::resize(filtered_gr, width = (ext_core*2+1), fix = "center")
 
   # Inform the user that processing is starting
-  writeLines("Starting to get highest non-overlapping ranges...")
+  writeLines("Starting to get highest non-overlapping ranges -- core ...")
   writeLines("It may take a while depending on the size of the input file...")
   start_time <- Sys.time()
   print(start_time)
@@ -182,19 +183,21 @@ wrapup_filter_bed_to_reduce_core <- function(input_bed,
 
   # Extend the core regions left/right to a fixed width of 401 bp
   extended_gr <- GenomicRanges::resize(core_gr, width = width, fix = "center")
-
+  extended_gr
   # Use the reduce() function on the extended GRanges to merge overlapping or adjacent ranges
   reduced_gr <- GenomicRanges::reduce(extended_gr)
   reduced_gr <- GenomicRanges::sort(reduced_gr)
-
+  reduced_gr
   # Save the reduced, extended GRanges
   if (!is.null(output_dir) && output_dir != FALSE) {
     extended_basename <- tools::file_path_sans_ext(basename(input_bed)) %>%
       stringr::str_replace_all("all", as.character(threshold)) %>%
       stringr::str_replace_all("[^[:alnum:]]", "_") %>%
       paste0("_extended_reduced")
-
-    save_granges_to_bed(reduced_gr, output_dir, extended_basename, bed_file)
+    bed_file_path <- file.path(output_dir, paste0(extended_basename, ".bed"))
+    rtracklayer::export.bed(reduced_gr, bed_file_path)
+    rds_file_path <- file.path(output_dir, paste0(extended_basename, ".rds"))
+    saveRDS(reduced_gr, rds_file_path)
   }
 
   writeLines("Done!")
