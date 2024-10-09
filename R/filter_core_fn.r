@@ -46,6 +46,40 @@ get_metadata <- function(gr_range, filtered_gr) {
   }
 }
 
+
+#process_by_chr <- function(chr, filtered_gr) {
+#  tryCatch({
+#    # Subset GRanges by chromosome
+#    chr_gr <- filtered_gr[GenomicRanges::seqnames(filtered_gr) == chr]
+#    core_gr <- extract_core(chr_gr)
+#    overlaps <- GenomicRanges::findOverlaps(core_gr)
+#    collapsed_ranges <- GenomicRanges::reduce(chr_gr[unique(queryHits(overlaps))]) # nolint: line_length_linter.
+#
+#    # Initialize metadata columns
+#    thick_vals <- numeric(length(collapsed_ranges))
+#    max_scores <- numeric(length(collapsed_ranges))
+#    all_scores <- character(length(collapsed_ranges))
+#
+#    # Loop through each collapsed range to extract metadata
+#    for (i in seq_along(collapsed_ranges)) {
+#      metadata <- get_metadata(collapsed_ranges[i], filtered_gr)
+#      thick_vals[i] <- metadata$thick
+#      max_scores[i] <- metadata$max_score
+#      all_scores[i] <- metadata$all_scores
+#    }
+#
+#    # Assign metadata to collapsed ranges
+#    collapsed_ranges$thick <- thick_vals
+#    collapsed_ranges$max_score <- max_scores
+#    collapsed_ranges$all_scores <- all_scores
+#
+#    return(collapsed_ranges)
+#  }, error = function(e) {
+#    message(paste("Error processing chromosome", chr, ":", e$message))
+#    return(NULL)  # Return NULL on error
+#  })
+#}
+
 #' Process each chromosome and extract core regions and metadata.
 #'
 #' This function processes each chromosome by subsetting a GRanges object,
@@ -64,7 +98,7 @@ process_by_chr <- function(chr, filtered_gr) {
     chr_gr <- filtered_gr[GenomicRanges::seqnames(filtered_gr) == chr]
     core_gr <- extract_core(chr_gr)
     overlaps <- GenomicRanges::findOverlaps(core_gr)
-    collapsed_ranges <- GenomicRanges::reduce(chr_gr[unique(queryHits(overlaps))]) # nolint: line_length_linter.
+    collapsed_ranges <- GenomicRanges::reduce(core_gr[unique(queryHits(overlaps))]) # nolint: line_length_linter.
 
     # Initialize metadata columns
     thick_vals <- numeric(length(collapsed_ranges))
@@ -90,6 +124,7 @@ process_by_chr <- function(chr, filtered_gr) {
     return(NULL)  # Return NULL on error
   })
 }
+
 
 #' Save the GRanges object as both an RDS file and a BED file with specific columns.
 #'
