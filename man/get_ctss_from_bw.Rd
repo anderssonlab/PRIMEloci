@@ -32,8 +32,7 @@ included in the analysis. Requires \code{genome_info} to be specified.}
 }
 \value{
 A \code{CTSS} object containing the quantified and normalized
-  counts of transcription start sites, including pooled counts
-  and TPM values.
+  counts of transcription start sites, including pooled counts.
 }
 \description{
 This function extracts CTSSs from CAGE data stored in BigWig files,

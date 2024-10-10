@@ -18,8 +18,7 @@
 #' @param keep_chr An optional character vector of chromosome names to be
 #'   included in the analysis. Requires \code{genome_info} to be specified.
 #' @return A \code{CTSS} object containing the quantified and normalized
-#'   counts of transcription start sites, including pooled counts
-#'   and TPM values.
+#'   counts of transcription start sites, including pooled counts.
 #' @examples
 #' \dontrun{
 #' ctss_result <- get_ctss_from_bw("path/to/bigwig/files",
@@ -57,16 +56,12 @@ get_ctss_from_bw <- function(dir_cage_bw,
     stop("genome_info must be provided when using drop_chr or keep_chr.")
   }
 
-  # Quantify CTSSs, calculate pooled counts and TPM
+  # Quantify CTSSs and calculate pooled counts
   orig_ctss <- CAGEfightR::quantifyCTSSs(plusStrand = bwplus,
                                          minusStrand = bwminus,
                                          design = design_matrix,
                                          genome = gn)
   orig_ctss <- CAGEfightR::calcPooled(orig_ctss, inputAssay = "counts")
-  orig_ctss <- CAGEfightR::calcTPM(orig_ctss,
-                                   inputAssay = "counts",
-                                   outputAssay = "TPM",
-                                   totalTags = NULL,
-                                   outputColumn = "totalTags")
+
   return(orig_ctss)
 }

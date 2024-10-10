@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 
-writeLines("\n### Running _get_ctss_from_bw.r ###")
+writeLines("\n### Running _1_get_ctss_from_bw.r ###")
 
 writeLines("\n# Importing R libraries..")
 suppressPackageStartupMessages({
@@ -11,19 +11,20 @@ suppressPackageStartupMessages({
 })
 
 
+
 ### ARGPARSE
 parser <- ArgumentParser()
 
 # Input
 parser$add_argument("-i", "--input_dir", default = "./",
                     help = "CAGE BigWig directory")
-parser$add_argument("-m", "--design_matrix_file", default = "design.matrix.tsv",
-                    help = "Design matrix of all CAGE data in .tsv format")
+parser$add_argument("-m", "--design_matrix", default = "design.matrix.tsv",
+                    help = "Design matrix of all CAGE data in .tsv format, example can be found in the 'example/resources' directory") # nolint: line_length_linter.
 
 # Output
 parser$add_argument("-o", "--output_dir", default = "./",
                     help = "Output directory")
-parser$add_argument("-c", "--outfile_ctss_rse", default = "ctss_rse.RDS",
+parser$add_argument("-n", "--outfile", default = "ctss_rse.rds",
                     help = "Output file name for ctss_rse object")
 
 # Parameters
@@ -34,15 +35,15 @@ args <- parser$parse_args()
 
 # Setting up variables
 input_dir <- args$input_dir
-design_matrix_file <- args$design_matrix_file
+design_matrix_file <- args$design_matrix
 
 output_dir <- args$output_dir
-outfile_ctss_rse <- args$outfile_ctss_rse
+outfile_ctss_rse <- args$outfile
+
 
 
 # Read in CAGE BigWig, based on design matrix provided,
 # no filtering/subsetBySupport steps are performed
-
 writeLines("\n# Reading in data..")
 design_matrix <- read.table(design_matrix_file,
                             header = TRUE,

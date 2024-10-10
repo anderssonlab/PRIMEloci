@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 
-writeLines("\n### Running get_tc_profiles.r ###")
+writeLines("\n### Running _2_get_tc_from_ctss.r ###")
 
 writeLines("\n# Importing R libraries..")
 suppressPackageStartupMessages({
@@ -11,17 +11,18 @@ suppressPackageStartupMessages({
 })
 
 
+
 ### ARGPARSE
 parser <- ArgumentParser()
 
 # Input
-parser$add_argument("-c", "--infile_ctss_rse", default = "./ctss_rse.RDS",
+parser$add_argument("-i", "--infile", default = "./ctss_rse.rds",
                     help = "FULL PATH to input file name for ctss_rse rds object") # nolint: line_length_linter.
 
 # Output
 parser$add_argument("-o", "--output_dir", default = "./",
                     help = "Output directory")
-parser$add_argument("-t", "--outfile_tc_grl", default = "tc_grl.RDS",
+parser$add_argument("-n", "--outfile", default = "tc_grl.rds",
                     help = "Output file name for tc_grl object")
 
 # Parameters
@@ -31,13 +32,15 @@ parser$add_argument("-e", "--ext_dis", default = 200,
 args <- parser$parse_args()
 
 # Setting up variables
-infile_ctss_rse <- args$infile_ctss_rse
+infile_ctss_rse <- args$infile
 ctss_rse <- readRDS(infile_ctss_rse)
 
 output_dir <- args$output_dir
-outfile_tc_grl <- args$outfile_tc_grl
+outfile_tc_grl <- args$outfile
 
 ext_dis <- as.integer(args$ext_dis)
+
+
 
 writeLines("\n# Gettign tag clusters and extending the start/end using thick..\n") # nolint: line_length_linter.
 tc_grl <- get_tcs_and_extend_fromthick(ctss_rse, ext_dis = ext_dis)
