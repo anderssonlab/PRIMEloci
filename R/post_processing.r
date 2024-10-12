@@ -14,7 +14,9 @@
 extract_core <- function(gr, ext_core = 75) {
   start_core <- start(gr) + floor((width(gr) - (ext_core * 2 + 1)) / 2)
   end_core <- start_core + (ext_core * 2)  # 151bp total
-  GenomicRanges::GRanges(seqnames(gr), IRanges::IRanges(start = start_core, end = end_core), strand = strand(gr)) # nolint: line_length_linter.
+  GenomicRanges::GRanges(seqnames(gr),
+                         IRanges::IRanges(start = start_core, end = end_core),
+                         strand = strand(gr))
 }
 
 #' Get metadata for each GRanges object.
@@ -31,7 +33,7 @@ extract_core <- function(gr, ext_core = 75) {
 #' @importFrom S4Vectors subjectHits
 get_metadata <- function(gr_range, filtered_gr) {
   overlap_hits <- S4Vectors::subjectHits(IRanges::findOverlaps(gr_range,
-                                                             filtered_gr))
+                                                               filtered_gr))
   if (length(overlap_hits) > 0) {
     overlapping_scores <- filtered_gr$score[overlap_hits]
     max_score_region <- filtered_gr[overlap_hits][which.max(overlapping_scores)]
@@ -47,38 +49,6 @@ get_metadata <- function(gr_range, filtered_gr) {
 }
 
 
-#process_by_chr <- function(chr, filtered_gr) {
-#  tryCatch({
-#    # Subset GRanges by chromosome
-#    chr_gr <- filtered_gr[GenomicRanges::seqnames(filtered_gr) == chr]
-#    core_gr <- extract_core(chr_gr)
-#    overlaps <- GenomicRanges::findOverlaps(core_gr)
-#    collapsed_ranges <- GenomicRanges::reduce(chr_gr[unique(queryHits(overlaps))]) # nolint: line_length_linter.
-#
-#    # Initialize metadata columns
-#    thick_vals <- numeric(length(collapsed_ranges))
-#    max_scores <- numeric(length(collapsed_ranges))
-#    all_scores <- character(length(collapsed_ranges))
-#
-#    # Loop through each collapsed range to extract metadata
-#    for (i in seq_along(collapsed_ranges)) {
-#      metadata <- get_metadata(collapsed_ranges[i], filtered_gr)
-#      thick_vals[i] <- metadata$thick
-#      max_scores[i] <- metadata$max_score
-#      all_scores[i] <- metadata$all_scores
-#    }
-#
-#    # Assign metadata to collapsed ranges
-#    collapsed_ranges$thick <- thick_vals
-#    collapsed_ranges$max_score <- max_scores
-#    collapsed_ranges$all_scores <- all_scores
-#
-#    return(collapsed_ranges)
-#  }, error = function(e) {
-#    message(paste("Error processing chromosome", chr, ":", e$message))
-#    return(NULL)  # Return NULL on error
-#  })
-#}
 
 #' Process each chromosome and extract core regions and metadata.
 #'
@@ -89,16 +59,16 @@ get_metadata <- function(gr_range, filtered_gr) {
 #' @param filtered_gr A filtered GRanges object with scores.
 #' @return A GRanges object with metadata (thick, max_score, all_scores).
 #' @importFrom GenomicRanges GRanges reduce findOverlaps seqnames
-#' @importFrom S4Vectors subjectHits
+#' @importFrom S4Vectors subjectHits queryHits
 #' @importFrom IRanges IRanges
 #' @export
-process_by_chr <- function(chr, filtered_gr) {
+ovlcore_reduced_by_chr <- function(chr, filtered_gr) {
   tryCatch({
     # Subset GRanges by chromosome
     chr_gr <- filtered_gr[GenomicRanges::seqnames(filtered_gr) == chr]
     core_gr <- extract_core(chr_gr)
     overlaps <- GenomicRanges::findOverlaps(core_gr)
-    collapsed_ranges <- GenomicRanges::reduce(core_gr[unique(queryHits(overlaps))]) # nolint: line_length_linter.
+    collapsed_ranges <- GenomicRanges::reduce(core_gr[unique(S4Vectors::queryHits(overlaps))]) # nolint: line_length_linter.
 
     # Initialize metadata columns
     thick_vals <- numeric(length(collapsed_ranges))
@@ -126,7 +96,8 @@ process_by_chr <- function(chr, filtered_gr) {
 }
 
 
-#' Save the GRanges object as both an RDS file and a BED file with specific columns.
+#' Save the GRanges object
+#' as both an RDS file and a BED file with specific columns.
 #'
 #' This function saves the GRanges object to an RDS file
 #' and converts it to a BED file format, saving both in the specified directory.
@@ -137,9 +108,10 @@ process_by_chr <- function(chr, filtered_gr) {
 #' @importFrom GenomicRanges GRanges
 #' @importFrom data.table fwrite
 #' @export
-save_granges_to_bed_2 <- function(gr, output_dir, input_basename) {
+save_ovlcorereduced_to_bed <- function(gr, output_dir, input_basename) {
   # Save the selected GRanges object to an RDS file
-  output_rds <- file.path(output_dir, paste0(input_basename, "_corereduced.rds"))
+  output_rds <- file.path(output_dir,
+                          paste0(input_basename, "_ovlcorereduced.rds"))
   saveRDS(gr, file = output_rds)
   cat("Reduced GRanges object saved to", output_rds, "\n")
 
@@ -164,13 +136,14 @@ save_granges_to_bed_2 <- function(gr, output_dir, input_basename) {
   bed_df <- bed_df[, !colnames(bed_df) %in% "thick"]
 
   # Generate a name column based on row index, using 'corereduced_XX'
-  bed_df$name <- paste0("corereduced_", seq_len(nrow(bed_df)))
+  bed_df$name <- paste0("ovlcorereduced_", seq_len(nrow(bed_df)))
 
   # Adjust the 'start' column to be 0-based by subtracting 1
   bed_df$start <- bed_df$start - 1
 
   # Specify the desired column order
-  desired_cols <- c("seqnames", "start", "end", "name", "max_score", "strand", 
+  desired_cols <- c("seqnames", "start", "end",
+                    "name", "max_score", "strand",
                     "thickStart", "thickEnd", "width")
 
   # Check which desired columns are available in the data frame
@@ -194,7 +167,9 @@ save_granges_to_bed_2 <- function(gr, output_dir, input_basename) {
   bed_df <- bed_df[order(bed_df$chrom, bed_df$chromStart), ]
 
   # Write to BED file
-  output_bed <- file.path(output_dir, paste0(input_basename, "_corereduced.bed"))
+  output_bed <- file.path(output_dir,
+                          paste0(input_basename,
+                                 "_ovlcorereduced.bed"))
   data.table::fwrite(bed_df,
                      file = output_bed,
                      sep = "\t",

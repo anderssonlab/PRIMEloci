@@ -47,6 +47,7 @@ report_time_execution <- function(fun) {
 #' # rse is a SummarizedExperiment object
 #' gr <- cast_rse_to_granges(rse, assay = "counts",
 #'                           coln_assay = 1, colname = "score")
+#'
 cast_rse_to_granges <- function(rse,
                                 assay = "counts",
                                 coln_assay = 1,

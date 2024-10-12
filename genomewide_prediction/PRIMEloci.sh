@@ -81,6 +81,37 @@ create_tmp_dir() {
     TMP_DIR="$OUTPUT_DIR/PRIMEloci_tmp"
 }
 
+# Function to combine BED files based on prefix before "_chr"
+# Takes two arguments: input directory and output directory
+combine_bed_files() {
+  local input_dir="$1"
+  local output_dir="$2"
+
+  # Ensure the output directory exists
+  mkdir -p "$output_dir"
+
+  # Step 1: Find all unique prefixes before "_chr"
+  prefixes=$(ls "$input_dir"/*.bed | sed -E 's/(.*)(_chr[^_]+).*/\1/' | sort -u)
+
+  # Step 2: For each unique prefix, concatenate all matching files
+  for prefix in $prefixes; do
+    # Find all files that match the prefix (with any chr)
+    matching_files=$(ls "$input_dir"/$(basename "$prefix")_chr*.bed)
+
+    # Combine those files into one file in the output directory
+    combined_file="$output_dir/$(basename "$prefix")_combined.bed"
+
+    # Handle headers: Include header from the first file, skip for others
+    head -n 1 $(echo $matching_files | cut -d ' ' -f1) > "$combined_file"  # Extract header from the first file
+    for file in $matching_files; do
+      tail -n +2 "$file" >> "$combined_file"  # Skip header (start from line 2)
+    done
+
+    echo "Combined files into $combined_file"
+  done
+
+}
+
 # Function to clean up the temporary directory if needed
 cleanup() {
     if ! $keeptmp && [[ -d "$TMP_DIR" ]]; then
@@ -120,18 +151,21 @@ for step in "${steps[@]}"; do
             Rscript _3_get_sld_window_from_tc.r -i $OUTPUT_DIR/$TC_GRL_NAME -o $TMP_DIR -n $SLD_TC_GRL_NAME -s $SLD_WINDOW -e $EXTENSION_DISTANCE
             ;;
         4)
-            echo -e "\nRunning _get_tc_profiles.r (SLD input)"
-            Rscript _get_tc_profiles.r -c $OUTPUT_DIR/$CTSS_RSE_NAME -t $TMP_DIR/$SLD_TC_GRL_NAME -o $TMP_DIR -n $PROFILE_MAIN_DIR -r $PROFILE_SUB_DIR -f $PROFILE_FILE_TYPE
+            echo -e "\nRunning _4_get_tc_profile.r"
+            Rscript _4_get_tc_profile.r -c $OUTPUT_DIR/$CTSS_RSE_NAME -t $TMP_DIR/$SLD_TC_GRL_NAME -o $TMP_DIR -n $PROFILE_MAIN_DIR -r $PROFILE_SUB_DIR -f $PROFILE_FILE_TYPE
             ;;
         5)
-            echo -e "\nRunning _predict_profile_probabilities.py"
-            python3 _predict_profile_probabilities.py -w $SCRIPT_DIR -m $MODEL_PATH -p $TMP_DIR/$PROFILE_MAIN_DIR -r $PROFILE_SUB_DIR -n $PREFIX_OUT_NAME -f $PROFILE_FILE_TYPE
+            echo -e "\nRunning _5_predict_profile_probability.py"
+            python3 _5_predict_profile_probability.py -w $SCRIPT_DIR -m $MODEL_PATH -p $OUTPUT_DIR/$TMP_DIR/$PROFILE_MAIN_DIR/ -n $PREFIX_OUT_NAME -f $PROFILE_FILE_TYPE
+            combine_bed_files $OUTPUT_DIR/$TMP_DIR/$PROFILE_MAIN_DIR/predictions $OUTPUT_DIR 
+
+
             ;;
         6)
-            echo -e "\nRunning _filter_core_overlapping.r (Method 2)"
-            for FILE in $(find "$PREDICTION_DIR" -type f -name $PARTIAL_NAME); do
-                echo "Processing $FILE with Method 2..."
-                Rscript _filter_core_overlapping.r -i "$FILE" -o $PREDICTION_DIR -t $THRESHOLD
+            echo -e "\nRunning _6_apply_post_processing.r"
+            for FILE in $(find "$OUTPUT_DIR" -type f -name $PARTIAL_NAME); do
+                echo "Processing $FILE ..."
+                Rscript _6_apply_post_processing.r -i "$FILE" -o $OUTPUT_DIR -t $THRESHOLD
             done
             ;;
     esac

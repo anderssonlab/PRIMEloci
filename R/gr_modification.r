@@ -14,11 +14,12 @@
 #' is irrelevant or not needed.
 #'
 #' @importFrom GenomicRanges strand
-#' @export
+#'
 convert_strand_to_nostrand_gr <- function(region_gr) {
   GenomicRanges::strand(region_gr) <- "*"
   return(region_gr)
 }
+
 
 
 #' Remove Metadata and Duplicate Genomic Ranges
@@ -57,7 +58,7 @@ convert_strand_to_nostrand_gr <- function(region_gr) {
 #'
 #' @importFrom GenomicRanges GRanges seqnames ranges strand start end duplicated
 #' @importFrom IRanges IRanges
-#' @export
+#'
 remove_metadata_and_duplicates <- function(gr) {
   # Remove metadata columns by creating a new GRanges object without metadata
   gr_no_metadata <- GenomicRanges::GRanges(
@@ -97,7 +98,7 @@ remove_metadata_and_duplicates <- function(gr) {
 #' @examples
 #' # Assuming `gr` is a GRanges object with a 'thick' column of class IRanges
 #' extended_gr <- extend_from_center_thick_gr(gr, dis = 100, keep_same_length = TRUE) # nolint: line_length_linter.
-#' @export
+#'
 extend_from_center_thick_gr <- function(gr,
                                         dis,
                                         keep_same_length = TRUE) {
@@ -131,6 +132,7 @@ extend_from_center_thick_gr <- function(gr,
 }
 
 
+
 #' Remove 'chrM' from GRangesList
 #'
 #' This function removes all genomic ranges located on the chromosome 'chrM'
@@ -143,16 +145,16 @@ extend_from_center_thick_gr <- function(gr,
 #' @importFrom S4Vectors Rle
 #' @examples
 #' library(GenomicRanges)
-#' gr1 <- GRanges(seqnames = c("chr1", "chrM", "chr2"), 
+#' gr1 <- GRanges(seqnames = c("chr1", "chrM", "chr2"),
 #'                ranges = IRanges(start = 1:3, width = 3), strand = "+")
-#' gr2 <- GRanges(seqnames = c("chrM", "chr2", "chr3"), 
+#' gr2 <- GRanges(seqnames = c("chrM", "chr2", "chr3"),
 #'                ranges = IRanges(start = 4:6, width = 3), strand = "-")
 #' grl <- GRangesList(gr1 = gr1, gr2 = gr2)
 #'
 #' # Remove 'chrM' ranges
 #' modified_grl <- drop_chrM_from_grl(grl)
-#' @export
-drop_chrM_from_grl <- function(grl) {
+#'
+drop_chrM_from_grl <- function(grl) { # nolint: object_name_linter.
   modified_grl <- lapply(grl, function(gr) {
     gr <- gr[seqnames(gr) != "chrM"]
     return(gr)

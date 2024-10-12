@@ -29,7 +29,8 @@ def extract_filenames(dir_path, keep_word=None, drop_word=None):
 
     filename_ls.sort()
 
-    return(filename_ls)
+    return filename_ls
+
 
 def extract_ranges(df):
 
@@ -57,6 +58,7 @@ def extract_ranges(df):
     })
 
     return result_df
+
 
 def extract_profiles(df):
     """

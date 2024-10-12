@@ -1,9 +1,10 @@
-writeLines("\n### Running get_tc_profiles.r ###")
+writeLines("\n### Running _4_get_profile.r ###")
 
 writeLines("\nImporting R libraries..")
 suppressPackageStartupMessages({
   library(argparse)
   library(CAGEfightR)
+  library(parallel)
   library(GenomicRanges)
   library(PRIMEloci)
 })
@@ -30,9 +31,10 @@ parser$add_argument("-r", "--output_subdir_name",
 parser$add_argument("-s", "--save_count_profiles", action = "store_true",
                     default = FALSE,
                     help = "Flag to save count profile. Default is FALSE.")
-parser$add_argument("-f", "--file_format", type = "character", default = "parquet",
+parser$add_argument("-f", "--file_format", type = "character",
+                    default = "parquet",
                     choices = c("parquet", "csv"),
-                    help = "File format for output files. Choose between 'parquet' or 'csv'. Default is 'parquet'.")
+                    help = "File format for output files. Choose between 'parquet' or 'csv'. Default is 'parquet'.") # nolint: line_length_linter.
 
 # Parameters
 parser$add_argument("-e", "--ext_dis", default = 200,
@@ -40,8 +42,6 @@ parser$add_argument("-e", "--ext_dis", default = 200,
 
 # Parse arguments
 args <- parser$parse_args()
-
-
 
 # Setting up variables
 infile_ctss_rse <- args$infile_ctss_rse
@@ -54,12 +54,6 @@ save_count_profiles <- args$save_count_profiles
 
 ext_dis <- as.numeric(args$ext_dis)
 
-outdir_main_name <- c("metadata",
-                      "profiles",
-                      "profiles_subtnorm",
-                      "predictions")
-outdir_subdir_name <- unlist(strsplit(args$output_subdir_name, ","))
-
 
 # Read in .RDS files
 writeLines("\nReading in data..")
@@ -67,26 +61,14 @@ ctss_rse <- readRDS(infile_ctss_rse)
 tc_grl <- readRDS(infile_tc_grl)
 
 
-# Create output directory
-prep_profile_dir(output_dir = outdir_dir,
-                 output_dir_name = outdir_dir_name,
-                 output_main_name = outdir_main_name,
-                 output_subdir_name = outdir_subdir_name)
+# Create profiles
+writeLines(paste0("\nCreating profile.."))
+report_time_execution(PRIMEloci_profile(ctss_rse,
+                                        tc_grl,
+                                        outdir_dir,
+                                        outdir_dir_name,
+                                        ext_dis,
+                                        save_count_profiles = save_count_profiles, # nolint: line_length_linter.
+                                        file_type = file_format))
 
-
-# Define a function to create profiles for a single subdir_name
-create_profiles <- function(subdir_name) {
-  writeLines(paste0("\nCreating profiles for ", subdir_name, ".."))
-  report_time_execution(wrapup_make_profiles(ctss_rse,
-                                             tc_grl,
-                                             outdir_dir,
-                                             outdir_dir_name,
-                                             subdir_name,
-                                             ext_dis,
-                                             save_count_profiles = save_count_profiles, # nolint: line_length_linter.
-                                             file_type = file_format))
-}
-
-lapply(outdir_subdir_name, create_profiles)
-
-writeLines("\n### Finished get_tc_profiles.r ###\n")
+writeLines("\n### Finished _4_get_profile.r ###\n")

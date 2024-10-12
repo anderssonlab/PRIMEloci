@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 
-writeLines("\n### Running _filter_core_overlapping.r ###")
+writeLines("\n### Running _6_apply_post_processing.r ###")
 
 writeLines("\n# Importing R libraries..")
 suppressPackageStartupMessages({
@@ -48,7 +48,7 @@ chr_list <- unique(as.character(seqnames(filtered_gr)))
 
 # Run in parallel across chromosomes using the specified number of cores
 collapsed_gr_list <- mclapply(chr_list,
-                              process_by_chr,
+                              ovlcore_reduced_by_chr,
                               filtered_gr = filtered_gr,
                               mc.cores = num_cores)
 
@@ -63,7 +63,7 @@ if (!is.null(output_dir) && output_dir != FALSE) {
     stringr::str_replace_all("all", as.character(score_threshold)) %>%  # Replace "all" with threshold # nolint: line_length_linter.
     stringr::str_replace_all("[^[:alnum:]]", "_")                # Replace non-alphanumeric characters with "_" # nolint: line_length_linter.
 
-  save_granges_to_bed_2(collapsed_gr, output_dir, input_basename)
+  save_ovlcorereduced_to_bed(collapsed_gr, output_dir, input_basename)
 }
 
 writeLines("Done!")
