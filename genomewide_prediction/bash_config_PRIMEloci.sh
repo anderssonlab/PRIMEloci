@@ -19,7 +19,7 @@ TC_GRL_NAME="tc_grl.rds"
 ### 3 ### _3_get_sld_window_from_tc.r
 # OUTPUT_DIR and TC_GRL_NAME from above
 SLD_TC_GRL_NAME="tc_grl_sld.rds"
-SLD_WINDOW=100
+SLD_WINDOW=20
 
 
 

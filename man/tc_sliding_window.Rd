@@ -2,7 +2,7 @@
 % Please edit documentation in R/tc_sld_window.r
 \name{tc_sliding_window}
 \alias{tc_sliding_window}
-\title{Create Sliding Windows Genome-Wide from Tag Clusters and Combine the Results}
+\title{Create Sliding Windows Genome-Wide from Tag Clusters with Parallelization}
 \usage{
 tc_sliding_window(
   granges_obj,
@@ -12,36 +12,36 @@ tc_sliding_window(
 )
 }
 \arguments{
-\item{granges_obj}{A `GRanges` object representing
-the genome-wide extended tag clusters (TCs) where each
-range has been uniformly extended by the same number of base pairs (bp).}
+\item{granges_obj}{A `GRanges` object representing the genome-wide extended 
+tag clusters (TCs) where each range has been uniformly extended by the same 
+number of base pairs (bp).}
 
-\item{slide_by}{An integer value specifying the size of
-the sliding window step in base pairs (default: 20).}
+\item{slide_by}{An integer value specifying the size of the sliding window 
+step in base pairs (default: 20).}
 
-\item{expand_by}{An integer value specifying
-how much to expand the windows at both ends (default: 200 bp).}
+\item{expand_by}{An integer value specifying how much to expand the windows 
+at both ends (default: 200 bp).}
 
-\item{use_max_cores}{Logical, if `TRUE` will use almost
-all available CPU cores for parallel processing (default: TRUE).}
+\item{use_max_cores}{Logical, if `TRUE` will use almost all available CPU 
+cores for parallel processing (default: TRUE).}
 }
 \value{
-A `GRanges` object containing the combined sliding windows
-for all chromosomes in the input.
+A `GRanges` object containing the combined sliding windows for all 
+chromosomes in the input.
 }
 \description{
-This function applies sliding window generation
-for each chromosome in a `GRanges` object
-representing extended tag clusters (TCs)
-and processes all chromosomes in parallel.
-The input `GRanges` object must represent tag clusters
-that have been uniformly extended by the same number of base pairs.
-The sliding windows are combined into a `GRangesList`,
-which is then flattened into a single `GRanges` object.
+This function applies sliding window generation for each chromosome in a 
+`GRanges` object representing extended tag clusters (TCs) and processes all 
+chromosomes in parallel using `mclapply`. The input `GRanges` object must 
+represent tag clusters that have been uniformly extended by the same number 
+of base pairs. The sliding windows are combined into a `GRangesList`, which 
+is then flattened into a single `GRanges` object.
 }
 \examples{
 # Create a GRanges object
-gr <- GRanges(seqnames = c("chr1", "chr2"), ranges = IRanges(start = c(100, 500), end = c(150, 600))) # nolint: line_length_linter.
+gr <- GenomicRanges::GRanges(seqnames = c("chr1", "chr2"), 
+                             ranges = IRanges::IRanges(start = c(100, 500), 
+                                                       end = c(150, 600)))
 # Generate sliding windows for the entire genome
-tc_sliding_windows <- tc_sliding_window(gr, slide_by = 20, expand_by = 200) # nolint: line_length_linter.
+tc_sliding_windows <- tc_sliding_window(gr, slide_by = 20, expand_by = 200)
 }

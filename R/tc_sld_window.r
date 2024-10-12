@@ -72,34 +72,33 @@ tc_sliding_window_chr <- function(gr_per_chr, slide_by = 20, expand_by = 200) { 
 }
 
 
-
-#' Create Sliding Windows Genome-Wide from Tag Clusters and Combine the Results
+#' Create Sliding Windows Genome-Wide from Tag Clusters with Parallelization
 #'
-#' This function applies sliding window generation
-#' for each chromosome in a `GRanges` object
-#' representing extended tag clusters (TCs)
-#' and processes all chromosomes in parallel.
-#' The input `GRanges` object must represent tag clusters
-#' that have been uniformly extended by the same number of base pairs.
-#' The sliding windows are combined into a `GRangesList`,
-#' which is then flattened into a single `GRanges` object.
+#' This function applies sliding window generation for each chromosome in a 
+#' `GRanges` object representing extended tag clusters (TCs) and processes all 
+#' chromosomes in parallel using `mclapply`. The input `GRanges` object must 
+#' represent tag clusters that have been uniformly extended by the same number 
+#' of base pairs. The sliding windows are combined into a `GRangesList`, which 
+#' is then flattened into a single `GRanges` object.
 #'
-#' @param granges_obj A `GRanges` object representing
-#' the genome-wide extended tag clusters (TCs) where each
-#' range has been uniformly extended by the same number of base pairs (bp).
-#' @param slide_by An integer value specifying the size of
-#' the sliding window step in base pairs (default: 20).
-#' @param expand_by An integer value specifying
-#' how much to expand the windows at both ends (default: 200 bp).
-#' @param use_max_cores Logical, if `TRUE` will use almost
-#' all available CPU cores for parallel processing (default: TRUE).
-#' @return A `GRanges` object containing the combined sliding windows
-#' for all chromosomes in the input.
+#' @param granges_obj A `GRanges` object representing the genome-wide extended 
+#' tag clusters (TCs) where each range has been uniformly extended by the same 
+#' number of base pairs (bp).
+#' @param slide_by An integer value specifying the size of the sliding window 
+#' step in base pairs (default: 20).
+#' @param expand_by An integer value specifying how much to expand the windows 
+#' at both ends (default: 200 bp).
+#' @param use_max_cores Logical, if `TRUE` will use almost all available CPU 
+#' cores for parallel processing (default: TRUE).
+#' @return A `GRanges` object containing the combined sliding windows for all 
+#' chromosomes in the input.
 #' @examples
 #' # Create a GRanges object
-#' gr <- GRanges(seqnames = c("chr1", "chr2"), ranges = IRanges(start = c(100, 500), end = c(150, 600))) # nolint: line_length_linter.
+#' gr <- GenomicRanges::GRanges(seqnames = c("chr1", "chr2"), 
+#'                              ranges = IRanges::IRanges(start = c(100, 500), 
+#'                                                        end = c(150, 600)))
 #' # Generate sliding windows for the entire genome
-#' tc_sliding_windows <- tc_sliding_window(gr, slide_by = 20, expand_by = 200) # nolint: line_length_linter.
+#' tc_sliding_windows <- tc_sliding_window(gr, slide_by = 20, expand_by = 200)
 #' @import GenomicRanges
 #' @import IRanges
 #' @import parallel
@@ -140,3 +139,33 @@ tc_sliding_window <- function(granges_obj,
   # Return the final unlisted GRanges object
   return(result_gr)
 }
+
+
+
+
+#tc_sliding_window <- function(granges_obj,
+#                              slide_by = 20,
+#                              expand_by = 200) {
+#
+#  # 1) Ignore strand by setting all strands to "*"
+#  GenomicRanges::strand(granges_obj) <- "*"
+#
+#  # 2) Split the GRanges object by chromosome (seqnames)
+#  gr_by_chr <- base::split(granges_obj, GenomicRanges::seqnames(granges_obj))
+#
+#  # 3) Apply sliding window generation sequentially using lapply
+#  result_list <- base::lapply(gr_by_chr, function(gr_per_chr) {
+#    tc_sliding_window_chr(gr_per_chr,
+#                          slide_by = slide_by,
+#                          expand_by = expand_by)
+#  })
+#
+#  # 4) Convert the result into a GRangesList
+#  result_grl <- GenomicRanges::GRangesList(result_list)
+#
+#  # 5) Unlist the GRangesList to create a single GRanges object
+#  result_gr <- unlist(result_grl)
+#
+#  # Return the final unlisted GRanges object
+#  return(result_gr)
+#}

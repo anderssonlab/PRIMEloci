@@ -43,8 +43,8 @@ cat("Start time:", formatted_datetime, "\n")
 # Sliding window operation
 tc_sliding_window_grl <- lapply(tc_grl, function(gr) {
   tc_sliding_window(gr,
-                    slide_by = args$sld_by,
-                    expand_by = args$ext_dis,
+                    slide_by = as.numeric(args$sld_by),
+                    expand_by = as.numeric(args$ext_dis),
                     use_max_cores = TRUE)
 })
 
