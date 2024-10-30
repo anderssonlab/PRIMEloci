@@ -25,9 +25,6 @@ parser$add_argument("-o", "--output_dir", default = "./",
                     help = "Profile output directory")
 parser$add_argument("-n", "--name", default = "name",
                     help = "Name of main profile directory")
-parser$add_argument("-r", "--output_subdir_name",
-                    type = "character", default = "tcs",
-                    help = "Comma-separated list of subdirectory names")
 parser$add_argument("-s", "--save_count_profiles", action = "store_true",
                     default = FALSE,
                     help = "Flag to save count profile. Default is FALSE.")

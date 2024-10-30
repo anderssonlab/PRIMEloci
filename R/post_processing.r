@@ -61,6 +61,7 @@ get_metadata <- function(gr_range, filtered_gr) {
 #' @importFrom GenomicRanges GRanges reduce findOverlaps seqnames
 #' @importFrom S4Vectors subjectHits queryHits
 #' @importFrom IRanges IRanges
+#' @importFrom dplyr %>%
 #' @export
 ovlcore_reduced_by_chr <- function(chr, filtered_gr) {
   tryCatch({

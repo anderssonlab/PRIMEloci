@@ -51,6 +51,7 @@ collapsed_gr_list <- mclapply(chr_list,
                               ovlcore_reduced_by_chr,
                               filtered_gr = filtered_gr,
                               mc.cores = num_cores)
+print(collapsed_gr_list)
 
 # Combine all results
 collapsed_gr <- do.call(c, collapsed_gr_list)

@@ -113,15 +113,15 @@ combine_bed_files() {
 }
 
 # Function to clean up the temporary directory if needed
-cleanup() {
-    if ! $keeptmp && [[ -d "$TMP_DIR" ]]; then
-        echo "Cleaning up temporary directory: $TMP_DIR"
-        rm -rf "$TMP_DIR"
-    fi
-}
+#cleanup() {
+#    if ! $keeptmp && [[ -d "$TMP_DIR" ]]; then
+#        echo "Cleaning up temporary directory: $TMP_DIR"
+#        rm -rf "$TMP_DIR"
+#    fi
+#}
 
 # Trap to clean up if script is interrupted
-trap cleanup EXIT
+#trap cleanup EXIT
 
 # If --all is specified, add all steps 1-6
 if $all; then
@@ -152,12 +152,12 @@ for step in "${steps[@]}"; do
             ;;
         4)
             echo -e "\nRunning _4_get_tc_profile.r"
-            Rscript _4_get_tc_profile.r -c $OUTPUT_DIR/$CTSS_RSE_NAME -t $TMP_DIR/$SLD_TC_GRL_NAME -o $TMP_DIR -n $PROFILE_MAIN_DIR -r $PROFILE_SUB_DIR -f $PROFILE_FILE_TYPE
+            Rscript _4_get_profile.r -c $OUTPUT_DIR/$CTSS_RSE_NAME -t $OUTPUT_DIR/PRIMEloci_tmp/$SLD_TC_GRL_NAME -o$OUTPUT_DIR/PRIMEloci_tmp -n $PROFILE_MAIN_DIR -f $PROFILE_FILE_TYPE
             ;;
         5)
             echo -e "\nRunning _5_predict_profile_probability.py"
-            python3 _5_predict_profile_probability.py -w $SCRIPT_DIR -m $MODEL_PATH -p $OUTPUT_DIR/$TMP_DIR/$PROFILE_MAIN_DIR/ -n $PREFIX_OUT_NAME -f $PROFILE_FILE_TYPE
-            combine_bed_files $OUTPUT_DIR/$TMP_DIR/$PROFILE_MAIN_DIR/predictions $OUTPUT_DIR 
+            python3 _5_predict_profile_probability.py -w $SCRIPT_DIR -m $MODEL_PATH -p $OUTPUT_DIR/PRIMEloci_tmp/$PROFILE_MAIN_DIR -n $PREFIX_OUT_NAME -f $PROFILE_FILE_TYPE
+            combine_bed_files $OUTPUT_DIR/PRIMEloci_tmp/$PROFILE_MAIN_DIR/predictions $OUTPUT_DIR 
 
 
             ;;
@@ -172,7 +172,7 @@ for step in "${steps[@]}"; do
 done
 
 # Clean up the temporary directory only if running steps 3-5
-if ($all || $pred) && [[ "${steps[@]}" =~ "3" || "${steps[@]}" =~ "4" || "${steps[@]}" =~ "5" ]] && ! $keeptmp; then
-    echo "Cleaning up temporary files from steps 3-5"
-    rm -rf $TMP_DIR
-fi
+#if ($all || $pred) && [[ "${steps[@]}" =~ "3" || "${steps[@]}" =~ "4" || "${steps[@]}" =~ "5" ]] && ! $keeptmp; then
+#    echo "Cleaning up temporary files from steps 3-5"
+#    rm -rf $TMP_DIR
+#fi
