@@ -3,6 +3,7 @@ import pickle
 import pandas as pd
 import pyarrow.parquet as pq
 from lightgbm import LGBMClassifier
+from sklearn.calibration import CalibratedClassifierCV
 import argparse
 import sys
 
@@ -13,15 +14,19 @@ from python.helpfn_for_prediction import set_index_if_exists
 from python.helpfn_for_prediction import adjust_genomic_positions_for_bed
 from python.helpfn_for_prediction import move_metadata_columns_to_ranges
 
-
-# Function to load environment variables from .env file
-def load_env_vars(script_dir, profile_main_dir, model_path):
+# Function to load environment variables and model with optional calibration
+def load_env_vars(script_dir, profile_main_dir, model_path, calibrate):
 
     # Set the working directory
     os.chdir(script_dir)
 
     # Import model
     model = pickle.load(open(model_path, 'rb'))
+
+    # Optionally calibrate the model
+    if calibrate:
+        model = CalibratedClassifierCV(model, method='sigmoid')
+        print("Model calibration enabled.")
 
     # Ensure the output directory exists
     if not os.path.exists(profile_main_dir+"/predictions"):
@@ -30,23 +35,14 @@ def load_env_vars(script_dir, profile_main_dir, model_path):
     else:
         print(f"Directory '{profile_main_dir}/predictions' already exists.")
 
-    # Ensure the output sub-directory exists
-    if not os.path.exists(profile_main_dir+"/predictions/"):
-        os.makedirs(profile_main_dir+"/predictions/")
-        print(f"Directory '{profile_main_dir}/predictions/' created successfully.")
-    else:
-        print(f"Directory '{profile_main_dir}/predictions/' already exists.") 
-
     return script_dir, profile_main_dir, model
 
 
-def wrapup_model_prediction(script_dir, profile_dir, profile_filename, metadata_dir, metadata_filename, model, output_dir, name_prefix, file_format='parquet'): # threshold
+def wrapup_model_prediction(script_dir, profile_dir, profile_filename, metadata_dir, metadata_filename, model, output_dir, name_prefix, file_format='parquet'):
 
-    # Example usage of extract_filenames
     filenames_without_extensions = os.path.splitext(profile_filename)[0]
     print(filenames_without_extensions)
 
-    # Define the input paths
     input_profiles_subtnorm_path = os.path.join(profile_dir, profile_filename)
     input_metadata_path = os.path.join(metadata_dir, metadata_filename)
 
@@ -109,28 +105,26 @@ if __name__ == "__main__":
     parser.add_argument('-m', '--model_path', type=str, required=True,
                         help='Path to the input model')
     parser.add_argument('-n', '--name_prefix', type=str, required=True,
-                        help='Name added to the output files, indicate model name and library (celltype) name') 
+                        help='Name added to the output files, indicate model name and library (celltype) name')
     parser.add_argument('-f', '--file_format', type=str,
                         default='parquet', choices=['parquet', 'csv'],
                         help='File format for input files (default: parquet)')
+    parser.add_argument('-c', '--calibrate', action='store_true',
+                        help='Enable probability calibration')
 
     args = parser.parse_args()
 
-    # Load environment variables
-    script_dir = args.script_dir
-    profile_main_dir = args.profile_main_dir
-    model_path = args.model_path
-
-    name_prefix = args.name_prefix
-    file_format = args.file_format
-
     # Load environment variables and model
-    script_dir, profile_main_dir, model = load_env_vars(script_dir, profile_main_dir, model_path)
-    profile_dir = profile_main_dir+"/profiles_subtnorm/"
-    metadata_dir = profile_main_dir+"/metadata/"
-    output_dir = profile_main_dir+"/predictions/"
+    script_dir, profile_main_dir, model = load_env_vars(args.script_dir,
+                                                        args.profile_main_dir,
+                                                        args.model_path,
+                                                        args.calibrate)
+    profile_dir = profile_main_dir + "/profiles_subtnorm/"
+    metadata_dir = profile_main_dir + "/metadata/"
+    output_dir = profile_main_dir + "/predictions/"
     profile_file_ls = extract_filenames(profile_dir)
     metadata_file_ls = extract_filenames(metadata_dir)
+
     # Execute data processing
     list(map(lambda i: wrapup_model_prediction(script_dir,
                                                profile_dir,
@@ -139,6 +133,6 @@ if __name__ == "__main__":
                                                metadata_file_ls[i],
                                                model,
                                                output_dir,
-                                               name_prefix,
-                                               file_format=file_format),
+                                               args.name_prefix,
+                                               file_format=args.file_format),
              range(len(profile_file_ls))))
