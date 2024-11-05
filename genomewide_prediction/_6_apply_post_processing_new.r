@@ -12,15 +12,19 @@ suppressPackageStartupMessages({
   library(PRIMEloci)
 })
 
+library(GenomicRanges)
+library(IRanges)
+library(S4Vectors)
+
 # Create the argparse object
 parser <- ArgumentParser(description = "Process GRanges with selective core merging based on score and width thresholds.") # nolint: line_length_linter.
 parser$add_argument("-i", "--input_file", required = TRUE,
                     help = "Path to the input BED file.")
 parser$add_argument("-t", "--score_threshold", type = "double", default = 0.7,
                     help = "Score threshold for filtering GRanges.")
-parser$add_argument("-d", "--score_diff", type = "double", default = 10,
+parser$add_argument("-d", "--score_diff", type = "double", default = 0.1,
                     help = "Score difference threshold for merging.")
-parser$add_argument("-w", "--max_width", type = "integer", default = 500,
+parser$add_argument("-w", "--max_width", type = "integer", default = 1000,
                     help = "Maximum width for merged regions.")
 parser$add_argument("-m", "--use_max_cores", action = "store_true",
                     default = TRUE,
@@ -52,72 +56,83 @@ print(head(filtered_gr))
 # Get a list of unique chromosomes
 chr_list <- unique(as.character(seqnames(filtered_gr)))
 print(chr_list)
-# Function to selectively merge cores based on score difference and max width
-selective_merge_cores <- function(overlap_set, score_diff, max_width) {
+
+selective_merge_cores <- function(core_gr, score_diff, max_width) {
   # Rank the cores by score (highest first)
-  overlap_set <- overlap_set[order(-overlap_set$score)]
-  merged_cores <- GenomicRanges::GRanges()  # Initialize an empty GRanges object
+  core_gr <- core_gr[order(-core_gr$score)]
   
-  while (length(overlap_set) > 0) {
+  # Initialize an empty GRanges object to store the final merged cores
+  merged_cores <- GenomicRanges::GRanges()
+  
+  # Initialize containers for storing metadata
+  thick_vals <- IRanges::IRanges()
+  max_scores <- numeric(0)
+  
+  while (length(core_gr) > 0) {
     # Take the highest-ranked core
-    x <- overlap_set[1]
-    score_x <- x$score
+    x <- core_gr[1]
     
-    # Identify cores to merge based on score difference
+    # Calculate thick as the midpoint of the range of x
+    thick_x <- IRanges::IRanges(start = start(x) + floor(width(x) / 2),
+                                width = 1)  # Create an IRanges object for thick
+    
+    score_x <- x$score  # Use the existing score
+    
+    # Find overlapping cores with x
+    overlaps <- GenomicRanges::findOverlaps(x, core_gr)
+    overlap_set <- core_gr[subjectHits(overlaps)]
+    
+    # Filter overlap set based on score difference
     merge_candidates <- overlap_set[overlap_set$score >= score_x - score_diff]
     
-    # Merge only if the resulting width is within the max_width
-    merged_region <- GenomicRanges::reduce(merge_candidates)
-    
-    if (width(merged_region) <= max_width) {
-      # Assign the score of x to the merged region
-      mcols(merged_region)$score <- score_x
+    # Attempt to merge candidates if there is more than one
+    if (length(merge_candidates) > 1) {
+      merged_region <- GenomicRanges::reduce(merge_candidates)
       
-      # Add the merged core to the final list
+      # Append metadata
+      thick_vals <- c(thick_vals, thick_x)
+      max_scores <- c(max_scores, score_x)
+      
+      # Add the merged core to the final result
       merged_cores <- c(merged_cores, merged_region)
+      
+      # Remove the merged cores from core_gr
+      core_gr <- core_gr[!(seqnames(core_gr) %in% seqnames(merge_candidates) &
+                           start(core_gr) %in% start(merge_candidates) &
+                           end(core_gr) %in% end(merge_candidates))]
+    } else {
+      # If no valid merge candidates, just add the highest core x
+      thick_vals <- c(thick_vals, thick_x)
+      max_scores <- c(max_scores, score_x)
+      
+      merged_cores <- c(merged_cores, x)
+      core_gr <- core_gr[-1]  # Remove only the highest core x
     }
-    
-    # Remove merged candidates from the overlap set
-    overlap_set <- overlap_set[!(seqnames(overlap_set) %in% seqnames(merge_candidates) &
-                                 start(overlap_set) %in% start(merge_candidates) &
-                                 end(overlap_set) %in% end(merge_candidates))]
   }
+  
+  # Add metadata to the final merged cores
+  mcols(merged_cores)$thick <- thick_vals
+  mcols(merged_cores)$max_score <- max_scores
   
   return(merged_cores)
 }
+
+
+
 
 # Run in parallel across chromosomes using the specified number of cores
 collapsed_gr_list <- mclapply(chr_list, function(chr) {
   tryCatch({
     # Subset GRanges by chromosome
     chr_gr <- filtered_gr[GenomicRanges::seqnames(filtered_gr) == chr]
-    core_gr <- extract_core(chr_gr)
-    
-    overlaps <- GenomicRanges::findOverlaps(core_gr)
-    collapsed_ranges <- GenomicRanges::reduce(core_gr[unique(S4Vectors::queryHits(overlaps))])
-    
+    core_gr <- GenomicRanges::resize(chr_gr, width = 151, fix = "center")
+    print(head(core_gr))
     # Apply selective merging on overlapping sets of cores
-    final_merged_gr <- selective_merge_cores(collapsed_ranges, score_diff, max_width)
-    
-    # Calculate and add metadata for the final merged cores
-    thick_vals <- numeric(length(final_merged_gr))
-    max_scores <- numeric(length(final_merged_gr))
-    all_scores <- character(length(final_merged_gr))
-    
-    for (i in seq_along(final_merged_gr)) {
-      metadata <- get_metadata(final_merged_gr[i], filtered_gr)
-      thick_vals[i] <- metadata$thick
-      max_scores[i] <- metadata$max_score
-      all_scores[i] <- metadata$all_scores
-    }
-    
-    # Add metadata to the final merged cores
-    final_merged_gr$thick <- thick_vals
-    final_merged_gr$max_score <- max_scores
-    final_merged_gr$all_scores <- all_scores
-    
+    final_merged_gr <- selective_merge_cores(core_gr, score_diff, max_width)
+    print(head(final_merged_gr))
+
     return(final_merged_gr)
-    
+
   }, error = function(e) {
     message(paste("Error processing chromosome", chr, ":", e$message))
     return(NULL)

@@ -184,7 +184,8 @@ for step in "${steps[@]}"; do
                     -o $OUTPUT_DIR \
                     -t $THRESHOLD \
                     -d $SCORE_DIFF \
-                    -w $MAX_WIDTH
+                    -w $MAX_WIDTH \
+                    -m
                 done
             ;;
     esac
