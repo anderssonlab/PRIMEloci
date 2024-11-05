@@ -22,7 +22,7 @@ parser$add_argument("-d", "--score_diff", type = "double", default = 10,
                     help = "Score difference threshold for merging.")
 parser$add_argument("-w", "--max_width", type = "integer", default = 500,
                     help = "Maximum width for merged regions.")
-parser$add_argument("-c", "--use_max_cores", action = "store_true",
+parser$add_argument("-m", "--use_max_cores", action = "store_true",
                     default = TRUE,
                     help = "Flag to use the maximum number of available cores.")
 parser$add_argument("-o", "--output_dir", default = NULL,
@@ -32,9 +32,9 @@ parser$add_argument("-o", "--output_dir", default = NULL,
 args <- parser$parse_args()
 
 # Define parameters based on parsed arguments
-score_threshold <- args$score_threshold
-score_diff <- args$score_diff
-max_width <- args$max_width
+score_threshold <- as.numeric(args$score_threshold)
+score_diff <- as.numeric(args$score_diff)
+max_width <- as.numeric(args$max_width)
 bed_file <- args$input_file
 use_max_cores <- args$use_max_cores
 output_dir <- args$output_dir
@@ -48,10 +48,10 @@ gr <- create_granges_from_bed(bed)
 
 # Filter GRanges by score threshold
 filtered_gr <- gr[gr$score >= score_threshold]
-
+print(head(filtered_gr))
 # Get a list of unique chromosomes
 chr_list <- unique(as.character(seqnames(filtered_gr)))
-
+print(chr_list)
 # Function to selectively merge cores based on score difference and max width
 selective_merge_cores <- function(overlap_set, score_diff, max_width) {
   # Rank the cores by score (highest first)

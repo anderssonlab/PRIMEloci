@@ -181,10 +181,10 @@ for step in "${steps[@]}"; do
                 echo "Processing $FILE ..."
                 Rscript _6_apply_post_processing_new.r \
                     -i "$FILE" \
-                    -o "$OUTPUT_DIR" \
-                    -t "$THRESHOLD" \
-                    -d "$SCORE_DIFF" \
-                    -w "$MAX_WIDTH"
+                    -o $OUTPUT_DIR \
+                    -t $THRESHOLD \
+                    -d $SCORE_DIFF \
+                    -w $MAX_WIDTH
                 done
             ;;
     esac
