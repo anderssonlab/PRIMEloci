@@ -118,6 +118,69 @@ selective_merge_cores <- function(core_gr, score_diff, max_width) {
 }
 
 
+library(GenomicRanges)
+library(IRanges)
+library(data.table)
+
+# Function to write a GRanges object to a BED file with input_basename in the file name
+write_granges_to_bed <- function(gr, output_dir, input_basename) {
+  # Construct the output file name based on input_basename
+  output_bed <- file.path(output_dir, paste0(input_basename, "_ovlcorereduced.bed"))
+  
+  # Convert GRanges object to data frame
+  bed_df <- as.data.frame(gr)
+
+  # Ensure the 'thick' and 'max_score' columns exist in the metadata
+  if (!"thick" %in% colnames(mcols(gr))) {
+    stop("'thick' column not found in the metadata.")
+  }
+  if (!"max_score" %in% colnames(mcols(gr))) {
+    stop("'max_score' column not found in the metadata.")
+  }
+
+  # Convert 'thick' from IRanges to numeric
+  bed_df$thick <- as.numeric(start(gr$thick))
+
+  # Select the columns for BED format (seqnames, start, end, strand, thickStart, thickEnd, max_score)
+  bed_df <- bed_df[, c("seqnames", "start", "end", "strand", "thick", "max_score")]
+
+  # Adjust the 'start' column to be 0-based for BED format
+  bed_df$start <- bed_df$start - 1
+
+  # Create thickStart and thickEnd columns using 'thick'
+  bed_df$thickStart <- bed_df$thick - 1  # 0-based thickStart for BED format
+  bed_df$thickEnd <- bed_df$thick        # thickEnd is the 1-based thick position
+
+  # Remove the 'thick' column as it's been split into thickStart and thickEnd
+  bed_df <- bed_df[, !colnames(bed_df) %in% "thick"]
+
+  # Generate a name column based on row index, using 'corereduced_XX'
+  bed_df$name <- paste0("ovlcorereduced_", seq_len(nrow(bed_df)))
+
+  # Reorder the columns to match the expected order
+  desired_cols <- c("seqnames", "start", "end", "name", "max_score", "strand", "thickStart", "thickEnd")
+  bed_df <- bed_df[, desired_cols]
+
+  # Rename the columns to match BED format
+  data.table::setnames(bed_df,
+                       c("seqnames", "start", "end", "strand"),
+                       c("chrom", "chromStart", "chromEnd", "strand"))
+
+  # Write to BED file
+  output_bed <- file.path(output_dir,
+                          paste0(input_basename,
+                                 "_new.bed"))
+  data.table::fwrite(bed_df,
+                     file = output_bed,
+                     sep = "\t",
+                     quote = FALSE,
+                     col.names = FALSE)
+
+  cat("Reduced GRanges object saved to", output_bed, "\n")
+}
+
+
+
 
 
 # Run in parallel across chromosomes using the specified number of cores
@@ -150,7 +213,7 @@ if (!is.null(output_dir) && output_dir != FALSE) {
     stringr::str_replace_all("all", as.character(score_threshold)) %>%
     stringr::str_replace_all("[^[:alnum:]]", "_")
 
-  save_ovlcorereduced_to_bed(collapsed_gr, output_dir, input_basename)
+  write_granges_to_bed(collapsed_gr, output_dir, input_basename)
 }
 
 writeLines("Done!")
