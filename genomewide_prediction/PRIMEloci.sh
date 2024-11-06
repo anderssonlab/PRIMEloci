@@ -158,13 +158,13 @@ for step in "${steps[@]}"; do
             echo -e "\nRunning _5_predict_profile_probability.py"
 
             # Set default for USE_CALIBRATION if not set in the .env file
-            USE_CALIBRATION=${USE_CALIBRATION:-false}
+            #USE_CALIBRATION=${USE_CALIBRATION:-false}
             
             # Determine if calibration should be used
-            CALIBRATION_FLAG=""
-            if [ "$USE_CALIBRATION" = "true" ]; then
-                CALIBRATION_FLAG="-c"
-            fi
+            #CALIBRATION_FLAG=""
+            #if [ "$USE_CALIBRATION" = "true" ]; then
+            #    CALIBRATION_FLAG="-c"
+            #fi
 
             python3 _5_predict_profile_probability.py -w $SCRIPT_DIR -m $MODEL_PATH -p $OUTPUT_DIR/PRIMEloci_tmp/$PROFILE_MAIN_DIR -n $PREFIX_OUT_NAME -f $PROFILE_FILE_TYPE $CALIBRATION_FLAG
             combine_bed_files $OUTPUT_DIR/PRIMEloci_tmp/$PROFILE_MAIN_DIR/predictions $OUTPUT_DIR 

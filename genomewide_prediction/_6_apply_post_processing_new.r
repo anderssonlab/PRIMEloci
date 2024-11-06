@@ -97,9 +97,9 @@ selective_merge_cores <- function(core_gr, score_diff, max_width) {
       merged_cores <- c(merged_cores, merged_region)
       
       # Remove the merged cores from core_gr
-      core_gr <- core_gr[!(seqnames(core_gr) %in% seqnames(merge_candidates) &
-                           start(core_gr) %in% start(merge_candidates) &
-                           end(core_gr) %in% end(merge_candidates))]
+      core_gr <- core_gr[!(seqnames(core_gr) %in% seqnames(overlap_set) &
+                           start(core_gr) %in% start(overlap_set) &
+                           end(core_gr) %in% end(overlap_set))]
     } else {
       # If no valid merge candidates, just add the highest core x
       thick_vals <- c(thick_vals, thick_x)
