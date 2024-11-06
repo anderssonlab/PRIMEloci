@@ -57,65 +57,61 @@ print(head(filtered_gr))
 chr_list <- unique(as.character(seqnames(filtered_gr)))
 print(chr_list)
 
-selective_merge_cores <- function(core_gr, score_diff, max_width) {
-  # Rank the cores by score (highest first)
+selective_merge_cores <- function(core_gr, score_diff, maxgap = 150, max_width) {
+  # Sort by score (highest to lowest)
   core_gr <- core_gr[order(-core_gr$score)]
   
-  # Initialize an empty GRanges object to store the final merged cores
+  # Initialize empty GRanges for final results
   merged_cores <- GenomicRanges::GRanges()
   
-  # Initialize containers for storing metadata
-  thick_vals <- IRanges::IRanges()
-  max_scores <- numeric(0)
+  # Track used regions to avoid reprocessing
+  used <- logical(length(core_gr))
   
-  while (length(core_gr) > 0) {
-    # Take the highest-ranked core
-    x <- core_gr[1]
+  for (i in seq_along(core_gr)) {
+    # Skip if region is already part of a merge
+    if (used[i]) next
     
-    # Calculate thick as the midpoint of the range of x
-    thick_x <- IRanges::IRanges(start = start(x) + floor(width(x) / 2),
-                                width = 1)  # Create an IRanges object for thick
+    # Select the current region
+    current_region <- core_gr[i]
     
-    score_x <- x$score  # Use the existing score
+    # Find regions within maxgap
+    nearby_indices <- which(start(core_gr) >= start(current_region) - maxgap &
+                            start(core_gr) <= end(current_region) + maxgap &
+                            !used)
     
-    # Find overlapping cores with x
-    overlaps <- GenomicRanges::findOverlaps(x, core_gr)
-    overlap_set <- core_gr[subjectHits(overlaps)]
+    # Filter nearby regions based on score_diff
+    merge_candidates <- core_gr[nearby_indices][core_gr[nearby_indices]$score >= current_region$score - score_diff]
     
-    # Filter overlap set based on score difference
-    merge_candidates <- overlap_set[overlap_set$score >= score_x - score_diff]
-    
-    # Attempt to merge candidates if there is more than one
+    # If there are multiple merge candidates, merge them
     if (length(merge_candidates) > 1) {
-      merged_region <- GenomicRanges::reduce(merge_candidates)
+      # Merge candidates manually
+      start_pos <- min(start(merge_candidates))
+      end_pos <- max(end(merge_candidates))
       
-      # Append metadata
-      thick_vals <- c(thick_vals, thick_x)
-      max_scores <- c(max_scores, score_x)
+      # Create the merged region without width constraints
+      merged_region <- GRanges(seqnames = seqnames(current_region),
+                               ranges = IRanges(start = start_pos, end = end_pos),
+                               strand = strand(current_region),
+                               score = max(mcols(merge_candidates)$score))  # Keep highest score
+
+      # Add metadata for 'thick' as midpoint
+      mcols(merged_region)$thick <- IRanges::IRanges(start = start_pos + floor((end_pos - start_pos) / 2), width = 1)
       
-      # Add the merged core to the final result
+      # Append to final result
       merged_cores <- c(merged_cores, merged_region)
       
-      # Remove the merged cores from core_gr
-      core_gr <- core_gr[!(seqnames(core_gr) %in% seqnames(overlap_set) &
-                           start(core_gr) %in% start(overlap_set) &
-                           end(core_gr) %in% end(overlap_set))]
+      # Mark candidates as used
+      used[nearby_indices] <- TRUE
     } else {
-      # If no valid merge candidates, just add the highest core x
-      thick_vals <- c(thick_vals, thick_x)
-      max_scores <- c(max_scores, score_x)
-      
-      merged_cores <- c(merged_cores, x)
-      core_gr <- core_gr[-1]  # Remove only the highest core x
+      # No valid merge candidates; add the current region directly
+      merged_cores <- c(merged_cores, current_region)
+      used[i] <- TRUE
     }
   }
   
-  # Add metadata to the final merged cores
-  mcols(merged_cores)$thick <- thick_vals
-  mcols(merged_cores)$max_score <- max_scores
-  
   return(merged_cores)
 }
+
 
 
 library(GenomicRanges)
