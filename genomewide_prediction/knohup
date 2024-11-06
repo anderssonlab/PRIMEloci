@@ -1,0 +1,468 @@
+
+Running _6_apply_post_processing.r (NEW POSTPROCESS)
+Processing K562/K562-on-PRIMEloci_pred_all_K562_N_combined.bed ...
+
+### Running NEW POSTPROCESS ###
+
+# Importing R libraries..
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames        ranges strand |                   name     score
+         <Rle>     <IRanges>  <Rle> |            <character> <numeric>
+  [1]    chr10   76385-76785      * | K562_N_chr10_profile..  0.800361
+  [2]    chr10 134391-134791      * | K562_N_chr10_profile..  0.763983
+  [3]    chr10 134431-134831      * | K562_N_chr10_profile..  0.774882
+  [4]    chr10 134491-134891      * | K562_N_chr10_profile..  0.835101
+  [5]    chr10 134531-134931      * | K562_N_chr10_profile..  0.777612
+  [6]    chr10 134571-134971      * | K562_N_chr10_profile..  0.769589
+      sum_count
+      <numeric>
+  [1]        22
+  [2]        54
+  [3]        93
+  [4]        99
+  [5]       132
+  [6]       323
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+ [1] "chr10" "chr11" "chr12" "chr13" "chr14" "chr15" "chr16" "chr17" "chr18"
+[10] "chr19" "chr1"  "chr20" "chr21" "chr22" "chr2"  "chr3"  "chr4"  "chr5" 
+[19] "chr6"  "chr7"  "chr8"  "chr9"  "chrX" 
+
+Attaching package: 'data.table'
+
+The following object is masked from 'package:GenomicRanges':
+
+    shift
+
+The following object is masked from 'package:IRanges':
+
+    shift
+
+The following objects are masked from 'package:S4Vectors':
+
+    first, second
+
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames        ranges strand |                   name     score
+         <Rle>     <IRanges>  <Rle> |            <character> <numeric>
+  [1]    chr10   76510-76660      * | K562_N_chr10_profile..  0.800361
+  [2]    chr10 134516-134666      * | K562_N_chr10_profile..  0.763983
+  [3]    chr10 134556-134706      * | K562_N_chr10_profile..  0.774882
+  [4]    chr10 134616-134766      * | K562_N_chr10_profile..  0.835101
+  [5]    chr10 134656-134806      * | K562_N_chr10_profile..  0.777612
+  [6]    chr10 134696-134846      * | K562_N_chr10_profile..  0.769589
+      sum_count
+      <numeric>
+  [1]        22
+  [2]        54
+  [3]        93
+  [4]        99
+  [5]       132
+  [6]       323
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames        ranges strand |                   name     score
+         <Rle>     <IRanges>  <Rle> |            <character> <numeric>
+  [1]    chr11 128485-128635      * | K562_N_chr11_profile..  0.767289
+  [2]    chr11 150914-151064      * | K562_N_chr11_profile..  0.850337
+  [3]    chr11 207289-207439      * | K562_N_chr11_profile..  0.856178
+  [4]    chr11 207309-207459      * | K562_N_chr11_profile..  0.814477
+  [5]    chr11 207329-207479      * | K562_N_chr11_profile..  0.905110
+  [6]    chr11 207369-207519      * | K562_N_chr11_profile..  0.894530
+      sum_count
+      <numeric>
+  [1]        34
+  [2]         6
+  [3]      1827
+  [4]      1879
+  [5]      1883
+  [6]      1901
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames      ranges strand |                   name     score sum_count
+         <Rle>   <IRanges>  <Rle> |            <character> <numeric> <numeric>
+  [1]    chr12 31306-31456      * | K562_N_chr12_profile..  0.898808        97
+  [2]    chr12 31326-31476      * | K562_N_chr12_profile..  0.853486        97
+  [3]    chr12 31346-31496      * | K562_N_chr12_profile..  0.819104        97
+  [4]    chr12 77213-77363      * | K562_N_chr12_profile..  0.899034        25
+  [5]    chr12 77233-77383      * | K562_N_chr12_profile..  0.853801        25
+  [6]    chr12 77253-77403      * | K562_N_chr12_profile..  0.853678        25
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames            ranges strand |                   name     score
+         <Rle>         <IRanges>  <Rle> |            <character> <numeric>
+  [1]    chr13 18171331-18171481      * | K562_N_chr13_profile..  0.763846
+  [2]    chr13 18171371-18171521      * | K562_N_chr13_profile..  0.762259
+  [3]    chr13 18171391-18171541      * | K562_N_chr13_profile..  0.766640
+  [4]    chr13 18172687-18172837      * | K562_N_chr13_profile..  0.773419
+  [5]    chr13 18173067-18173217      * | K562_N_chr13_profile..  0.767005
+  [6]    chr13 18173107-18173257      * | K562_N_chr13_profile..  0.857579
+      sum_count
+      <numeric>
+  [1]        29
+  [2]        29
+  [3]        43
+  [4]        24
+  [5]        28
+  [6]        28
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames            ranges strand |                   name     score
+         <Rle>         <IRanges>  <Rle> |            <character> <numeric>
+  [1]    chr14 19062306-19062456      * | K562_N_chr14_profile..  0.794011
+  [2]    chr14 19062326-19062476      * | K562_N_chr14_profile..  0.805566
+  [3]    chr14 19157177-19157327      * | K562_N_chr14_profile..  0.851350
+  [4]    chr14 19157197-19157347      * | K562_N_chr14_profile..  0.879573
+  [5]    chr14 19289795-19289945      * | K562_N_chr14_profile..  0.788911
+  [6]    chr14 19289815-19289965      * | K562_N_chr14_profile..  0.835732
+      sum_count
+      <numeric>
+  [1]       450
+  [2]       450
+  [3]        38
+  [4]        38
+  [5]        61
+  [6]        61
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames            ranges strand |                   name     score
+         <Rle>         <IRanges>  <Rle> |            <character> <numeric>
+  [1]    chr15 19822727-19822877      * | K562_N_chr15_profile..  0.780827
+  [2]    chr15 20373809-20373959      * | K562_N_chr15_profile..  0.769124
+  [3]    chr15 20373869-20374019      * | K562_N_chr15_profile..  0.803657
+  [4]    chr15 20373929-20374079      * | K562_N_chr15_profile..  0.789794
+  [5]    chr15 20373989-20374139      * | K562_N_chr15_profile..  0.795437
+  [6]    chr15 20381070-20381220      * | K562_N_chr15_profile..  0.812134
+      sum_count
+      <numeric>
+  [1]         8
+  [2]        31
+  [3]        31
+  [4]        30
+  [5]        24
+  [6]       298
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames      ranges strand |                   name     score sum_count
+         <Rle>   <IRanges>  <Rle> |            <character> <numeric> <numeric>
+  [1]    chr16 10354-10504      * | K562_N_chr16_profile..  0.806514       141
+  [2]    chr16 10454-10604      * | K562_N_chr16_profile..  0.771818       143
+  [3]    chr16 10494-10644      * | K562_N_chr16_profile..  0.782476       135
+  [4]    chr16 10534-10684      * | K562_N_chr16_profile..  0.805655       135
+  [5]    chr16 10594-10744      * | K562_N_chr16_profile..  0.756093       128
+  [6]    chr16 52961-53111      * | K562_N_chr16_profile..  0.785748       109
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames        ranges strand |                   name     score
+         <Rle>     <IRanges>  <Rle> |            <character> <numeric>
+  [1]    chr17 117616-117766      * | K562_N_chr17_profile..  0.932244
+  [2]    chr17 117696-117846      * | K562_N_chr17_profile..  0.874309
+  [3]    chr17 117716-117866      * | K562_N_chr17_profile..  0.791677
+  [4]    chr17 352676-352826      * | K562_N_chr17_profile..  0.778083
+  [5]    chr17 352696-352846      * | K562_N_chr17_profile..  0.767988
+  [6]    chr17 352716-352866      * | K562_N_chr17_profile..  0.913102
+      sum_count
+      <numeric>
+  [1]       120
+  [2]       120
+  [3]       120
+  [4]        59
+  [5]        59
+  [6]        59
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames        ranges strand |                   name     score
+         <Rle>     <IRanges>  <Rle> |            <character> <numeric>
+  [1]    chr18 111669-111819      * | K562_N_chr18_profile..  0.766489
+  [2]    chr18 111729-111879      * | K562_N_chr18_profile..  0.789598
+  [3]    chr18 111749-111899      * | K562_N_chr18_profile..  0.778066
+  [4]    chr18 111769-111919      * | K562_N_chr18_profile..  0.875915
+  [5]    chr18 111789-111939      * | K562_N_chr18_profile..  0.866879
+  [6]    chr18 111809-111959      * | K562_N_chr18_profile..  0.792110
+      sum_count
+      <numeric>
+  [1]        50
+  [2]        50
+  [3]        50
+  [4]        50
+  [5]        50
+  [6]        50
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames        ranges strand |                   name     score
+         <Rle>     <IRanges>  <Rle> |            <character> <numeric>
+  [1]    chr19   70861-71011      * | K562_N_chr19_profile..  0.828539
+  [2]    chr19   70921-71071      * | K562_N_chr19_profile..  0.798454
+  [3]    chr19   70941-71091      * | K562_N_chr19_profile..  0.804870
+  [4]    chr19 137130-137280      * | K562_N_chr19_profile..  0.789114
+  [5]    chr19 267440-267590      * | K562_N_chr19_profile..  0.782229
+  [6]    chr19 267460-267610      * | K562_N_chr19_profile..  0.890672
+      sum_count
+      <numeric>
+  [1]       122
+  [2]       122
+  [3]       122
+  [4]        29
+  [5]        44
+  [6]        44
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames      ranges strand |                   name     score sum_count
+         <Rle>   <IRanges>  <Rle> |            <character> <numeric> <numeric>
+  [1]     chr1 10414-10564      * | K562_N_chr1_profiles..  0.759690       917
+  [2]     chr1 10454-10604      * | K562_N_chr1_profiles..  0.811121       917
+  [3]     chr1 10514-10664      * | K562_N_chr1_profiles..  0.891460       917
+  [4]     chr1 10534-10684      * | K562_N_chr1_profiles..  0.849312       917
+  [5]     chr1 10554-10704      * | K562_N_chr1_profiles..  0.802295       917
+  [6]     chr1 17422-17572      * | K562_N_chr1_profiles..  0.857952        43
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames        ranges strand |                   name     score
+         <Rle>     <IRanges>  <Rle> |            <character> <numeric>
+  [1]    chr20 266868-267018      * | K562_N_chr20_profile..  0.822851
+  [2]    chr20 266908-267058      * | K562_N_chr20_profile..  0.774619
+  [3]    chr20 266968-267118      * | K562_N_chr20_profile..  0.840496
+  [4]    chr20 266988-267138      * | K562_N_chr20_profile..  0.849680
+  [5]    chr20 274044-274194      * | K562_N_chr20_profile..  0.785480
+  [6]    chr20 274064-274214      * | K562_N_chr20_profile..  0.769272
+      sum_count
+      <numeric>
+  [1]        77
+  [2]        75
+  [3]        69
+  [4]        69
+  [5]         9
+  [6]         9
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames          ranges strand |                   name     score
+         <Rle>       <IRanges>  <Rle> |            <character> <numeric>
+  [1]    chr21 5103488-5103638      * | K562_N_chr21_profile..  0.807169
+  [2]    chr21 5103508-5103658      * | K562_N_chr21_profile..  0.777603
+  [3]    chr21 5103548-5103698      * | K562_N_chr21_profile..  0.794032
+  [4]    chr21 5128274-5128424      * | K562_N_chr21_profile..  0.968811
+  [5]    chr21 5128294-5128444      * | K562_N_chr21_profile..  0.947325
+  [6]    chr21 5128314-5128464      * | K562_N_chr21_profile..  0.861233
+      sum_count
+      <numeric>
+  [1]        21
+  [2]        21
+  [3]        21
+  [4]      4697
+  [5]      4697
+  [6]      4697
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames            ranges strand |                   name     score
+         <Rle>         <IRanges>  <Rle> |            <character> <numeric>
+  [1]    chr22 10741937-10742087      * | K562_N_chr22_profile..  0.808698
+  [2]    chr22 10741957-10742107      * | K562_N_chr22_profile..  0.796102
+  [3]    chr22 10961408-10961558      * | K562_N_chr22_profile..  0.776622
+  [4]    chr22 10961468-10961618      * | K562_N_chr22_profile..  0.799345
+  [5]    chr22 11065884-11066034      * | K562_N_chr22_profile..  0.762172
+  [6]    chr22 11065944-11066094      * | K562_N_chr22_profile..  0.807330
+      sum_count
+      <numeric>
+  [1]       109
+  [2]       109
+  [3]        27
+  [4]        27
+  [5]       158
+  [6]       158
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames        ranges strand |                   name     score
+         <Rle>     <IRanges>  <Rle> |            <character> <numeric>
+  [1]     chr2 264561-264711      * | K562_N_chr2_profiles..  0.924213
+  [2]     chr2 264581-264731      * | K562_N_chr2_profiles..  0.876527
+  [3]     chr2 264721-264871      * | K562_N_chr2_profiles..  0.783961
+  [4]     chr2 264761-264911      * | K562_N_chr2_profiles..  0.806259
+  [5]     chr2 264781-264931      * | K562_N_chr2_profiles..  0.993451
+  [6]     chr2 264801-264951      * | K562_N_chr2_profiles..  0.825338
+      sum_count
+      <numeric>
+  [1]       644
+  [2]       681
+  [3]      9204
+  [4]      9203
+  [5]      9203
+  [6]      9199
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames          ranges strand |                   name     score
+         <Rle>       <IRanges>  <Rle> |            <character> <numeric>
+  [1]     chr3 3126622-3126772      * | K562_N_chr3_profiles..  0.804265
+  [2]     chr3 3126782-3126932      * | K562_N_chr3_profiles..  0.840655
+  [3]     chr3 3126802-3126952      * | K562_N_chr3_profiles..  0.898685
+  [4]     chr3 3126822-3126972      * | K562_N_chr3_profiles..  0.939305
+  [5]     chr3 3126842-3126992      * | K562_N_chr3_profiles..  0.962016
+  [6]     chr3 3126862-3127012      * | K562_N_chr3_profiles..  0.854924
+      sum_count
+      <numeric>
+  [1]       240
+  [2]     11743
+  [3]     11780
+  [4]     11781
+  [5]     11776
+  [6]     11777
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames      ranges strand |                   name     score sum_count
+         <Rle>   <IRanges>  <Rle> |            <character> <numeric> <numeric>
+  [1]     chr4 51224-51374      * | K562_N_chr4_profiles..  0.768774       114
+  [2]     chr4 51324-51474      * | K562_N_chr4_profiles..  0.799997       115
+  [3]     chr4 51344-51494      * | K562_N_chr4_profiles..  0.876535       114
+  [4]     chr4 51364-51514      * | K562_N_chr4_profiles..  0.856274       114
+  [5]     chr4 51384-51534      * | K562_N_chr4_profiles..  0.789639       114
+  [6]     chr4 51404-51554      * | K562_N_chr4_profiles..  0.804122       114
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames        ranges strand |                   name     score
+         <Rle>     <IRanges>  <Rle> |            <character> <numeric>
+  [1]     chr5 207294-207444      * | K562_N_chr5_profiles..  0.795699
+  [2]     chr5 207314-207464      * | K562_N_chr5_profiles..  0.854245
+  [3]     chr5 207374-207524      * | K562_N_chr5_profiles..  0.752008
+  [4]     chr5 207394-207544      * | K562_N_chr5_profiles..  0.762531
+  [5]     chr5 217942-218092      * | K562_N_chr5_profiles..  0.817395
+  [6]     chr5 217982-218132      * | K562_N_chr5_profiles..  0.824752
+      sum_count
+      <numeric>
+  [1]        19
+  [2]        19
+  [3]        21
+  [4]        21
+  [5]      2050
+  [6]      2098
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames        ranges strand |                   name     score
+         <Rle>     <IRanges>  <Rle> |            <character> <numeric>
+  [1]     chr6 291911-292061      * | K562_N_chr6_profiles..  0.879506
+  [2]     chr6 291931-292081      * | K562_N_chr6_profiles..  0.769901
+  [3]     chr6 291951-292101      * | K562_N_chr6_profiles..  0.832525
+  [4]     chr6 291971-292121      * | K562_N_chr6_profiles..  0.855648
+  [5]     chr6 291991-292141      * | K562_N_chr6_profiles..  0.813040
+  [6]     chr6 292011-292161      * | K562_N_chr6_profiles..  0.761127
+      sum_count
+      <numeric>
+  [1]      2068
+  [2]      2075
+  [3]      2076
+  [4]      2119
+  [5]      2268
+  [6]      2430
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames        ranges strand |                   name     score
+         <Rle>     <IRanges>  <Rle> |            <character> <numeric>
+  [1]     chr7   31116-31266      * | K562_N_chr7_profiles..  0.792618
+  [2]     chr7   31156-31306      * | K562_N_chr7_profiles..  0.912182
+  [3]     chr7   31176-31326      * | K562_N_chr7_profiles..  0.813283
+  [4]     chr7   31196-31346      * | K562_N_chr7_profiles..  0.919647
+  [5]     chr7 149018-149168      * | K562_N_chr7_profiles..  0.767586
+  [6]     chr7 149038-149188      * | K562_N_chr7_profiles..  0.758242
+      sum_count
+      <numeric>
+  [1]      1730
+  [2]      1730
+  [3]      1722
+  [4]      1720
+  [5]       218
+  [6]       224
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames        ranges strand |                   name     score
+         <Rle>     <IRanges>  <Rle> |            <character> <numeric>
+  [1]     chr8 213337-213487      * | K562_N_chr8_profiles..  0.785548
+  [2]     chr8 232159-232309      * | K562_N_chr8_profiles..  0.750100
+  [3]     chr8 232219-232369      * | K562_N_chr8_profiles..  0.820678
+  [4]     chr8 232279-232429      * | K562_N_chr8_profiles..  0.846323
+  [5]     chr8 232299-232449      * | K562_N_chr8_profiles..  0.905744
+  [6]     chr8 232319-232469      * | K562_N_chr8_profiles..  0.793914
+      sum_count
+      <numeric>
+  [1]        33
+  [2]      5207
+  [3]      7040
+  [4]      7064
+  [5]      7078
+  [6]      7019
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames      ranges strand |                   name     score sum_count
+         <Rle>   <IRanges>  <Rle> |            <character> <numeric> <numeric>
+  [1]     chr9 20594-20744      * | K562_N_chr9_profiles..  0.811387        21
+  [2]     chr9 20634-20784      * | K562_N_chr9_profiles..  0.855481        21
+  [3]     chr9 20654-20804      * | K562_N_chr9_profiles..  0.804735        21
+  [4]     chr9 21774-21924      * | K562_N_chr9_profiles..  0.871527       103
+  [5]     chr9 21794-21944      * | K562_N_chr9_profiles..  0.870616       103
+  [6]     chr9 21814-21964      * | K562_N_chr9_profiles..  0.851465       103
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+GRanges object with 6 ranges and 3 metadata columns:
+      seqnames        ranges strand |                   name     score
+         <Rle>     <IRanges>  <Rle> |            <character> <numeric>
+  [1]     chrX 226772-226922      * | K562_N_chrX_profiles..  0.787510
+  [2]     chrX 276134-276284      * | K562_N_chrX_profiles..  0.771880
+  [3]     chrX 276174-276324      * | K562_N_chrX_profiles..  0.775979
+  [4]     chrX 276194-276344      * | K562_N_chrX_profiles..  0.865621
+  [5]     chrX 276214-276364      * | K562_N_chrX_profiles..  0.945994
+  [6]     chrX 276234-276384      * | K562_N_chrX_profiles..  0.843327
+      sum_count
+      <numeric>
+  [1]        17
+  [2]      1940
+  [3]      1940
+  [4]      1940
+  [5]      1940
+  [6]      1940
+  -------
+  seqinfo: 23 sequences from an unspecified genome; no seqlengths
+Error processing chromosome chr13 : 1605 elements in value to replace 1770 elements
+Error processing chromosome chr18 : 1643 elements in value to replace 1811 elements
+Error processing chromosome chr21 : 1923 elements in value to replace 2258 elements
+Error processing chromosome chr22 : 2192 elements in value to replace 2445 elements
+Error processing chromosome chr14 : 2282 elements in value to replace 2470 elements
+Error processing chromosome chr20 : 2229 elements in value to replace 2439 elements
+Error processing chromosome chr15 : 3086 elements in value to replace 3369 elements
+Error processing chromosome chr16 : 3848 elements in value to replace 4251 elements
+Error processing chromosome chr10 : 4109 elements in value to replace 4514 elements
+Error processing chromosome chrX : 3440 elements in value to replace 3840 elements
+Error processing chromosome chr9 : 3626 elements in value to replace 4018 elements
+Error processing chromosome chr8 : 4022 elements in value to replace 4436 elements
+Error processing chromosome chr4 : 4420 elements in value to replace 4916 elements
+Error processing chromosome chr17 : 4919 elements in value to replace 5447 elements
+Error processing chromosome chr12 : 5027 elements in value to replace 5556 elements
+Error processing chromosome chr11 : 4853 elements in value to replace 5381 elements
+Error processing chromosome chr5 : 5381 elements in value to replace 5990 elements
+Error processing chromosome chr19 : 5200 elements in value to replace 5726 elements
+Error processing chromosome chr3 : 6127 elements in value to replace 6740 elements
+Error processing chromosome chr6 : 6629 elements in value to replace 7338 elements
+Error processing chromosome chr2 : 7427 elements in value to replace 8156 elements
+Error processing chromosome chr7 : 7363 elements in value to replace 8292 elements
+Error processing chromosome chr1 : 10947 elements in value to replace 12129 elements
+Error in h(simpleError(msg, call)) : 
+  error in evaluating the argument 'table' in selecting a method for function '%in%': error in evaluating the argument 'x' in selecting a method for function 'colnames': unable to find an inherited method for function 'mcols' for signature 'x = "NULL"'
+Calls: write_granges_to_bed -> %in% -> colnames -> mcols -> <Anonymous>
+Execution halted

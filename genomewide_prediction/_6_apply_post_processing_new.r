@@ -79,7 +79,7 @@ selective_merge_cores <- function(core_gr, score_diff, max_width) {
     score_x <- x$score  # Use the existing score
     
     # Find overlapping cores with x
-    overlaps <- GenomicRanges::findOverlaps(x, core_gr)
+    overlaps <- GenomicRanges::findOverlaps(x, core_gr, maxgap=150)
     overlap_set <- core_gr[subjectHits(overlaps)]
     
     # Filter overlap set based on score difference
@@ -125,7 +125,7 @@ library(data.table)
 # Function to write a GRanges object to a BED file with input_basename in the file name
 write_granges_to_bed <- function(gr, output_dir, input_basename) {
   # Construct the output file name based on input_basename
-  output_bed <- file.path(output_dir, paste0(input_basename, "_ovlcorereduced.bed"))
+  output_bed <- file.path(output_dir, paste0(input_basename, "_new2.bed"))
   
   # Convert GRanges object to data frame
   bed_df <- as.data.frame(gr)
@@ -169,7 +169,7 @@ write_granges_to_bed <- function(gr, output_dir, input_basename) {
   # Write to BED file
   output_bed <- file.path(output_dir,
                           paste0(input_basename,
-                                 "_new.bed"))
+                                 "_new3.bed"))
   data.table::fwrite(bed_df,
                      file = output_bed,
                      sep = "\t",
