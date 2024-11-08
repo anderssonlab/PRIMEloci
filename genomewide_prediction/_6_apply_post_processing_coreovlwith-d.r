@@ -178,4 +178,4 @@ if (!is.null(output_dir) && output_dir != FALSE) {
   write_granges_to_bed(collapsed_gr, output_dir, input_basename)
 }
 
-writeLines("Done!")
+writeLines("Done!+++")
