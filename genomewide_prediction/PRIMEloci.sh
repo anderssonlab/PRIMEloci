@@ -173,18 +173,17 @@ for step in "${steps[@]}"; do
             #echo -e "\nRunning _6_apply_post_processing.r"
             #for FILE in $(find "$OUTPUT_DIR" -type f -name $PARTIAL_NAME); do
             #    echo "Processing $FILE ..."
-            #    Rscript _6_apply_post_processing.r -i "$FILE" -o $OUTPUT_DIR -t $THRESHOLD
+            #    Rscript _6_apply_post_processing_coreovlreduced.r -i "$FILE" -o $OUTPUT_DIR -t $THRESHOLD -m
             #done
 
             echo -e "\nRunning _6_apply_post_processing.r (NEW POSTPROCESS)"
             for FILE in $(find "$OUTPUT_DIR" -type f -name $PARTIAL_NAME); do
                 echo "Processing $FILE ..."
-                Rscript _6_apply_post_processing_new.r \
+                Rscript _6_apply_post_processing_coreovlwith-d.r \
                     -i "$FILE" \
                     -o $OUTPUT_DIR \
                     -t $THRESHOLD \
                     -d $SCORE_DIFF \
-                    -w $MAX_WIDTH \
                     -m
                 done
             ;;
