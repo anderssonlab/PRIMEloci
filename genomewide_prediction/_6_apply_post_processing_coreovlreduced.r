@@ -18,11 +18,11 @@ parser$add_argument("-i", "--input_file", required = TRUE,
                     help = "Path to the input BED file.")
 parser$add_argument("-t", "--score_threshold", type = "double", default = 0.7,
                     help = "Score threshold for filtering GRanges.")
-parser$add_argument("-c", "--use_max_cores", action = "store_true",
-                    default = TRUE,
-                    help = "Flag to use the maximum number of available cores.")
 parser$add_argument("-o", "--output_dir", default = NULL,
                     help = "Directory to save the output files.")
+parser$add_argument("-m", "--use_max_cores", action = "store_true",
+                    help = "Flag to use the maximum number of available cores.")
+
 
 # Parse arguments
 args <- parser$parse_args()
@@ -42,7 +42,6 @@ gr <- create_granges_from_bed(bed)
 
 # Filter GRanges by score threshold
 filtered_gr <- gr[gr$score >= score_threshold]
-
 # Get a list of unique chromosomes
 chr_list <- unique(as.character(seqnames(filtered_gr)))
 

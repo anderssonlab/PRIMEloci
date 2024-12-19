@@ -156,17 +156,36 @@ for step in "${steps[@]}"; do
             ;;
         5)
             echo -e "\nRunning _5_predict_profile_probability.py"
-            python3 _5_predict_profile_probability.py -w $SCRIPT_DIR -m $MODEL_PATH -p $OUTPUT_DIR/PRIMEloci_tmp/$PROFILE_MAIN_DIR -n $PREFIX_OUT_NAME -f $PROFILE_FILE_TYPE
+
+            # Set default for USE_CALIBRATION if not set in the .env file
+            #USE_CALIBRATION=${USE_CALIBRATION:-false}
+            
+            # Determine if calibration should be used
+            #CALIBRATION_FLAG=""
+            #if [ "$USE_CALIBRATION" = "true" ]; then
+            #    CALIBRATION_FLAG="-c"
+            #fi
+
+            python3 _5_predict_profile_probability.py -w $SCRIPT_DIR -m $MODEL_PATH -p $OUTPUT_DIR/PRIMEloci_tmp/$PROFILE_MAIN_DIR -n $PREFIX_OUT_NAME -f $PROFILE_FILE_TYPE $CALIBRATION_FLAG
             combine_bed_files $OUTPUT_DIR/PRIMEloci_tmp/$PROFILE_MAIN_DIR/predictions $OUTPUT_DIR 
-
-
             ;;
         6)
-            echo -e "\nRunning _6_apply_post_processing.r"
+            #echo -e "\nRunning _6_apply_post_processing.r"
+            #for FILE in $(find "$OUTPUT_DIR" -type f -name $PARTIAL_NAME); do
+            #    echo "Processing $FILE ..."
+            #    Rscript _6_apply_post_processing_coreovlreduced.r -i "$FILE" -o $OUTPUT_DIR -t $THRESHOLD -m
+            #done
+
+            echo -e "\nRunning _6_apply_post_processing.r (NEW POSTPROCESS)"
             for FILE in $(find "$OUTPUT_DIR" -type f -name $PARTIAL_NAME); do
                 echo "Processing $FILE ..."
-                Rscript _6_apply_post_processing.r -i "$FILE" -o $OUTPUT_DIR -t $THRESHOLD
-            done
+                Rscript _6_apply_post_processing_coreovlwith-d.r \
+                    -i "$FILE" \
+                    -o $OUTPUT_DIR \
+                    -t $THRESHOLD \
+                    -d $SCORE_DIFF \
+                    -m
+                done
             ;;
     esac
 done
