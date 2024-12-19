@@ -1,0 +1,781 @@
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter   526       11.0
+2   proximal   306        6.4
+3    fiveUTR    68        1.4
+4   threeUTR   690       14.4
+5        CDS   404        8.4
+6       exon   126        2.6
+7     intron  2380       49.6
+8  antisense     0        0.0
+9 intergenic   294        6.1
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_C_1mio_1.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter   627       12.1
+2   proximal   355        6.8
+3    fiveUTR    82        1.6
+4   threeUTR   817       15.7
+5        CDS   502        9.7
+6       exon   137        2.6
+7     intron  2325       44.7
+8  antisense     0        0.0
+9 intergenic   355        6.8
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_C_1mio_2.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter   825       10.3
+2   proximal   526        6.6
+3    fiveUTR   123        1.5
+4   threeUTR  1145       14.3
+5        CDS   732        9.1
+6       exon   220        2.7
+7     intron  3843       48.0
+8  antisense     0        0.0
+9 intergenic   590        7.4
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_C_1mio_3.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter   706        8.3
+2   proximal   492        5.8
+3    fiveUTR    99        1.2
+4   threeUTR   875       10.3
+5        CDS   568        6.7
+6       exon   224        2.6
+7     intron  4584       54.1
+8  antisense     0        0.0
+9 intergenic   920       10.9
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_C_500k_1.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter   641       11.3
+2   proximal   353        6.2
+3    fiveUTR    82        1.4
+4   threeUTR   748       13.2
+5        CDS   456        8.0
+6       exon   148        2.6
+7     intron  2616       46.0
+8  antisense     0        0.0
+9 intergenic   641       11.3
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_C_500k_2.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter   735       11.8
+2   proximal   429        6.9
+3    fiveUTR    87        1.4
+4   threeUTR   709       11.4
+5        CDS   470        7.5
+6       exon   161        2.6
+7     intron  3060       49.1
+8  antisense     0        0.0
+9 intergenic   577        9.3
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_C_500k_3.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter   667        3.1
+2   proximal   749        3.5
+3    fiveUTR    95        0.4
+4   threeUTR   771        3.6
+5        CDS   523        2.5
+6       exon   496        2.3
+7     intron 12655       59.3
+8  antisense     0        0.0
+9 intergenic  5390       25.3
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_10mio_1.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter   541        3.5
+2   proximal   584        3.8
+3    fiveUTR    76        0.5
+4   threeUTR   608        3.9
+5        CDS   421        2.7
+6       exon   369        2.4
+7     intron  9324       60.0
+8  antisense     0        0.0
+9 intergenic  3607       23.2
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_10mio_2.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter   644        2.7
+2   proximal   764        3.2
+3    fiveUTR    91        0.4
+4   threeUTR   747        3.1
+5        CDS   506        2.1
+6       exon   533        2.2
+7     intron 13825       58.1
+8  antisense     0        0.0
+9 intergenic  6683       28.1
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_10mio_3.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter   375        7.2
+2   proximal   267        5.1
+3    fiveUTR    43        0.8
+4   threeUTR   341        6.5
+5        CDS   243        4.7
+6       exon   136        2.6
+7     intron  3239       62.0
+8  antisense     0        0.0
+9 intergenic   576       11.0
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_1mio_1.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter   436        8.0
+2   proximal   293        5.4
+3    fiveUTR    46        0.8
+4   threeUTR   377        6.9
+5        CDS   280        5.1
+6       exon   149        2.7
+7     intron  3455       63.5
+8  antisense     0        0.0
+9 intergenic   406        7.5
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_1mio_2.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter   395        8.1
+2   proximal   260        5.3
+3    fiveUTR    39        0.8
+4   threeUTR   342        7.0
+5        CDS   240        4.9
+6       exon   132        2.7
+7     intron  3085       63.2
+8  antisense     0        0.0
+9 intergenic   390        8.0
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_1mio_3.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter   723        6.0
+2   proximal   643        5.4
+3    fiveUTR   104        0.9
+4   threeUTR   865        7.2
+5        CDS   600        5.0
+6       exon   346        2.9
+7     intron  8025       67.1
+8  antisense     0        0.0
+9 intergenic   647        5.4
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_5mio_1.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter   538        4.6
+2   proximal   528        4.5
+3    fiveUTR    79        0.7
+4   threeUTR   667        5.7
+5        CDS   446        3.8
+6       exon   314        2.7
+7     intron  7623       64.6
+8  antisense     0        0.0
+9 intergenic  1604       13.6
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_5mio_2.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter   504        5.8
+2   proximal   431        5.0
+3    fiveUTR    69        0.8
+4   threeUTR   575        6.6
+5        CDS   401        4.6
+6       exon   239        2.8
+7     intron  5666       65.5
+8  antisense     0        0.0
+9 intergenic   771        8.9
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_5mio_3.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  1982       39.6
+2   proximal   450        9.0
+3    fiveUTR    83        1.7
+4   threeUTR   279        5.6
+5        CDS   180        3.6
+6       exon    93        1.9
+7     intron  1689       33.7
+8  antisense     0        0.0
+9 intergenic   250        5.0
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_C_1mio_1.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2095       38.7
+2   proximal   520        9.6
+3    fiveUTR    88        1.6
+4   threeUTR   320        5.9
+5        CDS   224        4.1
+6       exon   126        2.3
+7     intron  1742       32.2
+8  antisense     0        0.0
+9 intergenic   298        5.5
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_C_1mio_2.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2547       30.6
+2   proximal   788        9.5
+3    fiveUTR   142        1.7
+4   threeUTR   438        5.3
+5        CDS   309        3.7
+6       exon   206        2.5
+7     intron  3276       39.3
+8  antisense     0        0.0
+9 intergenic   627        7.5
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_C_1mio_3.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2517       28.6
+2   proximal   826        9.4
+3    fiveUTR   132        1.5
+4   threeUTR   407        4.6
+5        CDS   286        3.2
+6       exon   217        2.5
+7     intron  3674       41.7
+8  antisense     0        0.0
+9 intergenic   751        8.5
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_C_500k_1.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2261       38.4
+2   proximal   551        9.3
+3    fiveUTR   103        1.7
+4   threeUTR   304        5.2
+5        CDS   198        3.4
+6       exon   124        2.1
+7     intron  1923       32.6
+8  antisense     0        0.0
+9 intergenic   431        7.3
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_C_500k_2.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2368       36.4
+2   proximal   631        9.7
+3    fiveUTR   106        1.6
+4   threeUTR   275        4.2
+5        CDS   213        3.3
+6       exon   146        2.2
+7     intron  2242       34.5
+8  antisense     0        0.0
+9 intergenic   520        8.0
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_C_500k_3.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2859       12.9
+2   proximal  1644        7.4
+3    fiveUTR   205        0.9
+4   threeUTR   714        3.2
+5        CDS   460        2.1
+6       exon   601        2.7
+7     intron 12244       55.1
+8  antisense     0        0.0
+9 intergenic  3509       15.8
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_10mio_1.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2535       15.7
+2   proximal  1226        7.6
+3    fiveUTR   165        1.0
+4   threeUTR   530        3.3
+5        CDS   360        2.2
+6       exon   431        2.7
+7     intron  8717       53.8
+8  antisense     0        0.0
+9 intergenic  2228       13.8
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_10mio_2.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2804       11.3
+2   proximal  1754        7.1
+3    fiveUTR   210        0.8
+4   threeUTR   737        3.0
+5        CDS   465        1.9
+6       exon   691        2.8
+7     intron 13674       55.2
+8  antisense     0        0.0
+9 intergenic  4456       18.0
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_10mio_3.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  1863       34.2
+2   proximal   446        8.2
+3    fiveUTR    78        1.4
+4   threeUTR   190        3.5
+5        CDS   151        2.8
+6       exon   112        2.1
+7     intron  2283       41.9
+8  antisense     0        0.0
+9 intergenic   329        6.0
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_1mio_1.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  1959       34.5
+2   proximal   472        8.3
+3    fiveUTR    81        1.4
+4   threeUTR   214        3.8
+5        CDS   166        2.9
+6       exon   140        2.5
+7     intron  2357       41.5
+8  antisense     0        0.0
+9 intergenic   286        5.0
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_1mio_2.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  1857       36.3
+2   proximal   413        8.1
+3    fiveUTR    69        1.4
+4   threeUTR   175        3.4
+5        CDS   140        2.7
+6       exon   111        2.2
+7     intron  2079       40.7
+8  antisense     0        0.0
+9 intergenic   266        5.2
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_1mio_3.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2593       20.8
+2   proximal  1038        8.3
+3    fiveUTR   170        1.4
+4   threeUTR   492        3.9
+5        CDS   352        2.8
+6       exon   325        2.6
+7     intron  6684       53.6
+8  antisense     0        0.0
+9 intergenic   822        6.6
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_5mio_1.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2316       18.8
+2   proximal   952        7.7
+3    fiveUTR   146        1.2
+4   threeUTR   477        3.9
+5        CDS   323        2.6
+6       exon   324        2.6
+7     intron  6784       55.2
+8  antisense     0        0.0
+9 intergenic   969        7.9
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_5mio_2.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2164       24.0
+2   proximal   744        8.3
+3    fiveUTR   125        1.4
+4   threeUTR   352        3.9
+5        CDS   254        2.8
+6       exon   225        2.5
+7     intron  4644       51.6
+8  antisense     0        0.0
+9 intergenic   493        5.5
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_5mio_3.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2207       46.0
+2   proximal   400        8.3
+3    fiveUTR    96        2.0
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  1758       36.7
+8  antisense     0        0.0
+9 intergenic   335        7.0
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_C_1mio_1.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2309       44.4
+2   proximal   465        8.9
+3    fiveUTR   109        2.1
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  1886       36.3
+8  antisense     0        0.0
+9 intergenic   431        8.3
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_C_1mio_2.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2595       32.4
+2   proximal   693        8.7
+3    fiveUTR   158        2.0
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  3701       46.2
+8  antisense     0        0.0
+9 intergenic   861       10.8
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_C_1mio_3.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2610       30.8
+2   proximal   717        8.5
+3    fiveUTR   158        1.9
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  3983       47.0
+8  antisense     0        0.0
+9 intergenic  1001       11.8
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_C_500k_1.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2383       41.9
+2   proximal   458        8.1
+3    fiveUTR   112        2.0
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  2165       38.1
+8  antisense     0        0.0
+9 intergenic   567       10.0
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_C_500k_2.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2371       38.1
+2   proximal   529        8.5
+3    fiveUTR   116        1.9
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  2496       40.1
+8  antisense     0        0.0
+9 intergenic   716       11.5
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_C_500k_3.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  3287       15.4
+2   proximal  1558        7.3
+3    fiveUTR   238        1.1
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron 12541       58.8
+8  antisense     0        0.0
+9 intergenic  3722       17.4
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_10mio_1.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2918       18.8
+2   proximal  1150        7.4
+3    fiveUTR   200        1.3
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  8950       57.6
+8  antisense     0        0.0
+9 intergenic  2315       14.9
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_10mio_2.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  3307       13.9
+2   proximal  1668        7.0
+3    fiveUTR   252        1.1
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron 14051       59.1
+8  antisense     0        0.0
+9 intergenic  4516       19.0
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_10mio_3.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2067       39.6
+2   proximal   405        7.8
+3    fiveUTR    81        1.6
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  2301       44.1
+8  antisense     0        0.0
+9 intergenic   366        7.0
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_1mio_1.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2177       40.0
+2   proximal   427        7.8
+3    fiveUTR    94        1.7
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  2394       44.0
+8  antisense     0        0.0
+9 intergenic   350        6.4
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_1mio_2.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2024       41.4
+2   proximal   351        7.2
+3    fiveUTR    84        1.7
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  2128       43.6
+8  antisense     0        0.0
+9 intergenic   298        6.1
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_1mio_3.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2823       23.6
+2   proximal   984        8.2
+3    fiveUTR   191        1.6
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  6874       57.5
+8  antisense     0        0.0
+9 intergenic  1081        9.0
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_5mio_1.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2695       22.8
+2   proximal   959        8.1
+3    fiveUTR   192        1.6
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  6935       58.8
+8  antisense     0        0.0
+9 intergenic  1018        8.6
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_5mio_2.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2493       28.8
+2   proximal   683        7.9
+3    fiveUTR   148        1.7
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  4727       54.6
+8  antisense     0        0.0
+9 intergenic   606        7.0
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_5mio_3.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2298       45.9
+2   proximal   417        8.3
+3    fiveUTR   101        2.0
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  1844       36.8
+8  antisense     0        0.0
+9 intergenic   348        6.9
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_C_1mio_1.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2397       44.3
+2   proximal   490        9.1
+3    fiveUTR   112        2.1
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  1969       36.4
+8  antisense     0        0.0
+9 intergenic   445        8.2
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_C_1mio_2.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2712       32.5
+2   proximal   723        8.7
+3    fiveUTR   163        2.0
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  3847       46.2
+8  antisense     0        0.0
+9 intergenic   890       10.7
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_C_1mio_3.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2710       30.7
+2   proximal   755        8.6
+3    fiveUTR   163        1.8
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  4154       47.1
+8  antisense     0        0.0
+9 intergenic  1032       11.7
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_C_500k_1.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2475       42.0
+2   proximal   486        8.2
+3    fiveUTR   112        1.9
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  2236       37.9
+8  antisense     0        0.0
+9 intergenic   588       10.0
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_C_500k_2.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2466       37.9
+2   proximal   558        8.6
+3    fiveUTR   122        1.9
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  2609       40.1
+8  antisense     0        0.0
+9 intergenic   749       11.5
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_C_500k_3.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  3435       15.4
+2   proximal  1628        7.3
+3    fiveUTR   243        1.1
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron 13071       58.8
+8  antisense     0        0.0
+9 intergenic  3862       17.4
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_10mio_1.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  3043       18.8
+2   proximal  1219        7.5
+3    fiveUTR   204        1.3
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  9327       57.6
+8  antisense     0        0.0
+9 intergenic  2400       14.8
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_10mio_2.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  3448       13.9
+2   proximal  1753        7.1
+3    fiveUTR   259        1.0
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron 14650       59.1
+8  antisense     0        0.0
+9 intergenic  4683       18.9
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_10mio_3.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2154       39.5
+2   proximal   426        7.8
+3    fiveUTR    84        1.5
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  2410       44.2
+8  antisense     0        0.0
+9 intergenic   380        7.0
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_1mio_1.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2268       40.0
+2   proximal   451        7.9
+3    fiveUTR    96        1.7
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  2502       44.1
+8  antisense     0        0.0
+9 intergenic   360        6.3
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_1mio_2.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2111       41.3
+2   proximal   373        7.3
+3    fiveUTR    87        1.7
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  2229       43.6
+8  antisense     0        0.0
+9 intergenic   311        6.1
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_1mio_3.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2945       23.6
+2   proximal  1033        8.3
+3    fiveUTR   197        1.6
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  7176       57.5
+8  antisense     0        0.0
+9 intergenic  1130        9.1
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_5mio_1.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2803       22.8
+2   proximal  1006        8.2
+3    fiveUTR   196        1.6
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  7219       58.7
+8  antisense     0        0.0
+9 intergenic  1070        8.7
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_5mio_2.bed 
+Finding hierachical overlaps...
+### Overlap summary: ###
+      txType count percentage
+1   promoter  2591       28.8
+2   proximal   724        8.0
+3    fiveUTR   155        1.7
+4   threeUTR     0        0.0
+5        CDS     0        0.0
+6       exon     0        0.0
+7     intron  4906       54.5
+8  antisense     0        0.0
+9 intergenic   627        7.0
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_5mio_3.bed 
+There were 50 or more warnings (use warnings() to see the first 50)
