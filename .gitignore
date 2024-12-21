@@ -2,7 +2,6 @@
 **/.ipynb_checkpoints/*
 .DS_Store
 **/__pycache__/*i
-fnohup
-ffnohup
-**/FANTOM5/*
-FANTON5_config.sh
+**/model/*
+**/example/*
+**/.rds/*
