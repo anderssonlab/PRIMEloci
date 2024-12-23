@@ -43,7 +43,7 @@ def set_score_to_nan_where_sum_count_zero(df, set_nan):
     return df
 
 
-def process_prediction_data(directory, pattern, outname, noCAGEtoNaN=True, save_csv=True):
+def process_prediction_data(directory, pattern, outname, noCAGEtoNaN=True, save_tsv=True):
     """
     Processes BED files, applies filtering, and splits data into 'score' and 'sum_count' dataframes.
     Saves results to files. Row names are formatted as chrom:chromStart+1-chromEnd;strand (R-format).
@@ -53,7 +53,7 @@ def process_prediction_data(directory, pattern, outname, noCAGEtoNaN=True, save_
         pattern (re.Pattern): The regex pattern to extract sample names from filenames.
         outname (str): Output filename prefix for saving results.
         noCAGEtoNaN (bool): Whether to set 'score' to NaN where 'sum_count' = 0.
-        save_csv (bool): Whether to save the resulting dataframes to TSV files.
+        save_tsv (bool): Whether to save the resulting dataframes to TSV files.
     """
     # Extract sample names from the directory
     samples = extract_exclude_patterns(directory, pattern)
@@ -103,7 +103,7 @@ def process_prediction_data(directory, pattern, outname, noCAGEtoNaN=True, save_
                 break
 
     # Save to files if specified
-    if save_csv:
+    if save_tsv:
         # Adjust score file name based on noCAGEtoNaN
         score_filename = outname + ('_score_setnoCAGEtoNaN.tsv' if noCAGEtoNaN else '_score.tsv')
         df_scores.to_csv(score_filename, sep='\t', index=True)  # Save with row names
@@ -120,7 +120,7 @@ def process_prediction_data(directory, pattern, outname, noCAGEtoNaN=True, save_
     print(df_sum_counts.head())
 
 if __name__ == "__main__":
-    directory = "/Users/natsudanav/Documents/testfile"
+    directory = "/home/zmk214/data/projects/nucleiCAGEproject/8.Genomewide_prediction/FANTOM5_rmSingletons_cellfacet"
     pattern = re.compile(r"FANTOM5-cellfacet-on-PRIMEloci_pred_all_(.*?)_combined\.bed")
     outname = "FANTOM5-cellfacet"
 
@@ -128,5 +128,4 @@ if __name__ == "__main__":
     process_prediction_data(directory,
                             pattern,
                             outname,
-                            noCAGEtoNaN=True,
-                            save_csv=True)
+                            noCAGEtoNaN=True)
