@@ -23,24 +23,38 @@ def extract_exclude_patterns(directory, extract_pattern):
     return exclude_patterns
 
 
-def set_score_to_nan_where_sum_count_zero(df, set_nan):
+def set_score_to_nan_where_sum_count_zero(df):
     """
-    Sets 'score' to NaN where 'sum_count' is 0 in the dataframe if set_nan is True.
+    Sets 'score' to NaN where 'sum_count' is 0 in the dataframe.
 
     Parameters:
         df (pd.DataFrame): The dataframe to modify.
-        set_nan (bool): Whether to set 'score' to NaN.
 
     Returns:
         pd.DataFrame: The modified dataframe.
     """
-    if set_nan:
-        print("Filtering: Setting 'score' to NaN where 'sum_count' = 0.")
-        df['score'] = df.apply(
-            lambda row: np.nan if row['sum_count'] == 0 else row['score'],
-            axis=1
-        )
+    print("Filtering: Setting 'score' to NaN where 'sum_count' = 0.")
+    df['score'] = df.apply(
+        lambda row: np.nan if row['sum_count'] == 0 else row['score'],
+        axis=1
+    )
     return df
+
+
+def parse_row_name_to_bed(row_names):
+    """
+    Parses row names in the format chrom:chromStart-chromEnd;strand to extract BED fields.
+
+    Parameters:
+        row_names (pd.Index): Row names in the specified format.
+
+    Returns:
+        pd.DataFrame: DataFrame with columns [chrom, chromStart, chromEnd, strand].
+    """
+    parsed = row_names.str.extract(r"(?P<chrom>[^:]+):(?P<chromStart>\d+)-(?P<chromEnd>\d+)(?:;(?P<strand>.+))?")
+    parsed['chromStart'] = parsed['chromStart'].astype(int) - 1  # Convert to 0-based start
+    parsed['chromEnd'] = parsed['chromEnd'].astype(int)
+    return parsed
 
 
 def process_prediction_data(directory, pattern, outname, noCAGEtoNaN=True, save_tsv=True):
@@ -59,73 +73,75 @@ def process_prediction_data(directory, pattern, outname, noCAGEtoNaN=True, save_
     samples = extract_exclude_patterns(directory, pattern)
 
     # Initialize dataframes for scores and sum_counts
-    df_scores = pd.DataFrame()
-    df_sum_counts = pd.DataFrame()
+    score_frames = []
+    sum_count_frames = []
 
-    # Loop through each sample
+    # Process each sample
     for sample in samples:
-        # Construct the expected filename pattern
+        print(sample)
         filename_pattern = f"FANTOM5-cellfacet-on-PRIMEloci_pred_all_{sample}_combined.bed"
+        file_path = os.path.join(directory, filename_pattern)
 
-        # Look for the file in the directory that matches the pattern
-        for filename in os.listdir(directory):
-            if filename == filename_pattern:
-                # Construct full file path
-                file_path = os.path.join(directory, filename)
+        if not os.path.isfile(file_path):
+            print(f"File not found for sample: {sample}. Skipping.")
+            continue
 
-                # Read the BED file into a dataframe
-                df = pd.read_csv(file_path, sep='\t', header=0)
+        # Read the BED file into a dataframe
+        df = pd.read_csv(file_path, sep='\t', header=0)
 
-                # Create row names in the format chrom:chromStart+1-chromEnd;strand
-                df['row_name'] = df.apply(
-                    lambda row: f"{row['chrom']}:{row['chromStart'] + 1}-{row['chromEnd']};{row['strand']}" 
-                    if 'strand' in df.columns else f"{row['chrom']}:{row['chromStart'] + 1}-{row['chromEnd']}",
-                    axis=1
-                )
-                df.set_index('row_name', inplace=True)
+        # Create row names in the format chrom:chromStart+1-chromEnd;strand
+        df['row_name'] = df.apply(
+            lambda row: f"{row['chrom']}:{row['chromStart'] + 1}-{row['chromEnd']};{row['strand']}"
+            if 'strand' in df.columns else f"{row['chrom']}:{row['chromStart'] + 1}-{row['chromEnd']}",
+            axis=1
+        )
+        df.set_index('row_name', inplace=True)
 
-                # Apply noCAGEtoNaN filtering to scores
-                if noCAGEtoNaN:
-                    print("Filtering: Setting 'score' to NaN where 'sum_count' = 0.")
-                    df['score'] = df.apply(
-                        lambda row: np.nan if row['sum_count'] == 0 else row['score'],
-                        axis=1
-                    )
+        # Apply noCAGEtoNaN filtering to scores if specified
+        if noCAGEtoNaN:
+            df = set_score_to_nan_where_sum_count_zero(df)
 
-                # Extract and add score column to `df_scores`
-                score_col = df['score'].rename(sample)
-                df_scores = pd.concat([df_scores, score_col], axis=1)
+        # Extract and collect score and sum_count columns
+        score_frames.append(df['score'].rename(sample))
+        sum_count_frames.append(df['sum_count'].rename(sample))
 
-                # Extract and add sum_count column to `df_sum_counts`
-                sum_count_col = df['sum_count'].rename(sample)
-                df_sum_counts = pd.concat([df_sum_counts, sum_count_col], axis=1)
+    # Combine all scores and sum_counts into respective dataframes
+    df_scores = pd.concat(score_frames, axis=1)
+    df_sum_counts = pd.concat(sum_count_frames, axis=1)
 
-                break
+    # Check if row names in both DataFrames match
+    if not df_scores.index.equals(df_sum_counts.index):
+        raise ValueError("Row names in scores and sum counts do not match. Ensure consistent data alignment.")
 
+    # Generate position BED file from row names
+    position_df = parse_row_name_to_bed(df_scores.index)
+    
     # Save to files if specified
     if save_tsv:
-        # Adjust score file name based on noCAGEtoNaN
         score_filename = outname + ('_score_setnoCAGEtoNaN.tsv' if noCAGEtoNaN else '_score.tsv')
-        df_scores.to_csv(score_filename, sep='\t', index=True)  # Save with row names
+        df_scores.to_csv(score_filename, sep='\t', index=True)
 
-        # Save sum_count and position files
-        df_sum_counts.to_csv(outname + '_sumcount.tsv', sep='\t', index=True)  # Save with row names
-        df_position = df.reset_index()[['chrom', 'chromStart', 'chromEnd']]  # Extract original BED positions
-        df_position.to_csv(outname + '_position.bed', sep='\t', index=False, header=False)
+        sum_count_filename = outname + '_sumcount.tsv'
+        df_sum_counts.to_csv(sum_count_filename, sep='\t', index=True)
 
-    # Print the resulting dataframes (for verification)
+        position_filename = outname + '_position.bed'
+        position_df.to_csv(position_filename, sep='\t', index=False, header=False)
+
+    # Print summary of results
     print("Scores DataFrame:")
     print(df_scores.head())
     print("\nSum Counts DataFrame:")
     print(df_sum_counts.head())
+    print("\nPosition BED DataFrame:")
+    print(position_df.head())
+
 
 if __name__ == "__main__":
-    directory = "/home/zmk214/data/projects/nucleiCAGEproject/8.Genomewide_prediction/FANTOM5_rmSingletons_cellfacet"
+    # Define parameters
+    directory = "/home/zmk214/data/projects/nucleiCAGEproject/8.Genomewide_prediction/FANTOM5_rmSingletons_cellfacet/prediction"
     pattern = re.compile(r"FANTOM5-cellfacet-on-PRIMEloci_pred_all_(.*?)_combined\.bed")
     outname = "FANTOM5-cellfacet"
 
-    # Load and filter data with options
-    process_prediction_data(directory,
-                            pattern,
-                            outname,
-                            noCAGEtoNaN=True)
+    # Process data
+    process_prediction_data(directory, pattern, outname, noCAGEtoNaN=True)
+
