@@ -5,7 +5,7 @@ CAGE_DIR="../example/resources/cage_bw"
 DESIGN_MATRIX="../example/resources/design_matrix_k562.tsv"
 OUTPUT_DIR="../example/results"
 CTSS_RSE_NAME="ctss_rse.rds"
-# add -k for keeping only standard chromosomes
+# -k was set for keeping only standard chromosomes
 
 ### 2 ### _2_get_tc_from_ctss.r
 # EXTENSION_DISTANCE=200 was fixed in the script
@@ -27,13 +27,10 @@ PROFILE_FILE_TYPE="parquet"
 # OUTPUT_DIR, PROFILE_MAIN_DIR, PROFILE_SUB_DIR, and PROFILE_FILE_TYPE from above
 SCRIPT_DIR="."
 MODEL_PATH="../model/PRIMEloci_GM12878_model_1.0.sav"
-USE_CALIBRATION=true
 PREFIX_OUT_NAME="K562-on-PRIMEloci"
 
-
-### 6 ### _6_apply_post_processing.r
+### 6 ### _6_apply_post_processing_coreovlwith-d.r
 # OUTPUT_DIR, PROFILE_MAIN_DIR, PROFILE_SUB_DIR from above
-#PREDICTION_DIR=$OUTPUT_DIR/$PROFILE_MAIN_DIR/predictions/$PROFILE_SUB_DIR
 PARTIAL_NAME="*pred_all*_combined.bed"
 THRESHOLD=0.75
 SCORE_DIFF=0.10

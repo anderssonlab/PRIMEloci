@@ -18,7 +18,7 @@ usage() {
     echo "  -3         Run step 3: _3_get_sld_window_from_tc.r"
     echo "  -4         Run step 4: _4_get_profile.r"
     echo "  -5         Run step 5: _5_predict_profile_probability.py"
-    echo "  -6         Run step 6: _6_apply_post_processing.r"
+    echo "  -6         Run step 6: _6_apply_post_processing_coreovlwith-d.r"
     echo "  --all      Run all steps"
     echo "  --pred     Run only steps 3-6 as ctss and tc rds objects are provided"
     echo "  --keeptmp  Keep temporary files created in steps 3-5"
@@ -138,45 +138,53 @@ for step in "${steps[@]}"; do
     case $step in
         1)
             echo -e "\nRunning _1_get_ctss_from_bw.r"
-            Rscript _1_get_ctss_from_bw.r -i $CAGE_DIR -m $DESIGN_MATRIX -o $OUTPUT_DIR -n $CTSS_RSE_NAME -k
+            Rscript _1_get_ctss_from_bw.r \
+                -i $CAGE_DIR \
+                -m $DESIGN_MATRIX \
+                -o $OUTPUT_DIR \
+                -n $CTSS_RSE_NAME \
+                -k
             ;;
         2)
             echo -e "\nRunning _2_get_tc_from_ctss.r"
-            Rscript _2_get_tc_from_ctss.r -i $OUTPUT_DIR/$CTSS_RSE_NAME -o $OUTPUT_DIR -n $TC_GRL_NAME -e $EXTENSION_DISTANCE
+            Rscript _2_get_tc_from_ctss.r \
+                -i $OUTPUT_DIR/$CTSS_RSE_NAME \
+                -o $OUTPUT_DIR \
+                -n $TC_GRL_NAME \
+                -e $EXTENSION_DISTANCE
             ;;
         3)
             # Create /PRIMEloci_tmp directory before running step 3
             create_tmp_dir
             echo -e "\nRunning _3_get_sld_window_from_tc.r"
-            Rscript _3_get_sld_window_from_tc.r -i $OUTPUT_DIR/$TC_GRL_NAME -o $TMP_DIR -n $SLD_TC_GRL_NAME -s $SLD_WINDOW -e $EXTENSION_DISTANCE
+            Rscript _3_get_sld_window_from_tc.r \
+                -i $OUTPUT_DIR/$TC_GRL_NAME \
+                -o $TMP_DIR \
+                -n $SLD_TC_GRL_NAME \
+                -s $SLD_WINDOW \
+                -e $EXTENSION_DISTANCE
             ;;
         4)
             echo -e "\nRunning _4_get_tc_profile.r"
-            Rscript _4_get_profile.r -c $OUTPUT_DIR/$CTSS_RSE_NAME -t $OUTPUT_DIR/PRIMEloci_tmp/$SLD_TC_GRL_NAME -o$OUTPUT_DIR/PRIMEloci_tmp -n $PROFILE_MAIN_DIR -f $PROFILE_FILE_TYPE
+            Rscript _4_get_profile.r \
+                -c $OUTPUT_DIR/$CTSS_RSE_NAME \
+                -t $OUTPUT_DIR/PRIMEloci_tmp/$SLD_TC_GRL_NAME \
+                -o$OUTPUT_DIR/PRIMEloci_tmp \
+                -n $PROFILE_MAIN_DIR \
+                -f $PROFILE_FILE_TYPE
             ;;
         5)
             echo -e "\nRunning _5_predict_profile_probability.py"
-
-            # Set default for USE_CALIBRATION if not set in the .env file
-            #USE_CALIBRATION=${USE_CALIBRATION:-false}
-            
-            # Determine if calibration should be used
-            #CALIBRATION_FLAG=""
-            #if [ "$USE_CALIBRATION" = "true" ]; then
-            #    CALIBRATION_FLAG="-c"
-            #fi
-
-            python3 _5_predict_profile_probability.py -w $SCRIPT_DIR -m $MODEL_PATH -p $OUTPUT_DIR/PRIMEloci_tmp/$PROFILE_MAIN_DIR -n $PREFIX_OUT_NAME -f $PROFILE_FILE_TYPE $CALIBRATION_FLAG
+            python3 _5_predict_profile_probability.py \
+                -w $SCRIPT_DIR \
+                -m $MODEL_PATH \
+                -p $OUTPUT_DIR/PRIMEloci_tmp/$PROFILE_MAIN_DIR \
+                -n $PREFIX_OUT_NAME \
+                -f $PROFILE_FILE_TYPE $CALIBRATION_FLAG
             combine_bed_files $OUTPUT_DIR/PRIMEloci_tmp/$PROFILE_MAIN_DIR/predictions $OUTPUT_DIR 
             ;;
         6)
-            #echo -e "\nRunning _6_apply_post_processing.r"
-            #for FILE in $(find "$OUTPUT_DIR" -type f -name $PARTIAL_NAME); do
-            #    echo "Processing $FILE ..."
-            #    Rscript _6_apply_post_processing_coreovlreduced.r -i "$FILE" -o $OUTPUT_DIR -t $THRESHOLD -m
-            #done
-
-            echo -e "\nRunning _6_apply_post_processing.r (NEW POSTPROCESS)"
+            echo -e "\nRunning _6_apply_post_processing_coreovlwith-d.r"
             for FILE in $(find "$OUTPUT_DIR" -type f -name $PARTIAL_NAME); do
                 echo "Processing $FILE ..."
                 Rscript _6_apply_post_processing_coreovlwith-d.r \
