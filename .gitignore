@@ -6,3 +6,6 @@
 **/example/*
 **/.rds/*
 **/.pkl/*
+**/.csv/*
+**/.parquet/*
+**/.bw/*
