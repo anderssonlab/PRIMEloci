@@ -1,3 +1,4 @@
+
 # PRIMEloci
 
 The PRIMEloci repository offers tools for genome-wide prediction of regulatory elements from CAGE data using machine learning models. The core model, based on LightGBM, was trained on GM12878 whole-cell CAGE and nucCAGE data from the Andersson lab. PRIMEloci automates the workflow from bigWig files to accurately identified enhancers and promoters, providing flexibility for users to either use bash scripts for a full pipeline execution or directly interact with R functions for a more programmatic approach. While the project was initially developed based on the human genome hg38, it can be adapted for use with other species.
@@ -12,19 +13,24 @@ The PRIMEloci repository offers tools for genome-wide prediction of regulatory e
 
 ## Overview
 
-The workflow focuses on the prediction of regulatory elements using machine learning, encompassing five key steps:
+The workflow focuses on the prediction of regulatory elements using machine learning, encompassing six key steps:
 
 1. **Extracting CTSS data**: Generate CAGE transcriptional start site (CTSS) objects from bigWig files.
 2. **Identifying Tag Clusters**: Derive tag clusters (TCs) from the CTSS data.
 3. **Processing Profiles**: Prepare processed CAGE profiles for input into the prediction model.
 4. **Predicting Profile Probabilities**: Utilize PRIMEloci models to predict CAGE profile probabilities of regulatory elements.
-5. **Filtering Results**: Output non-overlapping predicted loci in .bed and .rds formats for further analysis in R.
+5. **Filtering Results**: Output non-overlapping predicted loci in `.bed` and `.rds` formats for further analysis in R.
+6. **Post-processing**: Apply further refinement and filtering to predictions based on additional criteria.
 
 PRIMEloci offers two primary ways to utilize its genome-wide prediction:
 
-Bash Script: Execute a full pipeline or some parts of the pipeline using pre-configured bash scripts, ideal for users who prefer a command-line interface or need to automate large-scale data processing tasks. Each step can be run individually or as part of a pipeline with a main bash script for selective execution. Advanced users can also prepare data and train models to customize the workflow [LINK to nucCAGE repo].
+### Bash Script
 
-R Functions: Directly use R functions provided in the PRIMEloci package, allowing for more control, customization, and integration with other R-based workflows. When using the PRIMEloci R functions, users typically handle steps 1 and 2 (CTSS and TC identification using CAGEfighR functions) within R, while the run_PRIMEloci() function covers steps 3 through 5, processing existing CTSS and TC data through the prediction model and generating the final output.
+Execute a full pipeline or some parts of the pipeline using pre-configured bash scripts, ideal for users who prefer a command-line interface or need to automate large-scale data processing tasks. Each step can be run individually or as part of a pipeline with a main bash script for selective execution. Advanced users can also prepare data and train models to customize the workflow.
+
+### R Functions
+
+Directly use R functions provided in the PRIMEloci package, allowing for more control, customization, and integration with other R-based workflows. When using the PRIMEloci R functions, users typically handle steps 1 and 2 (CTSS and TC identification using CAGEfighR functions) within R, while the `run_PRIMEloci()` function covers steps 3 through 5, processing existing CTSS and TC data through the prediction model and generating the final output.
 
 ## Installation
 
@@ -39,13 +45,11 @@ To install PRIMEloci, follow these steps:
 
 2. **Install R Package**:
 
-   Ensure you have R version 4.2 or higher. Open R or RStudio and run the following command to install the PRIMEloci package locally from the provided .tar.gz file:
+   Ensure you have R version 4.2 or higher. Open R or RStudio and run the following command to install the PRIMEloci package locally from the provided `.tar.gz` file:
 
    ```r
    install.packages("path/to/PRIMEloci_0.7.tar.gz", repos = NULL, type = "source")
    ```
-
-   Check the DESCRIPTION file for other relevant R packages that need to be installed.
 
 3. **Install Python Packages**:
 
@@ -64,7 +68,7 @@ To install PRIMEloci, follow these steps:
 
 These steps will set up the necessary environment for running PRIMEloci scripts. You can now proceed with executing the main script or individual scripts as needed.
 
-## Usage of bash script
+## Usage of Bash Script
 
 To use PRIMEloci, follow these steps:
 
@@ -76,39 +80,41 @@ To use PRIMEloci, follow these steps:
 
 2. **Configure Parameters**
 
-   Modify the `bash_config_PRIMEloci.sh` file to set all necessary variables. This file contains all the parameter settings required for the scripts to run. The default parameters was set to use the K562 CAGE files located in `path/to/PRIMEloci/example/resources`.
+   Provide a valid configuration file with `--config`. This file must define all required parameters for the script, including options like `EXTENSION_DISTANCE`. Default settings support CAGE files located in `path/to/PRIMEloci/example/resources`.
 
 3. **Run the Scripts**
 
-   To execute the entire workflow, run:
+   Execute the desired steps with the following options:
 
-   ```bash
-   ./PRIMEloci.sh --all
-   ```
+   - **Run All Steps**: Process data from initial CTSS extraction to final post-processing of regulatory element predictions.
+     ```bash
+     ./PRIMEloci.sh --config <config_file> --all
+     ```
 
-   This will process the CAGE bigWig data from the initial extraction to the final output of non-overlapping lists in .bed and .rds formats.
+   - **Pre-processed Data**: Skip earlier steps if `.rds` files for CTSS and TCs are already available.
+     ```bash
+     ./PRIMEloci.sh --config <config_file> --pred
+     ```
 
-4. **Examples usage in some cases**
+   - **Specific Steps**: Run individual steps as needed:
+     ```bash
+     ./PRIMEloci.sh --config <config_file> -1 -6
+     ```
 
-   Run all steps:
+   - **Temporary Files**: Use `--keeptmp` to retain intermediate files created during Steps 3–5 for further inspection:
+     ```bash
+     ./PRIMEloci.sh --config <config_file> --keeptmp
+     ```
 
-   ```bash
-   ./PRIMEloci.sh --all
-   ```
+   Each step corresponds to a specific script or function:
+   - `-1`: Extract CTSS data.
+   - `-2`: Identify tag clusters.
+   - `-3`: Process profiles.
+   - `-4`: Predict probabilities.
+   - `-5`: Filter results.
+   - `-6`: Apply post-processing.
 
-   Run only step as CTSS- and TC-.rds files existed:
-
-   ```bash
-   ./PRIMEloci.sh -p
-   ```
-
-   Run specific steps:
-
-   ```bash
-   ./PRIMEloci.sh -4 -5
-   ```
-
-### Usage of R function in PRIMEloci package
+### Usage of R Function in PRIMEloci Package
 
 Ensure that all settings for `run_PRIMEloci()` are correctly configured in `path/to/PRIMEloci/genomewide_prediction/config_R_PRIMEloci.yaml`. 
 
@@ -131,4 +137,3 @@ primeloci_tc_grl <- run_PRIMEloci(ctss_rse = ctss_rse,
 Contributions are welcome! Please submit a pull request or open an issue to discuss any changes or improvements.
 
 ## License
-
