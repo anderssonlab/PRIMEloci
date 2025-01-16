@@ -15,12 +15,13 @@ The PRIMEloci repository offers tools for genome-wide prediction of regulatory e
 
 The workflow focuses on the prediction of regulatory elements using machine learning, encompassing six key steps:
 
-1. **Extracting CTSS data**: Generate CAGE transcriptional start site (CTSS) objects from bigWig files.
-2. **Identifying Tag Clusters**: Derive tag clusters (TCs) from the CTSS data.
-3. **Processing Profiles**: Prepare processed CAGE profiles for input into the prediction model.
-4. **Predicting Profile Probabilities**: Utilize PRIMEloci models to predict CAGE profile probabilities of regulatory elements.
-5. **Filtering Results**: Output non-overlapping predicted loci in `.bed` and `.rds` formats for further analysis in R.
-6. **Post-processing**: Apply further refinement and filtering to predictions based on additional criteria.
+1. **Extracting CTSS Data**: Extract CAGE transcriptional start site (CTSS) objects from bigWig files using the CAGEfightR package.
+2. **Identifying Tag Clusters (TCs)**: Identify tag clusters (TCs) from the extracted CTSS data using the CAGEfightR package.
+3. **Sliding Through TCs**: Slide through the identified TCs, setting the window size to 20, to prepare data for downstream analysis.
+4. **Creating Normalized Profiles**: Generate normalized profiles for input into the prediction model.
+5. **Predicting Profile Probabilities**: Use PRIMEloci models to predict the probabilities of regulatory elements.
+6. **Post-Processing**: Refine and filter predictions using additional criteria for improved accuracy, outputting non-overlapping loci in `.bed` format for further analysis in R.
+
 
 PRIMEloci offers two primary ways to utilize its genome-wide prediction:
 
@@ -30,7 +31,7 @@ Execute a full pipeline or some parts of the pipeline using pre-configured bash 
 
 ### R Functions
 
-Directly use R functions provided in the PRIMEloci package, allowing for more control, customization, and integration with other R-based workflows. When using the PRIMEloci R functions, users typically handle steps 1 and 2 (CTSS and TC identification using CAGEfighR functions) within R, while the `run_PRIMEloci()` function covers steps 3 through 5, processing existing CTSS and TC data through the prediction model and generating the final output.
+Directly use R functions provided in the PRIME package, allowing for more control, customization, and integration with other R-based workflows. When using the PRIMEloci functions, users typically handle steps 1 and 2 (CTSS and TC identification using CAGEfighR functions) within R, while the `PRIME::PRIMEloci()` function covers steps 3 through 6, processing existing CTSS and TC data through the prediction model and generating the final output.
 
 ## Installation
 
@@ -45,10 +46,10 @@ To install PRIMEloci, follow these steps:
 
 2. **Install R Package**:
 
-   Ensure you have R version 4.2 or higher. Open R or RStudio and run the following command to install the PRIMEloci package locally from the provided `.tar.gz` file:
+   Ensure you have R version 4.4 or higher. Open R or RStudio and run the following command to install the PRIMEloci package locally from the provided `.tar.gz` file:
 
    ```r
-   install.packages("path/to/PRIMEloci_0.7.tar.gz", repos = NULL, type = "source")
+   install.packages("path/to/PRIMEloci_0.9.4.tar.gz", repos = NULL, type = "source")
    ```
 
 3. **Install Python Packages**:
@@ -80,7 +81,7 @@ To use PRIMEloci, follow these steps:
 
 2. **Configure Parameters**
 
-   Provide a valid configuration file with `--config`. This file must define all required parameters for the script, including options like `EXTENSION_DISTANCE`. Default settings support CAGE files located in `path/to/PRIMEloci/example/resources`.
+   The example of config file can be found at `path/to/PRIMEloci/genomewide_prediction/bash_config_PRIMEloci.sh` Provide a valid configuration file with `--config`. This file must define all required parameters for the script. Example settings support CAGE files located in `path/to/PRIMEloci/example/resources`.
 
 3. **Run the Scripts**
 
@@ -98,7 +99,7 @@ To use PRIMEloci, follow these steps:
 
    - **Specific Steps**: Run individual steps as needed:
      ```bash
-     ./PRIMEloci.sh --config <config_file> -1 -6
+     ./PRIMEloci.sh --config <config_file> -3 -4 
      ```
 
    - **Temporary Files**: Use `--keeptmp` to retain intermediate files created during Steps 3–5 for further inspection:
@@ -109,14 +110,14 @@ To use PRIMEloci, follow these steps:
    Each step corresponds to a specific script or function:
    - `-1`: Extract CTSS data.
    - `-2`: Identify tag clusters.
-   - `-3`: Process profiles.
-   - `-4`: Predict probabilities.
-   - `-5`: Filter results.
-   - `-6`: Apply post-processing.
+   - `-3`: Slide through TCs with a specific window size.
+   - `-4`: Create normalized profiles.
+   - `-5`: Predict regulatory element probabilities.
+   - `-6`: Apply post-processing to refine predictions.
 
 ### Usage of R Function in PRIMEloci Package
 
-Ensure that all settings for `run_PRIMEloci()` are correctly configured in `path/to/PRIMEloci/genomewide_prediction/config_R_PRIMEloci.yaml`. 
+[will be changed] Ensure that all settings for `PRIMEloci()` are correctly configured in `path/to/PRIMEloci/genomewide_prediction/config_R_PRIMEloci.yaml`. 
 
 ```R
 # load libraries
