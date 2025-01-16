@@ -104,7 +104,7 @@ To use PRIMEloci, follow these steps:
 
    - **Temporary Files**: Use `--keeptmp` to retain intermediate files created during Steps 3–5 for further inspection:
      ```bash
-     ./PRIMEloci.sh --config <config_file> --keeptmp
+     ./PRIMEloci.sh --config <config_file> --all --keeptmp
      ```
 
    Each step corresponds to a specific script or function:
