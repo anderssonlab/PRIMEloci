@@ -11,7 +11,7 @@
 #' metadata, including the thick position and maximum score.
 #' @importFrom GenomicRanges GRanges reduce findOverlaps
 #' @importFrom IRanges IRanges subsetByOverlaps
-#' @importFrom S4Vectors mcols
+#' @importFrom S4Vectors mcols subjectHits
 #' @export
 selective_merge_cores <- function(core_gr, score_diff) {
   # Sort cores by descending score
@@ -30,7 +30,7 @@ selective_merge_cores <- function(core_gr, score_diff) {
 
     # Find and filter overlapping cores
     overlaps <- GenomicRanges::findOverlaps(x, core_gr)
-    overlap_set <- core_gr[subjectHits(overlaps)]
+    overlap_set <- core_gr[S4Vectors::subjectHits(overlaps)]
     merge_candidates <- overlap_set[overlap_set$score >= score_x - score_diff]
 
     if (length(merge_candidates) > 1) {
