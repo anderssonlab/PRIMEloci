@@ -1,1 +1,0 @@
-Copy bw files from "....."
