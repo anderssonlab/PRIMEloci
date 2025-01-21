@@ -114,16 +114,24 @@ To use PRIMEloci, follow these steps:
    - **Run All Steps**: Process data from initial CTSS extraction to final post-processing of regulatory element predictions.
      ```bash
      ./PRIMEloci.sh --config <config_file> --all
+
+     # example <config_file>
+     ./PRIMEloci.sh --config bash_config_PRIMEloci.sh --all
      ```
      If server storage is not a concern, it is recommended to use --keep_tmp, as it allows you to retain temporary files for further analysis.
      ```bash
-     ./PRIMEloci.sh --config <config_file> --all --keep_tmp
+     ./PRIMEloci.sh --config <config_file> --all --keeptmp
+
+     # example <config_file>
+     ./PRIMEloci.sh --config bash_config_PRIMEloci.sh --all --keeptmp
      ```    
 
    - **Pre-processed Data**: Skip earlier steps if `.rds` files for CTSS and TCs/regions are already available. 
      Make sure that the files are in the correct format. Examples can be explored by running the provided example commands with `--all`. 
      ```bash
      ./PRIMEloci.sh --config <config_file> --pred
+
+     
      ```
      If server storage is not a concern, it is recommended to use --keep_tmp, as it allows you to retain temporary files for further analysis.
      ```bash
