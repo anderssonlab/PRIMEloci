@@ -43,7 +43,7 @@ get_tcs_and_extend_fromthick <- function(ctss_rse, ext_dis = 200) {
   # Assert that ext_dis is an integer
   assertthat::assert_that(
     is.integer(ext_dis),
-    msg = "ext_dis must be an integer."
+    ext_dis==round(ext_dis)
   )
 
   # Get column names

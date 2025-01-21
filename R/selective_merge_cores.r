@@ -28,32 +28,35 @@ selective_merge_cores <- function(core_gr, score_diff) {
     score_x <- x$score
     thick_x <- x$thick
 
-    # Find and filter overlapping cores
+    ## 1. Identify overlapping cores to the top core
     overlaps <- GenomicRanges::findOverlaps(x, core_gr)
     overlap_set <- core_gr[S4Vectors::subjectHits(overlaps)]
+
+    ## 2. Deviate at most "score_diff aka d" in score from the top core
     merge_candidates <- overlap_set[overlap_set$score >= score_x - score_diff]
 
     if (length(merge_candidates) > 1) {
-      # Merge overlapping cores
+      # 3. Merge the merge_candidates
       merged_region <- GenomicRanges::reduce(merge_candidates)
       thick_vals <- c(thick_vals, thick_x)
       max_scores <- c(max_scores, score_x)
       merged_cores <- c(merged_cores, merged_region)
 
-      # Exclude merged cores
-      core_gr <- core_gr[!(seqnames(core_gr) %in% seqnames(overlap_set) &
-                             start(core_gr) %in% start(overlap_set) &
-                             end(core_gr) %in% end(overlap_set))]
+      # 4. Remove from the set of cores,
+      # those that overlap with the merged cores
+      core_gr <- IRanges::subsetByOverlaps(core_gr, merged_cores, invert = TRUE)
+
     } else {
+      # 5. If there is no merge, keep the top core
+      # and remove overlaps from the set
       thick_vals <- c(thick_vals, thick_x)
       max_scores <- c(max_scores, score_x)
       merged_cores <- c(merged_cores, x)
 
-      # Exclude merged cores
-      core_gr <- core_gr[-1]
+      core_gr <- core_gr[-S4Vectors::subjectHits(overlaps)]
     }
 
-    core_gr <- IRanges::subsetByOverlaps(core_gr, merged_cores, invert = TRUE)
+
   }
 
   # Attach metadata

@@ -17,7 +17,7 @@ The workflow focuses on the prediction of regulatory elements using machine lear
 
 1. **Extracting CTSS Data**: Extract CAGE transcriptional start site (CTSS) objects from bigWig files using the CAGEfightR package.
 2. **Identifying Tag Clusters (TCs)**: Identify tag clusters (TCs) from the extracted CTSS data using the CAGEfightR package.
-3. **Sliding Through TCs**: Slide through the identified TCs, setting the window size to 20, to prepare data for downstream analysis.
+3. **Sliding Through TCs**: Slide through the identified TCs, default setting the window size to 20, to prepare data for downstream analysis.
 4. **Creating Normalized Profiles**: Generate normalized profiles for input into the prediction model.
 5. **Predicting Profile Probabilities**: Use PRIMEloci models to predict the probabilities of regulatory elements.
 6. **Post-Processing**: Refine and filter predictions using additional criteria for improved accuracy, outputting non-overlapping loci in `.bed` format for further analysis in R.
@@ -48,8 +48,17 @@ To install PRIMEloci, follow these steps:
 
    Ensure you have R version 4.4 or higher. Open R or RStudio and run the following command to install the PRIMEloci package locally from the provided `.tar.gz` file:
 
+   ```bash
+   # KUIT-server user:
+   module load openjdk/20.0.0 gcc/13.2.0 R/4.4.0
+   module load hdf5 netcdf-c/4.8.1
+
+   # Access R
+   R
+   ```
+
    ```r
-   install.packages("path/to/PRIMEloci_0.9.4.tar.gz", repos = NULL, type = "source")
+   install.packages("PRIMEloci_0.9.7.tar.gz", repos = NULL, type = "source", lib="/local/path")
    ```
 
 3. **Install Python Packages**:
@@ -57,6 +66,10 @@ To install PRIMEloci, follow these steps:
    Ensure you have Python 3.9 or higher. Install the required Python packages:
 
    ```bash
+   # KUIT-server user:
+   module load python/3.9.9 python-packages/3.9
+
+   # Install Python Packages
    pip3 install matplotlib numpy pandas seaborn lightgbm scikit-learn
    ```
 
@@ -66,6 +79,17 @@ To install PRIMEloci, follow these steps:
    cd genomewide_prediction
    chmod +x PRIMEloci.sh
    ```
+5. **Copy the example resources and model for demonstration**:
+
+   ```bash
+   # KUIT-server user:
+   cd ../example/resources/cage_bw
+   cp /maps/projects/ralab/data/projects/nucleiCAGEproject/8.Genomewide_prediction/example_cage_K562_bw/* .
+
+   cd ../../../model
+   cp /maps/projects/ralab/data/projects/nucleiCAGEproject/7.Model_development/PRIMEloci_GM12878_model_1.0.sav . 
+
+   ``` 
 
 These steps will set up the necessary environment for running PRIMEloci scripts. You can now proceed with executing the main script or individual scripts as needed.
 
@@ -76,12 +100,12 @@ To use PRIMEloci, follow these steps:
 1. **Navigate to the Genome-wide Prediction Directory**
 
    ```bash
-   cd genomewide_prediction
+   cd PRIMEloci/genomewide_prediction
    ```
 
 2. **Configure Parameters**
 
-   The example of config file can be found at `path/to/PRIMEloci/genomewide_prediction/bash_config_PRIMEloci.sh` Provide a valid configuration file with `--config`. This file must define all required parameters for the script. Example settings support CAGE files located in `path/to/PRIMEloci/example/resources`.
+   The example of config file can be found at `path/to/PRIMEloci/genomewide_prediction/bash_config_PRIMEloci.sh` Provide a valid configuration file with `--config`. This file must define all required parameters for the script. Example settings support CAGE files located in `PRIMEloci/example/resources`.
 
 3. **Run the Scripts**
 
@@ -91,22 +115,26 @@ To use PRIMEloci, follow these steps:
      ```bash
      ./PRIMEloci.sh --config <config_file> --all
      ```
+     If server storage is not a concern, it is recommended to use --keep_tmp, as it allows you to retain temporary files for further analysis.
+     ```bash
+     ./PRIMEloci.sh --config <config_file> --all --keep_tmp
+     ```    
 
-   - **Pre-processed Data**: Skip earlier steps if `.rds` files for CTSS and TCs are already available.
+   - **Pre-processed Data**: Skip earlier steps if `.rds` files for CTSS and TCs/regions are already available. 
+     Make sure that the files are in the correct format. Examples can be explored by running the provided example commands with `--all`. 
      ```bash
      ./PRIMEloci.sh --config <config_file> --pred
      ```
+     If server storage is not a concern, it is recommended to use --keep_tmp, as it allows you to retain temporary files for further analysis.
+     ```bash
+     ./PRIMEloci.sh --config <config_file> --pred --keep_tmp
+     ```
 
-   - **Specific Steps**: Run individual steps as needed:
+   - **Specific Steps**: Run individual steps as needed. 
+   Note that when running step by step, all temporary files will be kept, allowing you to inspect them. You can remove these files later from
      ```bash
      ./PRIMEloci.sh --config <config_file> -3 -4 
      ```
-
-   - **Temporary Files**: Use `--keeptmp` to retain intermediate files created during Steps 3–5 for further inspection:
-     ```bash
-     ./PRIMEloci.sh --config <config_file> --all --keeptmp
-     ```
-
    Each step corresponds to a specific script or function:
    - `-1`: Extract CTSS data.
    - `-2`: Identify tag clusters.
@@ -114,6 +142,9 @@ To use PRIMEloci, follow these steps:
    - `-4`: Create normalized profiles.
    - `-5`: Predict regulatory element probabilities.
    - `-6`: Apply post-processing to refine predictions.
+
+### Additional Applications of PRIMEloci
+
 
 ### Usage of R Function in PRIMEloci Package
 

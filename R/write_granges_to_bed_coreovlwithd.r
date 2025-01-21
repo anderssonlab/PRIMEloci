@@ -37,7 +37,7 @@ write_granges_to_bed_coreovlwithd <- function(gr,
   bed_df <- within(bed_df, {
     thickStart <- thick - 1
     thickEnd <- thick
-    name <- paste0("coreovlwith-d", seq_len(nrow(bed_df)))
+    name <- paste0("PRIMEloci-", seq_len(nrow(bed_df)))
   })
 
   # Reorder and rename columns
