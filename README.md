@@ -3,6 +3,8 @@
 
 The PRIMEloci repository offers tools for genome-wide prediction of regulatory elements from CAGE data using machine learning models. The core model, based on LightGBM, was trained on GM12878 whole-cell CAGE and nucCAGE data from the Andersson lab. PRIMEloci automates the workflow from bigWig files to accurately identified enhancers and promoters, providing flexibility for users to either use bash scripts for a full pipeline execution or directly interact with R functions for a more programmatic approach. While the project was initially developed based on the human genome hg38, it can be adapted for use with other species.
 
+
+
 ## Table of Contents
 
 - [Overview](#overview)
@@ -10,6 +12,8 @@ The PRIMEloci repository offers tools for genome-wide prediction of regulatory e
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
+
+
 
 ## Overview
 
@@ -32,6 +36,8 @@ Execute a full pipeline or some parts of the pipeline using pre-configured bash 
 ### R Functions
 
 Directly use R functions provided in the PRIME package, allowing for more control, customization, and integration with other R-based workflows. When using the PRIMEloci functions, users typically handle steps 1 and 2 (CTSS and TC identification using CAGEfighR functions) within R, while the `PRIME::PRIMEloci()` function covers steps 3 through 6, processing existing CTSS and TC data through the prediction model and generating the final output.
+
+
 
 ## Installation
 
@@ -93,6 +99,8 @@ To install PRIMEloci, follow these steps:
 
 These steps will set up the necessary environment for running PRIMEloci scripts. You can now proceed with executing the main script or individual scripts as needed.
 
+
+
 ## Usage of Bash Script
 
 To use PRIMEloci, follow these steps:
@@ -147,6 +155,9 @@ To use PRIMEloci, follow these steps:
    - `-6`: Apply post-processing to refine predictions.
 
 ### Additional Applications of PRIMEloci
+
+[will be updated]
+
 
 
 ### Usage of R Function in PRIMEloci Package
