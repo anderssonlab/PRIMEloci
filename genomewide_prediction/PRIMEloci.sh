@@ -72,6 +72,12 @@ fi
 # Load the specified configuration file
 source "$CONFIG_FILE"
 
+# Check if output directory is provided, if not, create one
+if [[ ! -d $OUTPUT_DIR ]]; then
+    echo "Creating output directory..."
+    mkdir -p $OUTPUT_DIR
+fi
+
 # Function to create /PRIMEloci_tmp directory if needed
 create_tmp_dir() {
     if [[ ! -d "$OUTPUT_DIR/PRIMEloci_tmp" ]]; then
@@ -111,17 +117,6 @@ combine_bed_files() {
   done
 
 }
-
-# Function to clean up the temporary directory if needed
-#cleanup() {
-#    if ! $keeptmp && [[ -d "$TMP_DIR" ]]; then
-#        echo "Cleaning up temporary directory: $TMP_DIR"
-#        rm -rf "$TMP_DIR"
-#    fi
-#}
-
-# Trap to clean up if script is interrupted
-#trap cleanup EXIT
 
 # If --all is specified, add all steps 1-6
 if $all; then
@@ -198,8 +193,19 @@ for step in "${steps[@]}"; do
     esac
 done
 
+# Function to clean up the temporary directory if needed
+cleanup() {
+    if ! $keeptmp && [[ -d "$TMP_DIR" ]]; then
+        echo "Cleaning up temporary directory: $TMP_DIR"
+        rm -rf "$TMP_DIR"
+    fi
+}
+
 # Clean up the temporary directory only if running steps 3-5
-#if ($all || $pred) && [[ "${steps[@]}" =~ "3" || "${steps[@]}" =~ "4" || "${steps[@]}" =~ "5" ]] && ! $keeptmp; then
-#    echo "Cleaning up temporary files from steps 3-5"
-#    rm -rf $TMP_DIR
-#fi
+if ($all || $pred) && ! $keeptmp; then
+    echo "Cleaning up temporary files from steps 3-5"
+    rm -rf $TMP_DIR
+fi
+
+# Trap to clean up if script is interrupted
+# trap cleanup EXIT

@@ -59,6 +59,7 @@ filtered_gr <- gr[gr$score >= score_threshold]
 chr_list <- unique(as.character(seqnames(filtered_gr)))
 
 
+
 collapsed_gr_list <- mclapply(chr_list, function(chr) {
 
   tryCatch({
@@ -79,14 +80,12 @@ collapsed_gr_list <- mclapply(chr_list, function(chr) {
 
 collapsed_gr <- do.call(c, collapsed_gr_list)
 collapsed_gr <- sort(collapsed_gr)
-print(head(collapsed_gr))
 
 if (!is.null(output_dir) && output_dir != FALSE) {
   input_basename <- tools::file_path_sans_ext(basename(bed_file))
   input_basename <- input_basename %>%
     stringr::str_replace_all("all", as.character(score_threshold)) %>%
     stringr::str_replace_all("[^[:alnum:]]", "_")
-
   write_granges_to_bed_coreovlwithd(collapsed_gr,
                                     output_dir,
                                     input_basename,

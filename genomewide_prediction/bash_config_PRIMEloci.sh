@@ -29,8 +29,8 @@ SCRIPT_DIR="."
 MODEL_PATH="../model/PRIMEloci_GM12878_model_1.0.sav"
 PREFIX_OUT_NAME="K562-on-PRIMEloci"
 
-### 6 ### _6_apply_post_processing_coreovlwith-d.r
-# OUTPUT_DIR, PROFILE_MAIN_DIR, PROFILE_SUB_DIR from above
+## 6 ### _6_apply_post_processing_coreovlwith-d.r
+# OUTPUT_DIR from above
 PARTIAL_NAME="*pred_all*_combined.bed"
 THRESHOLD=0.75
 SCORE_DIFF=0.10
