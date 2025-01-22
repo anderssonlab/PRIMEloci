@@ -79,14 +79,14 @@ test_X = test_X[shuffled_indices]
 test_y = test_y[shuffled_indices]
 
 # Uncomment the following lines to test with a balanced larger subset of data
-pos_indices_sample = np.random.choice(np.where(test_y == 1)[0], 500, replace=False)  # 500 positive samples
-neg_indices_sample = np.random.choice(np.where(test_y == 0)[0], 500, replace=False)  # 500 negative samples
-selected_indices = np.concatenate([pos_indices_sample, neg_indices_sample])
-test_X = test_X[selected_indices]  # Subset of features
-test_y = test_y[selected_indices]  # Subset of labels
+# pos_indices_sample = np.random.choice(np.where(test_y == 1)[0], 500, replace=False)  # 500 positive samples
+# neg_indices_sample = np.random.choice(np.where(test_y == 0)[0], 500, replace=False)  # 500 negative samples
+# selected_indices = np.concatenate([pos_indices_sample, neg_indices_sample])
+# test_X = test_X[selected_indices]  # Subset of features
+# test_y = test_y[selected_indices]  # Subset of labels
 
 # Function to calculate Permutation Feature Importance
-def permutation_feature_importance(model, X, y, metric=roc_auc_score, n_repeats=10):
+def permutation_feature_importance(model, X, y, metric=roc_auc_score, n_repeats=5):
     baseline_score = metric(y, model.predict_proba(X)[:, 1])  # Base performance
     feature_names = [f"Feature_{i}" for i in range(X.shape[1])]  # Map to original indices
     X = pd.DataFrame(X, columns=feature_names)
@@ -99,7 +99,9 @@ def permutation_feature_importance(model, X, y, metric=roc_auc_score, n_repeats=
             permuted_score = metric(y, model.predict_proba(X_permuted)[:, 1])
             importance.loc[col, i] = baseline_score - permuted_score  # Drop in performance
 
-    return importance.mean(axis=1).sort_values(ascending=False), importance
+    # Add a column for mean importance
+    importance['Mean'] = importance.mean(axis=1)
+    return importance['Mean'].sort_values(ascending=False), importance
 
 # Corrected mapping function
 def map_feature_indices(features):
@@ -147,6 +149,23 @@ with open("importance_pos_pred_repeats.pkl", "wb") as file:
 with open("importance_neg_pred_repeats.pkl", "wb") as file:
     pickle.dump(importance_neg_pred_repeats, file)
 
+# Uncomment below lines to load saved importance objects if needed
+# with open("importance_pos_pred_mean.pkl", "rb") as file:
+#     importance_pos_pred_mean = pickle.load(file)
+
+# with open("importance_neg_pred_mean.pkl", "rb") as file:
+#     importance_neg_pred_mean = pickle.load(file)
+
+# with open("importance_pos_pred_repeats.pkl", "rb") as file:
+#     importance_pos_pred_repeats = pickle.load(file)
+
+# with open("importance_neg_pred_repeats.pkl", "rb") as file:
+#     importance_neg_pred_repeats = pickle.load(file)
+
+# Save importance to txt files
+importance_pos_pred_repeats.to_csv("importance_pos_pred_repeats.txt", sep="\t")
+importance_neg_pred_repeats.to_csv("importance_neg_pred_repeats.txt", sep="\t")
+
 # Map feature names to -200 to 200
 mapped_features = map_feature_indices(importance_pos_pred_mean.index)
 
@@ -178,15 +197,3 @@ plt.grid()
 plt.savefig("negative_permutation_importance.pdf")
 plt.show()
 
-# Uncomment below lines to load saved importance objects if needed
-# with open("importance_pos_pred_mean.pkl", "rb") as file:
-#     importance_pos_pred_mean = pickle.load(file)
-
-# with open("importance_neg_pred_mean.pkl", "rb") as file:
-#     importance_neg_pred_mean = pickle.load(file)
-
-# with open("importance_pos_pred_repeats.pkl", "rb") as file:
-#     importance_pos_pred_repeats = pickle.load(file)
-
-# with open("importance_neg_pred_repeats.pkl", "rb") as file:
-#     importance_neg_pred_repeats = pickle.load(file)
