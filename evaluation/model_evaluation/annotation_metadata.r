@@ -7,7 +7,7 @@ library(dplyr)
 
 # Set input and output directories
 input_dir <- "/Users/natsudanav/Documents/data_PRIMEloci_dev/GM12878_wt10M_profiles_te/metadata/"
-output_dir <- "/Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/metadata"
+output_dir <- "/Users/natsudanav/Documents/data_PRIMEloci_dev/GM12878_wt10M_profiles_te_withAnno/metadata"
 
 
 # Ensure output directory exists
