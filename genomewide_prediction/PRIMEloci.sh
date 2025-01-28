@@ -175,7 +175,7 @@ for step in "${steps[@]}"; do
                 -m $MODEL_PATH \
                 -p $OUTPUT_DIR/PRIMEloci_tmp/$PROFILE_MAIN_DIR \
                 -n $PREFIX_OUT_NAME \
-                -f $PROFILE_FILE_TYPE $CALIBRATION_FLAG
+                -f $PROFILE_FILE_TYPE 
             combine_bed_files $OUTPUT_DIR/PRIMEloci_tmp/$PROFILE_MAIN_DIR/predictions $OUTPUT_DIR 
             ;;
         6)

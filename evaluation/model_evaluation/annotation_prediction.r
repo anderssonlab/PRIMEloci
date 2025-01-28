@@ -6,8 +6,8 @@ library(GenomicRanges)
 library(rtracklayer)
 
 # File paths (adjust paths accordingly)
-input_dir <- "/Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/"
-output_dir <- "/Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out"
+input_dir <- "/Users/natsudanav/Documents/data_PRIMEloci_dev/GM12878_wt10M_profiles_te/predictions/"
+output_dir <- "/Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions"
 
 
 # Ensure output directory exists

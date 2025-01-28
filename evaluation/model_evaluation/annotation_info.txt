@@ -10,7 +10,7 @@ Finding hierachical overlaps...
 7     intron  2380       49.6
 8  antisense     0        0.0
 9 intergenic   294        6.1
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_C_1mio_1.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_C_1mio_1.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -23,7 +23,7 @@ Finding hierachical overlaps...
 7     intron  2325       44.7
 8  antisense     0        0.0
 9 intergenic   355        6.8
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_C_1mio_2.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_C_1mio_2.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -36,7 +36,7 @@ Finding hierachical overlaps...
 7     intron  3843       48.0
 8  antisense     0        0.0
 9 intergenic   590        7.4
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_C_1mio_3.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_C_1mio_3.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -49,7 +49,7 @@ Finding hierachical overlaps...
 7     intron  4584       54.1
 8  antisense     0        0.0
 9 intergenic   920       10.9
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_C_500k_1.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_C_500k_1.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -62,7 +62,7 @@ Finding hierachical overlaps...
 7     intron  2616       46.0
 8  antisense     0        0.0
 9 intergenic   641       11.3
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_C_500k_2.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_C_500k_2.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -75,7 +75,7 @@ Finding hierachical overlaps...
 7     intron  3060       49.1
 8  antisense     0        0.0
 9 intergenic   577        9.3
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_C_500k_3.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_C_500k_3.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -88,7 +88,7 @@ Finding hierachical overlaps...
 7     intron 12655       59.3
 8  antisense     0        0.0
 9 intergenic  5390       25.3
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_10mio_1.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_10mio_1.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -101,7 +101,7 @@ Finding hierachical overlaps...
 7     intron  9324       60.0
 8  antisense     0        0.0
 9 intergenic  3607       23.2
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_10mio_2.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_10mio_2.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -114,7 +114,7 @@ Finding hierachical overlaps...
 7     intron 13825       58.1
 8  antisense     0        0.0
 9 intergenic  6683       28.1
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_10mio_3.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_10mio_3.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -127,7 +127,7 @@ Finding hierachical overlaps...
 7     intron  3239       62.0
 8  antisense     0        0.0
 9 intergenic   576       11.0
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_1mio_1.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_1mio_1.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -140,7 +140,7 @@ Finding hierachical overlaps...
 7     intron  3455       63.5
 8  antisense     0        0.0
 9 intergenic   406        7.5
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_1mio_2.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_1mio_2.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -153,7 +153,7 @@ Finding hierachical overlaps...
 7     intron  3085       63.2
 8  antisense     0        0.0
 9 intergenic   390        8.0
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_1mio_3.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_1mio_3.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -166,7 +166,7 @@ Finding hierachical overlaps...
 7     intron  8025       67.1
 8  antisense     0        0.0
 9 intergenic   647        5.4
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_5mio_1.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_5mio_1.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -179,7 +179,7 @@ Finding hierachical overlaps...
 7     intron  7623       64.6
 8  antisense     0        0.0
 9 intergenic  1604       13.6
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_5mio_2.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_5mio_2.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -192,7 +192,7 @@ Finding hierachical overlaps...
 7     intron  5666       65.5
 8  antisense     0        0.0
 9 intergenic   771        8.9
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_5mio_3.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_aug_GM12878_reseq_N_5mio_3.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -205,7 +205,7 @@ Finding hierachical overlaps...
 7     intron  1689       33.7
 8  antisense     0        0.0
 9 intergenic   250        5.0
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_C_1mio_1.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_C_1mio_1.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -218,7 +218,7 @@ Finding hierachical overlaps...
 7     intron  1742       32.2
 8  antisense     0        0.0
 9 intergenic   298        5.5
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_C_1mio_2.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_C_1mio_2.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -231,7 +231,7 @@ Finding hierachical overlaps...
 7     intron  3276       39.3
 8  antisense     0        0.0
 9 intergenic   627        7.5
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_C_1mio_3.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_C_1mio_3.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -244,7 +244,7 @@ Finding hierachical overlaps...
 7     intron  3674       41.7
 8  antisense     0        0.0
 9 intergenic   751        8.5
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_C_500k_1.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_C_500k_1.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -257,7 +257,7 @@ Finding hierachical overlaps...
 7     intron  1923       32.6
 8  antisense     0        0.0
 9 intergenic   431        7.3
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_C_500k_2.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_C_500k_2.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -270,7 +270,7 @@ Finding hierachical overlaps...
 7     intron  2242       34.5
 8  antisense     0        0.0
 9 intergenic   520        8.0
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_C_500k_3.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_C_500k_3.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -283,7 +283,7 @@ Finding hierachical overlaps...
 7     intron 12244       55.1
 8  antisense     0        0.0
 9 intergenic  3509       15.8
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_10mio_1.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_10mio_1.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -296,7 +296,7 @@ Finding hierachical overlaps...
 7     intron  8717       53.8
 8  antisense     0        0.0
 9 intergenic  2228       13.8
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_10mio_2.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_10mio_2.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -309,7 +309,7 @@ Finding hierachical overlaps...
 7     intron 13674       55.2
 8  antisense     0        0.0
 9 intergenic  4456       18.0
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_10mio_3.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_10mio_3.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -322,7 +322,7 @@ Finding hierachical overlaps...
 7     intron  2283       41.9
 8  antisense     0        0.0
 9 intergenic   329        6.0
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_1mio_1.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_1mio_1.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -335,7 +335,7 @@ Finding hierachical overlaps...
 7     intron  2357       41.5
 8  antisense     0        0.0
 9 intergenic   286        5.0
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_1mio_2.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_1mio_2.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -348,7 +348,7 @@ Finding hierachical overlaps...
 7     intron  2079       40.7
 8  antisense     0        0.0
 9 intergenic   266        5.2
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_1mio_3.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_1mio_3.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -361,7 +361,7 @@ Finding hierachical overlaps...
 7     intron  6684       53.6
 8  antisense     0        0.0
 9 intergenic   822        6.6
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_5mio_1.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_5mio_1.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -374,7 +374,7 @@ Finding hierachical overlaps...
 7     intron  6784       55.2
 8  antisense     0        0.0
 9 intergenic   969        7.9
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_5mio_2.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_5mio_2.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -387,7 +387,7 @@ Finding hierachical overlaps...
 7     intron  4644       51.6
 8  antisense     0        0.0
 9 intergenic   493        5.5
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_5mio_3.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_neg_te_GM12878_reseq_N_5mio_3.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -400,7 +400,7 @@ Finding hierachical overlaps...
 7     intron  1758       36.7
 8  antisense     0        0.0
 9 intergenic   335        7.0
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_C_1mio_1.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_C_1mio_1.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -413,7 +413,7 @@ Finding hierachical overlaps...
 7     intron  1886       36.3
 8  antisense     0        0.0
 9 intergenic   431        8.3
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_C_1mio_2.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_C_1mio_2.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -426,7 +426,7 @@ Finding hierachical overlaps...
 7     intron  3701       46.2
 8  antisense     0        0.0
 9 intergenic   861       10.8
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_C_1mio_3.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_C_1mio_3.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -439,7 +439,7 @@ Finding hierachical overlaps...
 7     intron  3983       47.0
 8  antisense     0        0.0
 9 intergenic  1001       11.8
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_C_500k_1.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_C_500k_1.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -452,7 +452,7 @@ Finding hierachical overlaps...
 7     intron  2165       38.1
 8  antisense     0        0.0
 9 intergenic   567       10.0
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_C_500k_2.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_C_500k_2.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -465,7 +465,7 @@ Finding hierachical overlaps...
 7     intron  2496       40.1
 8  antisense     0        0.0
 9 intergenic   716       11.5
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_C_500k_3.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_C_500k_3.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -478,7 +478,7 @@ Finding hierachical overlaps...
 7     intron 12541       58.8
 8  antisense     0        0.0
 9 intergenic  3722       17.4
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_10mio_1.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_10mio_1.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -491,7 +491,7 @@ Finding hierachical overlaps...
 7     intron  8950       57.6
 8  antisense     0        0.0
 9 intergenic  2315       14.9
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_10mio_2.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_10mio_2.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -504,7 +504,7 @@ Finding hierachical overlaps...
 7     intron 14051       59.1
 8  antisense     0        0.0
 9 intergenic  4516       19.0
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_10mio_3.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_10mio_3.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -517,7 +517,7 @@ Finding hierachical overlaps...
 7     intron  2301       44.1
 8  antisense     0        0.0
 9 intergenic   366        7.0
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_1mio_1.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_1mio_1.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -530,7 +530,7 @@ Finding hierachical overlaps...
 7     intron  2394       44.0
 8  antisense     0        0.0
 9 intergenic   350        6.4
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_1mio_2.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_1mio_2.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -543,7 +543,7 @@ Finding hierachical overlaps...
 7     intron  2128       43.6
 8  antisense     0        0.0
 9 intergenic   298        6.1
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_1mio_3.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_1mio_3.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -556,7 +556,7 @@ Finding hierachical overlaps...
 7     intron  6874       57.5
 8  antisense     0        0.0
 9 intergenic  1081        9.0
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_5mio_1.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_5mio_1.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -569,7 +569,7 @@ Finding hierachical overlaps...
 7     intron  6935       58.8
 8  antisense     0        0.0
 9 intergenic  1018        8.6
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_5mio_2.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_5mio_2.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -582,7 +582,7 @@ Finding hierachical overlaps...
 7     intron  4727       54.6
 8  antisense     0        0.0
 9 intergenic   606        7.0
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_5mio_3.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_aug_GM12878_reseq_N_5mio_3.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -595,7 +595,7 @@ Finding hierachical overlaps...
 7     intron  1844       36.8
 8  antisense     0        0.0
 9 intergenic   348        6.9
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_C_1mio_1.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_C_1mio_1.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -608,7 +608,7 @@ Finding hierachical overlaps...
 7     intron  1969       36.4
 8  antisense     0        0.0
 9 intergenic   445        8.2
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_C_1mio_2.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_C_1mio_2.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -621,7 +621,7 @@ Finding hierachical overlaps...
 7     intron  3847       46.2
 8  antisense     0        0.0
 9 intergenic   890       10.7
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_C_1mio_3.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_C_1mio_3.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -634,7 +634,7 @@ Finding hierachical overlaps...
 7     intron  4154       47.1
 8  antisense     0        0.0
 9 intergenic  1032       11.7
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_C_500k_1.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_C_500k_1.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -647,7 +647,7 @@ Finding hierachical overlaps...
 7     intron  2236       37.9
 8  antisense     0        0.0
 9 intergenic   588       10.0
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_C_500k_2.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_C_500k_2.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -660,7 +660,7 @@ Finding hierachical overlaps...
 7     intron  2609       40.1
 8  antisense     0        0.0
 9 intergenic   749       11.5
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_C_500k_3.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_C_500k_3.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -673,7 +673,7 @@ Finding hierachical overlaps...
 7     intron 13071       58.8
 8  antisense     0        0.0
 9 intergenic  3862       17.4
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_10mio_1.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_10mio_1.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -686,7 +686,7 @@ Finding hierachical overlaps...
 7     intron  9327       57.6
 8  antisense     0        0.0
 9 intergenic  2400       14.8
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_10mio_2.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_10mio_2.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -699,7 +699,7 @@ Finding hierachical overlaps...
 7     intron 14650       59.1
 8  antisense     0        0.0
 9 intergenic  4683       18.9
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_10mio_3.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_10mio_3.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -712,7 +712,7 @@ Finding hierachical overlaps...
 7     intron  2410       44.2
 8  antisense     0        0.0
 9 intergenic   380        7.0
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_1mio_1.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_1mio_1.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -725,7 +725,7 @@ Finding hierachical overlaps...
 7     intron  2502       44.1
 8  antisense     0        0.0
 9 intergenic   360        6.3
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_1mio_2.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_1mio_2.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -738,7 +738,7 @@ Finding hierachical overlaps...
 7     intron  2229       43.6
 8  antisense     0        0.0
 9 intergenic   311        6.1
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_1mio_3.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_1mio_3.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -751,7 +751,7 @@ Finding hierachical overlaps...
 7     intron  7176       57.5
 8  antisense     0        0.0
 9 intergenic  1130        9.1
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_5mio_1.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_5mio_1.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -764,7 +764,7 @@ Finding hierachical overlaps...
 7     intron  7219       58.7
 8  antisense     0        0.0
 9 intergenic  1070        8.7
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_5mio_2.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_5mio_2.bed 
 Finding hierachical overlaps...
 ### Overlap summary: ###
       txType count percentage
@@ -777,5 +777,7 @@ Finding hierachical overlaps...
 7     intron  4906       54.5
 8  antisense     0        0.0
 9 intergenic   627        7.0
-Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/data/GM12878_wt10M_profiles_te/predictions/out/PRIMEloci-trvl_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_5mio_3.bed 
+Annotated BED file saved to: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions/PRIMEloci_pred_all_profiles_subtnorm_pos_te_GM12878_reseq_N_5mio_3.bed 
 There were 50 or more warnings (use warnings() to see the first 50)
+> cat("All BED files processed and saved in:", output_dir, "\n")
+All BED files processed and saved in: /Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/GM12878_wt10M_profiles_te_withAnno/predictions 
