@@ -126,7 +126,7 @@ To use PRIMEloci, follow these steps:
      # example <config_file>
      ./PRIMEloci.sh --config bash_config_PRIMEloci.sh --all
      ```
-     If server storage is not a concern, it is recommended to use --keep_tmp, as it allows you to retain temporary files for further analysis.
+     If server storage is not a concern, it is recommended to use --keeptmp, as it allows you to retain temporary files for further analysis.
      ```bash
      ./PRIMEloci.sh --config <config_file> --all --keeptmp
      ```    
@@ -136,7 +136,7 @@ To use PRIMEloci, follow these steps:
      ```bash
      ./PRIMEloci.sh --config <config_file> --pred  
      ```
-     If server storage is not a concern, it is recommended to use --keep_tmp, as it allows you to retain temporary files for further analysis.
+     If server storage is not a concern, it is recommended to use --keeptmp, as it allows you to retain temporary files for further analysis.
      ```bash
      ./PRIMEloci.sh --config <config_file> --pred --keeptmp
      ```
