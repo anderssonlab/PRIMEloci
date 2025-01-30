@@ -46,7 +46,7 @@ To install PRIMEloci, follow these steps:
 1. **Clone the Repository**:
 
    ```bash
-   git clone git@github.com:anderssonlab/PRIMEloci.git
+   git clone https://github.com/anderssonlab/PRIMEloci
    cd PRIMEloci
    ```
 
