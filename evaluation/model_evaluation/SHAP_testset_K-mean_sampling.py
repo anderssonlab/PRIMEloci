@@ -24,10 +24,11 @@ import joblib
 # directories
 working_dir = "/Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation"
 profile_dir = "/Users/natsudanav/Documents/data_PRIMEloci_dev/GM12878_wt10M_profiles_te/profiles_subtnorm"
-explainer_dir = "/Users/natsudanav/Documents/data_PRIMEloci_dev/SHAP/shap_explainer_PRIMEloci_GM12878_model_1.0.pkl"
+#explainer_dir = "/Users/natsudanav/Documents/data_PRIMEloci_dev/SHAP/shap_explainer_PRIMEloci_GM12878_model_1.0_trvl.pkl"
 output_sir = "/Users/natsudanav/Desktop/PRIMEloci/evaluation/model_evaluation/results_SHAP"
+explainer_dir = "shap_explainer_PRIMEloci_GM12878_model_1.0_trvl.pkl"
 
-os.chdir(working_dir)
+#os.chdir(working_dir)
 
 
 # Step 1: Load SHAP Explainer from Pickle File
@@ -37,6 +38,7 @@ explainer = joblib.load(explainer_dir)
 # 📌 Step 2: Verify the Explainer Object
 print(type(explainer))  # Should print <class 'shap.explainers.tree.Tree'>
 
+'''
 total_clusters = 500
 
 
@@ -128,3 +130,4 @@ shap_values = explainer(X_sampled)
 # 📌 Step 5: Visualize SHAP Values with Beeswarm Plot
 shap.plots.beeswarm(shap_values)
 
+'''
