@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 #import matplotlib.pyplot as plt
 import shap
-from shap.explainers._tree import Tree
+#from shap.explainers._tree import Tree
 import os
 import pickle
 
