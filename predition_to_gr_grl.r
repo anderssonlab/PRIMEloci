@@ -1,8 +1,8 @@
 library(GenomicRanges)
 
 # Define the file path
-bed_file <- "/Users/natsudanav/Documents/PRIMEloci_pred_0_75_FANTOM5_rmSingletons_combined_coreovlwith-d.bed"
-name_outfile <- "FANTOM5_rmSingletons_0.75_gr"
+bed_file <- "/Users/natsudanav/Documents/data_PRIMEloci_dev/K562_on_PRIMEloci_pred_0_75_K562_N_combined_coreovlwith-d010.bed"
+name_outfile <- "K562_N_t075d010_gr"
 # Read the BED file
 bed_data <- read.delim(bed_file, header = TRUE, stringsAsFactors = FALSE)
 
