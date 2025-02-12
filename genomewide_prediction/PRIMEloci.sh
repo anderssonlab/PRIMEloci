@@ -164,7 +164,7 @@ for step in "${steps[@]}"; do
             Rscript _4_get_profile.r \
                 -c $OUTPUT_DIR/$CTSS_RSE_NAME \
                 -t $OUTPUT_DIR/PRIMEloci_tmp/$SLD_TC_GRL_NAME \
-                -o$OUTPUT_DIR/PRIMEloci_tmp \
+                -o $OUTPUT_DIR/PRIMEloci_tmp \
                 -n $PROFILE_MAIN_DIR \
                 -f $PROFILE_FILE_TYPE
             ;;
