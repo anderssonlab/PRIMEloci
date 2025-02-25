@@ -48,22 +48,22 @@ data_ave_N <- compute_data_ave(K562_N)
 generate_plots <- function(data_ave, sample_name, annotation, num_data) {
 
   n1 <- ggplot(data_ave, aes(x = X, y = SHAP)) +
-    geom_bar(stat = "identity", fill = "purple", alpha = 0.7) +
+    geom_bar(stat = "identity", fill = "#7771AF", alpha = 0.7) +
     labs(title = paste("Average SHAP Values (", sample_name, ") -",
                        annotation, "-", as.character(num_data), " rows"),
          x = "Position (bp)", y = "SHAP Value") +
     theme_minimal()
 
   n2 <- ggplot(data_ave, aes(x = X, y = subtnorm)) +
-    geom_bar(stat = "identity", fill = "darkgreen", alpha = 0.7) +
+    geom_bar(stat = "identity", fill = "#3E8E74", alpha = 0.7) +
     labs(title = paste("Average Subtnorm Values (", sample_name, ") -",
                        annotation, "-", as.character(num_data), " rows"),
          x = "Position (bp)", y = "Subtnorm Value") +
     theme_minimal()
 
   n3 <- ggplot(data_ave, aes(x = X)) +
-    geom_bar(aes(y = pos), stat = "identity", fill = "blue", alpha = 0.7) +
-    geom_bar(aes(y = -neg), stat = "identity", fill = "red", alpha = 0.7) +
+    geom_bar(aes(y = pos), stat = "identity", fill = "#264691", alpha = 0.7) +
+    geom_bar(aes(y = -neg), stat = "identity", fill = "#DD553C", alpha = 0.7) +
     labs(title = paste("Average Profile Counts (", sample_name, ") - ",
                        annotation, " - ", as.character(num_data), " rows"),
          x = "Position (bp)", y = "Counts") +
