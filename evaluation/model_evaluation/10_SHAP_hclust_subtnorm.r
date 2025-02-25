@@ -2,16 +2,16 @@ library(GenomicRanges)
 library(readr)
 library(ggplot2)
 library(dendextend)
-library(ggfortify)
+#library(ggfortify)
 library(dplyr)
 library(ggplot2)
-library(patchwork)
-library(gridExtra)
+#library(patchwork)
+#library(gridExtra)
 library(CAGEfightR)
 library(TxDb.Hsapiens.UCSC.hg38.knownGene)
 
-K562_C <- readRDS("/Users/natsudanav/Documents/data_PRIMEloci_dev/SHAP/K562_endres_v2/K562_C_endres_v2_shap-subtnorm-plus-minus-gr.rds")
-K562_N <- readRDS("/Users/natsudanav/Documents/data_PRIMEloci_dev/SHAP/K562_endres_v2/K562_N_endres_v2_shap-subtnorm-plus-minus-gr.rds")
+K562_C <- readRDS("/maps/projects/ralab/people/zmk214/K562_C_endres_v2_shap-subtnorm-plus-minus-gr.rds")
+K562_N <- readRDS("/maps/projects/ralab/people/zmk214/K562_N_endres_v2_shap-subtnorm-plus-minus-gr.rds")
 
 txdb <- TxDb.Hsapiens.UCSC.hg38.knownGene
 
