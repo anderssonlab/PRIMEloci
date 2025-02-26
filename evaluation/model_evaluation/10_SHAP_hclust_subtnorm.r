@@ -32,8 +32,7 @@ granges_to_df <- function(gr_obj) {
 K562_C <- granges_to_df(K562_C)
 K562_N <- granges_to_df(K562_N)
 
-names(K562_C)
-head(K562_C$profile_subtnorm)
+
 
 hclust_subtnorm <- function(profile_subtnorm) {
   dist_matrix <- stats::dist(profile_subtnorm, method = "euclidean")
@@ -42,8 +41,25 @@ hclust_subtnorm <- function(profile_subtnorm) {
   return(list(hc_wardd2, hc_average))
 }
 
-hc_K562_C <- hclust_subtnorm(K562_C$profile_subtnorm)
-saveRDS(hc_K562_C, "K562_C_endres_v2_hclust_subtnorm.rds")
+hclust_fastcluster_subtnorm <- function(profile_subtnorm) {
+  dist_matrix <- stats::dist(profile_subtnorm, method = "euclidean")
+  hc_wardd2 <- fastcluster::hclust(dist_matrix, method = "ward.D2")
+  hc_average <- fastcluster::hclust(dist_matrix, method = "average")
+  return(list(hc_wardd2, hc_average))
+}
 
-hc_K562_N <- hclust_subtnorm(K562_N$profile_subtnorm)
-saveRDS(hc_K562_N, "K562_N_endres_v2_hclust_subtnorm.rds")
+names(K562_N)
+head(K562_N$profile_subtnorm)
+
+hc_K562_N <- hclust_fastcluster_subtnorm(K562_N$profile_subtnorm)
+saveRDS(hc_K562_N, "K562_N_endres_v2_fasthclust_subtnorm.rds")
+
+names(K562_C)
+head(K562_C$profile_subtnorm)
+
+hc_K562_C <- hclust_fastcluster_subtnorm(K562_C$profile_subtnorm)
+saveRDS(hc_K562_C, "K562_C_endres_v2_fasthclust_subtnorm.rds")
+
+#library(cluster)
+#hc <- cluster::diana(data)  # Performs divisive hierarchical clustering
+#graphics::plot(hc)
