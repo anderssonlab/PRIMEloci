@@ -67,19 +67,23 @@ tc_sliding_window_chr <- function(gr_per_chr, slide_by = 20, expand_by = 200) { 
   # 3) Combine the list of GRanges objects into a single GRanges object
   sliding_granges <- base::do.call(c, sliding_granges_list)
 
+  rm(sliding_granges_list, collapsed_granges)
+  gc()
+
   # Return the sliding GRanges object
   return(sliding_granges)
 }
+
 
 
 #' Create Sliding Windows Genome-Wide from Tag Clusters with Parallelization
 #'
 #' This function applies sliding window generation for each chromosome in a 
 #' `GRanges` object representing extended tag clusters (TCs) and processes all 
-#' chromosomes in parallel using `mclapply`. The input `GRanges` object must 
-#' represent tag clusters that have been uniformly extended by the same number 
-#' of base pairs. The sliding windows are combined into a `GRangesList`, which 
-#' is then flattened into a single `GRanges` object.
+#' chromosomes in parallel using `future.apply::future_lapply`. The input 
+#' `GRanges` object must represent tag clusters that have been uniformly extended 
+#' by the same number of base pairs. The sliding windows are combined into a 
+#' `GRangesList`, which is then flattened into a single `GRanges` object.
 #'
 #' @param granges_obj A `GRanges` object representing the genome-wide extended 
 #' tag clusters (TCs) where each range has been uniformly extended by the same 
@@ -88,8 +92,8 @@ tc_sliding_window_chr <- function(gr_per_chr, slide_by = 20, expand_by = 200) { 
 #' step in base pairs (default: 20).
 #' @param expand_by An integer value specifying how much to expand the windows 
 #' at both ends (default: 200 bp).
-#' @param use_max_cores Logical, if `TRUE` will use almost all available CPU 
-#' cores for parallel processing (default: TRUE).
+#' @param num_cores An integer specifying the number of cores to use for parallel 
+#' processing. If `NULL`, it defaults to `detectCores() - 1`.
 #' @return A `GRanges` object containing the combined sliding windows for all 
 #' chromosomes in the input.
 #' @examples
@@ -97,16 +101,17 @@ tc_sliding_window_chr <- function(gr_per_chr, slide_by = 20, expand_by = 200) { 
 #' gr <- GenomicRanges::GRanges(seqnames = c("chr1", "chr2"), 
 #'                              ranges = IRanges::IRanges(start = c(100, 500), 
 #'                                                        end = c(150, 600)))
-#' # Generate sliding windows for the entire genome
-#' tc_sliding_windows <- tc_sliding_window(gr, slide_by = 20, expand_by = 200)
+#' # Generate sliding windows for the entire genome using 4 cores
+#' tc_sliding_windows <- tc_sliding_window(gr, slide_by = 20, expand_by = 200, num_cores = 4)
 #' @import GenomicRanges
 #' @import IRanges
-#' @import parallel
+#' @import future
+#' @import future.apply
 #' @export
 tc_sliding_window <- function(granges_obj,
                               slide_by = 20,
                               expand_by = 200,
-                              use_max_cores = TRUE) {
+                              num_cores = NULL) {
 
   # 1) Ignore strand by setting all strands to "*"
   GenomicRanges::strand(granges_obj) <- "*"
@@ -115,57 +120,27 @@ tc_sliding_window <- function(granges_obj,
   gr_by_chr <- base::split(granges_obj, GenomicRanges::seqnames(granges_obj))
 
   # 3) Determine the number of cores to use
-  if (use_max_cores) {
-    # Use almost full capacity, leaving 1 core free
-    mc_cores <- parallel::detectCores() - 1
-  } else {
-    # Default to 2 cores if not using full capacity
-    mc_cores <- 2
-  }
+  if (is.null(num_cores)) {
+    detected_cores <- parallel::detectCores()
+    num_cores <- max(1, ifelse(is.null(detected_cores), 1, detected_cores - 2))
+  
 
-  # 4) Parallelize the processing over each chromosome using mclapply
-  result_list <- parallel::mclapply(gr_by_chr,
-                                    tc_sliding_window_chr,
-                                    slide_by = slide_by,
-                                    expand_by = expand_by,
-                                    mc.cores = mc_cores)
 
-  # 5) Convert the result into a GRangesList
+  # 4) Set up parallel processing with future
+  future::plan(future::multisession, workers = num_cores)
+
+  # 5) Parallelize the processing over each chromosome using future_lapply
+  result_list <- future.apply::future_lapply(gr_by_chr, function(gr) {
+    tc_sliding_window_chr(gr, slide_by = slide_by, expand_by = expand_by)
+  }, future.seed = TRUE)
+
+  # 6) Convert the result into a GRangesList
   result_grl <- GenomicRanges::GRangesList(result_list)
 
-  # 6) Unlist the GRangesList to create a single GRanges object
+  # 7) Unlist the GRangesList to create a single GRanges object
   result_gr <- unlist(result_grl)
 
   # Return the final unlisted GRanges object
   return(result_gr)
+  }
 }
-
-
-
-
-#tc_sliding_window <- function(granges_obj,
-#                              slide_by = 20,
-#                              expand_by = 200) {
-#
-#  # 1) Ignore strand by setting all strands to "*"
-#  GenomicRanges::strand(granges_obj) <- "*"
-#
-#  # 2) Split the GRanges object by chromosome (seqnames)
-#  gr_by_chr <- base::split(granges_obj, GenomicRanges::seqnames(granges_obj))
-#
-#  # 3) Apply sliding window generation sequentially using lapply
-#  result_list <- base::lapply(gr_by_chr, function(gr_per_chr) {
-#    tc_sliding_window_chr(gr_per_chr,
-#                          slide_by = slide_by,
-#                          expand_by = expand_by)
-#  })
-#
-#  # 4) Convert the result into a GRangesList
-#  result_grl <- GenomicRanges::GRangesList(result_list)
-#
-#  # 5) Unlist the GRangesList to create a single GRanges object
-#  result_gr <- unlist(result_grl)
-#
-#  # Return the final unlisted GRanges object
-#  return(result_gr)
-#}

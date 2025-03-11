@@ -41,11 +41,21 @@ formatted_datetime <- format(current_datetime, "%Y-%m-%d %H:%M:%S")
 cat("Start time:", formatted_datetime, "\n")
 
 # Sliding window operation
-tc_sliding_window_grl <- lapply(tc_grl, function(gr) {
+tc_sliding_window_grl <- lapply(seq_along(tc_grl), function(i) {
+  print("Sliding window operation..")
+
+  # Print the name of the GRanges object
+  gr_name <- names(tc_grl)[i]  # Extract name from the list level
+  print(paste("Processing:", gr_name))
+
+  # Get the actual GRanges object
+  gr <- tc_grl[[i]]
+
+  # Run sliding window operation
   tc_sliding_window(gr,
                     slide_by = as.numeric(args$sld_by),
                     expand_by = as.numeric(args$ext_dis),
-                    use_max_cores = TRUE)
+                    num_cores = NULL)
 })
 
 # Convert to GRangesList

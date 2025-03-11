@@ -80,7 +80,8 @@ PRIMEloci_profile_chr_2 <- function(current_region_gr,
   current_region_gr <- remove_metadata_and_duplicates(current_region_gr)
 
   # Compute count profiles
-  count_profiles <- suppressMessages(PRIME::heatmapData(current_region_gr, filtered_ctss_gr))
+  count_profiles <- suppressMessages(PRIME::heatmapData(current_region_gr,
+                                                        filtered_ctss_gr))
   rm(current_region_gr, filtered_ctss_gr)
 
   len_vec <- ext_dis * 2 + 1
