@@ -7,6 +7,8 @@ suppressPackageStartupMessages({
   library(parallel)
   library(GenomicRanges)
   library(PRIMEloci)
+  library(future.apply)
+  library(SummarizedExperiment)
 })
 
 
@@ -60,12 +62,12 @@ tc_grl <- readRDS(infile_tc_grl)
 
 # Create profiles
 writeLines(paste0("\nCreating profile.."))
-report_time_execution(PRIMEloci_profile(ctss_rse,
-                                        tc_grl,
-                                        outdir_dir,
-                                        outdir_dir_name,
-                                        ext_dis,
-                                        save_count_profiles = save_count_profiles, # nolint: line_length_linter.
-                                        file_type = file_format))
+report_time_execution(PRIMEloci_profile_2(ctss_rse,
+                                          tc_grl,
+                                          outdir_dir,
+                                          outdir_dir_name,
+                                          ext_dis,
+                                          save_count_profiles = save_count_profiles, # nolint: line_length_linter.
+                                          file_type = file_format))
 
 writeLines("\n### Finished _4_get_profile.r ###\n")

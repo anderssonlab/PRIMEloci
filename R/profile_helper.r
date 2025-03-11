@@ -34,7 +34,6 @@ modify_profile_rownames <- function(profiles, count_profiles) {
   plus_converted <- convert_rowname_to_nostrand(rownames(count_profiles$`*`$`+`)) # nolint: line_length_linter.
   minus_converted <- convert_rowname_to_nostrand(rownames(count_profiles$`*`$`-`)) # nolint: line_length_linter.
   if (identical(sort(plus_converted), sort(minus_converted))) {
-    message("Both lists are the same after strand conversion.")
     rownames(profiles) <- plus_converted
   } else {
     message("The lists are not the same after strand conversion.")
