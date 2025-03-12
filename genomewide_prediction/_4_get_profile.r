@@ -68,6 +68,7 @@ report_time_execution(PRIMEloci_profile_2(ctss_rse,
                                           outdir_dir_name,
                                           ext_dis,
                                           save_count_profiles = save_count_profiles, # nolint: line_length_linter.
-                                          file_type = file_format))
+                                          file_type = file_format,
+                                          num_cores = NULL))
 
 writeLines("\n### Finished _4_get_profile.r ###\n")

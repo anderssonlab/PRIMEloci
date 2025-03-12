@@ -121,10 +121,8 @@ tc_sliding_window <- function(granges_obj,
 
   # 3) Determine the number of cores to use
   if (is.null(num_cores)) {
-    detected_cores <- parallel::detectCores()
-    num_cores <- max(1, ifelse(is.null(detected_cores), 1, detected_cores - 2))
-  
-
+    num_cores <- min(25, parallel::detectCores() %/% 2)
+  }
 
   # 4) Set up parallel processing with future
   future::plan(future::multisession, workers = num_cores)
@@ -142,5 +140,4 @@ tc_sliding_window <- function(granges_obj,
 
   # Return the final unlisted GRanges object
   return(result_gr)
-  }
 }

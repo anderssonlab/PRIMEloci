@@ -182,9 +182,8 @@ PRIMEloci_profile_2 <- function(ctss_rse,
   # Prepare the output directory
   prep_profile_dir(output_dir = output_dir, output_dir_name = output_dir_name)
 
-  # Detect available cores, leaving one free
   if (is.null(num_cores)) {
-    num_cores <- max(1, parallel::detectCores() - 1)
+    num_cores <- min(25, parallel::detectCores() %/% 2)
   }
 
   # Set up parallel execution explicitly using future
