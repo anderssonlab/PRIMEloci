@@ -186,8 +186,9 @@ PRIMEloci_profile_2 <- function(ctss_rse,
     num_cores <- min(25, parallel::detectCores() %/% 2)
   }
 
-  # Set up parallel execution explicitly using future
+  options(future.globals.maxSize = 4 * 1024^3)  # global variable memory 4GB limit # nolint: line_length_linter.
   future::plan(future::multisession, workers = num_cores)
+
 
   # Create log directory and log file
   log_dir <- file.path(output_dir, "logs")
