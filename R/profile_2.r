@@ -82,6 +82,11 @@ PRIMEloci_profile_chr_2 <- function(current_region_gr,
   # Compute count profiles
   count_profiles <- suppressMessages(PRIME::heatmapData(current_region_gr,
                                                         filtered_ctss_gr))
+  print("check class count_profiles")
+  print(class(count_profiles))
+  print(length(count_profiles))
+  print(class(count_profiles[[1]]))
+  #count_profiles <- as.matrix(count_profiles)
   rm(current_region_gr, filtered_ctss_gr)
 
   len_vec <- ext_dis * 2 + 1
@@ -182,13 +187,13 @@ PRIMEloci_profile_2 <- function(ctss_rse,
   # Prepare the output directory
   prep_profile_dir(output_dir = output_dir, output_dir_name = output_dir_name)
 
-  # Detect available cores, leaving one free
   if (is.null(num_cores)) {
-    num_cores <- max(1, parallel::detectCores() - 1)
+    num_cores <- min(25, parallel::detectCores() %/% 2)
   }
 
-  # Set up parallel execution explicitly using future
+  options(future.globals.maxSize = 4 * 1024^3)  # global variable memory 4GB limit # nolint: line_length_linter.
   future::plan(future::multisession, workers = num_cores)
+
 
   # Create log directory and log file
   log_dir <- file.path(output_dir, "logs")
