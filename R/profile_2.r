@@ -82,6 +82,11 @@ PRIMEloci_profile_chr_2 <- function(current_region_gr,
   # Compute count profiles
   count_profiles <- suppressMessages(PRIME::heatmapData(current_region_gr,
                                                         filtered_ctss_gr))
+  print("check class count_profiles")
+  print(class(count_profiles))
+  print(length(count_profiles))
+  print(class(count_profiles[[1]]))
+  #count_profiles <- as.matrix(count_profiles)
   rm(current_region_gr, filtered_ctss_gr)
 
   len_vec <- ext_dis * 2 + 1
