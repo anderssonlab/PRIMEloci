@@ -80,13 +80,9 @@ PRIMEloci_profile_chr_2 <- function(current_region_gr,
   current_region_gr <- remove_metadata_and_duplicates(current_region_gr)
 
   # Compute count profiles
-  count_profiles <- suppressMessages(PRIME::heatmapData(current_region_gr,
-                                                        filtered_ctss_gr))
-  print("check class count_profiles")
-  print(class(count_profiles))
-  print(length(count_profiles))
-  print(class(count_profiles[[1]]))
-  #count_profiles <- as.matrix(count_profiles)
+  count_profiles <- suppressMessages(heatmapData_noSparse(current_region_gr,
+                                                          filtered_ctss_gr))
+
   rm(current_region_gr, filtered_ctss_gr)
 
   len_vec <- ext_dis * 2 + 1
@@ -95,11 +91,6 @@ PRIMEloci_profile_chr_2 <- function(current_region_gr,
   combined_count_profiles <- combine_plus_minus_profiles(count_profiles,
                                                          len_vec)
   rm(count_profiles)
-  #profile_log_message(sprintf("[chr: %s] combined_count_profiles: %d rows, %d cols", # nolint: line_length_linter.
-  #                            chr_name,
-  #                            nrow(combined_count_profiles),
-  #                            ncol(combined_count_profiles)),
-  #                    log_file)
 
   # Compute subtraction normalization
   combined_subtnorm_profiles <- strands_norm_subtraction_all(combined_count_profiles, # nolint: line_length_linter.
