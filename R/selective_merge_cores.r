@@ -65,3 +65,15 @@ selective_merge_cores <- function(core_gr, score_diff) {
 
   return(merged_cores)
 }
+
+
+
+
+
+apply_coreovl_postprocessing(
+  input_dir = "/Users/natsudanav/Desktop/PRIMEloci/example/results",
+  output_dir = "/Users/natsudanav/Desktop/PRIMEloci/example/results",
+  core_width = 151,
+  score_threshold = 0.75,
+  score_diff = 0.10
+)

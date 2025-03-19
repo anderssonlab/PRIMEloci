@@ -118,7 +118,7 @@ validate_tc_object <- function(tc_object, ctss_rse, ext_dis = 200) {
 
   # Check if tc_object is a valid GRanges or GRangesList
   assertthat::assert_that(
-    inherits(tc_object, "GenomicRanges::GRanges") || inherits(tc_object, "GenomicRanges::GRangesList"), # nolint: line_length_linter.
+    inherits(tc_object, "GenomicRanges::GRanges") || inherits(tc_object, "GenomicRanges::GRangesList") || inherits(tc_object, "CompressedGRangesList"), # nolint: line_length_linter.
     msg = "tc_object must be a GenomicRanges::GRanges or GenomicRanges::GRangesList object" # nolint: line_length_linter.
   )
 
