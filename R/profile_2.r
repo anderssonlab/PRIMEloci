@@ -43,7 +43,7 @@ profile_log_message <- function(message, log_file) {
 #' @importFrom GenomicRanges GRanges seqnames
 #' @importFrom data.table fwrite
 #' @importFrom arrow write_parquet
-#' @importFrom PRIME heatmapData
+#' @importFrom PRIME heatmapData heatmapData_noSparse
 #' @importFrom utils write.table
 #'
 PRIMEloci_profile_chr_2 <- function(current_region_gr,
@@ -79,14 +79,21 @@ PRIMEloci_profile_chr_2 <- function(current_region_gr,
   current_region_gr <- convert_strand_to_nostrand_gr(current_region_gr)
   current_region_gr <- remove_metadata_and_duplicates(current_region_gr)
 
+
   # Compute count profiles
-  count_profiles <- suppressMessages(PRIME::heatmapData(current_region_gr,
-                                                        filtered_ctss_gr))
+  profile_log_message(sprintf("🔹 Memory before heatmapData(): %.2f MB", sum(gc()[, 2])), log_file)
+
+  count_profiles <- PRIME::heatmapData_noSparse(current_region_gr, filtered_ctss_gr)
+  #count_profiles <- PRIME::heatmapData(current_region_gr, filtered_ctss_gr)
+
+  profile_log_message(sprintf("🔹 Memory after heatmapData(): %.2f MB", sum(gc()[, 2])), log_file)
+
   print("check class count_profiles")
   print(class(count_profiles))
   print(length(count_profiles))
   print(class(count_profiles[[1]]))
   #count_profiles <- as.matrix(count_profiles)
+  #profile_log_message(sprintf("🔹 Memory after converting to dense matrix: %.2f MB", sum(gc()[, 2])), log_file)
   rm(current_region_gr, filtered_ctss_gr)
 
   len_vec <- ext_dis * 2 + 1
@@ -94,29 +101,28 @@ PRIMEloci_profile_chr_2 <- function(current_region_gr,
   # Combine plus/minus strand profiles
   combined_count_profiles <- combine_plus_minus_profiles(count_profiles,
                                                          len_vec)
+  profile_log_message(sprintf("🔹 Memory after combined_count_profiles: %.2f MB", sum(gc()[, 2])), log_file)
   rm(count_profiles)
-  #profile_log_message(sprintf("[chr: %s] combined_count_profiles: %d rows, %d cols", # nolint: line_length_linter.
-  #                            chr_name,
-  #                            nrow(combined_count_profiles),
-  #                            ncol(combined_count_profiles)),
-  #                    log_file)
 
   # Compute subtraction normalization
   combined_subtnorm_profiles <- strands_norm_subtraction_all(combined_count_profiles, # nolint: line_length_linter.
                                                              ext_dis,
                                                              len_vec)
-
+  profile_log_message(sprintf("🔹 Memory after combined_count_profiles: %.2f MB", sum(gc()[, 2])), log_file)
+  
   # Create metadata
   combined_count_metadata <- create_granges_from_rownames(rownames(combined_count_profiles)) # nolint: line_length_linter.
   sum_count <- data.frame(rowSums(combined_count_profiles))
   colnames(sum_count) <- "sum_count"
   combined_count_metadata$sum_count <- sum_count
+  profile_log_message(sprintf("🔹 Memory after Create metadata: %.2f MB", sum(gc()[, 2])), log_file)
 
   # Save profiles
   combined_subtnorm_profiles$rownames <- rownames(combined_subtnorm_profiles)
   save_to_file(combined_subtnorm_profiles, "_profiles_subtnorm",
                file_type, chr_name,
                file.path(file_path, "profiles_subtnorm", base_file_name))
+  profile_log_message(sprintf("🔹 Memory after Save profiles: %.2f MB", sum(gc()[, 2])), log_file)
   rm(combined_subtnorm_profiles)
 
   # Save count profiles if requested
@@ -132,11 +138,13 @@ PRIMEloci_profile_chr_2 <- function(current_region_gr,
   save_to_file(combined_count_metadata, "_metadata",
                file_type, chr_name,
                file.path(file_path, "metadata", base_file_name))
+  profile_log_message(sprintf("🔹 Memory after Save metadata per chromosome: %.2f MB", sum(gc()[, 2])), log_file)
   rm(combined_count_metadata)
   rm(combined_count_profiles)
 
   # Garbage collection to free memory
   gc()
+  profile_log_message(sprintf("🔹 Memory after gc: %.2f MB", sum(gc()[, 2])), log_file)
 
   profile_log_message(sprintf("✅ Successfully processed chromosome: %s",
                               chr_name),
@@ -193,7 +201,7 @@ PRIMEloci_profile_2 <- function(ctss_rse,
 
   options(future.globals.maxSize = 4 * 1024^3)  # global variable memory 4GB limit # nolint: line_length_linter.
   future::plan(future::multisession, workers = num_cores)
-
+  on.exit(future::plan(future::sequential))
 
   # Create log directory and log file
   log_dir <- file.path(output_dir, "logs")

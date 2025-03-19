@@ -17,13 +17,16 @@
 #' how much to expand the windows at both ends (default: 200 bp).
 #' @return A `GRanges` object containing the resized sliding windows
 #' for the given chromosome.
+#'
 #' @examples
 #' # Create a GRanges object
 #' gr_chr <- GRanges(seqnames = "chr1", ranges = IRanges(start = c(100, 200), end = c(150, 250))) # nolint: line_length_linter.
 #' # Generate sliding windows for the chromosome
 #' sliding_windows <- tc_sliding_window_chr(gr_chr, slide_by = 20, expand_by = 200) # nolint: line_length_linter.
+#'
 #' @import GenomicRanges
 #' @import IRanges
+#'
 tc_sliding_window_chr <- function(gr_per_chr, slide_by = 20, expand_by = 200) { # nolint: line_length_linter.
 
   # 1) Reduce overlaps within this chromosome
@@ -75,43 +78,57 @@ tc_sliding_window_chr <- function(gr_per_chr, slide_by = 20, expand_by = 200) { 
 }
 
 
-
-#' Create Sliding Windows Genome-Wide from Tag Clusters with Parallelization
+#' Create Sliding Windows Genome-Wide from Tag Clusters (GRanges Object)
+#' with Parallelization
 #'
-#' This function applies sliding window generation for each chromosome in a 
-#' `GRanges` object representing extended tag clusters (TCs) and processes all 
-#' chromosomes in parallel using `future.apply::future_lapply`. The input 
-#' `GRanges` object must represent tag clusters that have been uniformly extended 
-#' by the same number of base pairs. The sliding windows are combined into a 
-#' `GRangesList`, which is then flattened into a single `GRanges` object.
+#' This function applies sliding window generation for each chromosome in
+#' a `GRanges` object representing extended tag clusters (TCs) and
+#' processes all chromosomes in parallel using `future.apply::future_lapply`.
 #'
-#' @param granges_obj A `GRanges` object representing the genome-wide extended 
-#' tag clusters (TCs) where each range has been uniformly extended by the same 
-#' number of base pairs (bp).
-#' @param slide_by An integer value specifying the size of the sliding window 
+#' The input `GRanges` object must represent tag clusters
+#' that have been uniformly extended by the same number of base pairs.
+#' The sliding windows are combined into `GRangesList`,
+#' which is then flattened into a single `GRanges` object.
+#'
+#' @param granges_obj A `GRanges` object representing
+#' the genome-wide extended tag clusters (TCs)
+#' where each range has been uniformly extended
+#' by the same number of base pairs (bp).
+#' @param slide_by An integer value specifying the size of the sliding window
 #' step in base pairs (default: 20).
-#' @param expand_by An integer value specifying how much to expand the windows 
+#' @param expand_by An integer value specifying how much to expand the windows
 #' at both ends (default: 200 bp).
-#' @param num_cores An integer specifying the number of cores to use for parallel 
-#' processing. If `NULL`, it defaults to `detectCores() - 1`.
-#' @return A `GRanges` object containing the combined sliding windows for all 
+#' @param num_cores An integer specifying the number of cores
+#' to use for parallel processing.
+#' If `NULL`, it defaults to `min(25, parallel::detectCores() %/% 2)`.
+#'
+#' @return A `GRanges` object containing the combined sliding windows for all
 #' chromosomes in the input.
+#'
 #' @examples
 #' # Create a GRanges object
-#' gr <- GenomicRanges::GRanges(seqnames = c("chr1", "chr2"), 
-#'                              ranges = IRanges::IRanges(start = c(100, 500), 
+#' gr <- GenomicRanges::GRanges(seqnames = c("chr1", "chr2"),
+#'                              ranges = IRanges::IRanges(start = c(100, 500),
 #'                                                        end = c(150, 600)))
 #' # Generate sliding windows for the entire genome using 4 cores
-#' tc_sliding_windows <- tc_sliding_window(gr, slide_by = 20, expand_by = 200, num_cores = 4)
+#' tc_sliding_windows <- tc_sliding_window(gr, slide_by = 20, expand_by = 200, num_cores = 4) # nolint: line_length_linter.
+#'
 #' @import GenomicRanges
 #' @import IRanges
 #' @import future
 #' @import future.apply
+#'
 #' @export
 tc_sliding_window <- function(granges_obj,
                               slide_by = 20,
                               expand_by = 200,
                               num_cores = NULL) {
+
+  assertthat::assert_that(
+    !is.null(granges_obj),
+    length(granges_obj) > 0,
+    msg = "Error: Input granges_obj for tc_sliding_window() is NULL or empty. Cannot perform sliding window operation." # nolint: line_length_linter.
+  )
 
   # 1) Ignore strand by setting all strands to "*"
   GenomicRanges::strand(granges_obj) <- "*"
@@ -119,13 +136,13 @@ tc_sliding_window <- function(granges_obj,
   # 2) Split the GRanges object by chromosome (seqnames)
   gr_by_chr <- base::split(granges_obj, GenomicRanges::seqnames(granges_obj))
 
-  # 3) Determine the number of cores to use
+  # 3) Determine the number of cores to use and global variable memory limit
   if (is.null(num_cores)) {
     num_cores <- min(25, parallel::detectCores() %/% 2)
   }
-
-  # 4) Set up parallel processing with future
+  options(future.globals.maxSize = 4 * 1024^3)  # global variable memory 4GB limit # nolint: line_length_linter.
   future::plan(future::multisession, workers = num_cores)
+  on.exit(future::plan(future::sequential))  # Reset future::plan() to default after execution # nolint: line_length_linter.
 
   # 5) Parallelize the processing over each chromosome using future_lapply
   result_list <- future.apply::future_lapply(gr_by_chr, function(gr) {
@@ -138,6 +155,11 @@ tc_sliding_window <- function(granges_obj,
   # 7) Unlist the GRangesList to create a single GRanges object
   result_gr <- unlist(result_grl)
 
-  # Return the final unlisted GRanges object
+  assertthat::assert_that(
+    !is.null(result_gr),
+    length(result_gr) > 0,
+    msg = "Error: tc_sliding_window() returned NULL or an empty GRanges object." # nolint: line_length_linter.
+  )
+
   return(result_gr)
 }

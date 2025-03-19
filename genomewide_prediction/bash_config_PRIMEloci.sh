@@ -14,13 +14,13 @@ TC_GRL_NAME="tc_grl.rds"
 
 ### 3 ### _3_get_sld_window_from_tc.r
 # OUTPUT_DIR and TC_GRL_NAME from above
-SLD_TC_GRL_NAME="tc_grl_sld.rds"
+SLD_TC_GRL_NAME="filtered_tc_grl_sld.rds"
 SLD_WINDOW=20
 
 ### 4 ### _4_get_profile.r
 # CTSS_RSE_NAME, TC_GRL_NAME, OUTPUT_DIR from above
 PROFILE_MAIN_DIR="example_tc_profiles"
-PROFILE_FILE_TYPE="parquet"
+PROFILE_FILE_TYPE="csv"
 # add -s if you want to save count profiles
 
 ### 5 ### _5_predict_profile_probability.py

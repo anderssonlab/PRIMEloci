@@ -21,29 +21,25 @@
 #' around the thick positions
 #' and stores the results in a GRangesList object.
 #'
-#' @import SummarizedExperiment
-#' @import GenomicRanges
-#' @import IRanges
-#' @import CAGEfightR
-#' @import assertthat
 #' @examples
 #' # Example usage with a RangedSummarizedExperiment object
 #' # ctss_rse <- ...  # Load or create your RangedSummarizedExperiment object
 #' # ext_dis <- 200   # Define your extension distance
 #' # result <- get_tagclusters_and_extend_fromthick(ctss_rse, ext_dis)
 #'
+#' @import SummarizedExperiment
+#' @import GenomicRanges
+#' @import IRanges
+#' @import CAGEfightR
+#' @import assertthat
+#'
 #' @export
 get_tcs_and_extend_fromthick <- function(ctss_rse, ext_dis = 200) {
+
   # Assert that ctss_rse is a RangedSummarizedExperiment object
   assertthat::assert_that(
     inherits(ctss_rse, "RangedSummarizedExperiment"),
     msg = "ctss_rse must be a RangedSummarizedExperiment object."
-  )
-
-  # Assert that ext_dis is an integer
-  assertthat::assert_that(
-    is.integer(ext_dis),
-    ext_dis==round(ext_dis)
   )
 
   # Get column names
@@ -92,4 +88,69 @@ get_tcs_and_extend_fromthick <- function(ctss_rse, ext_dis = 200) {
   }
 
   return(tc_grl)
+}
+
+
+#' Validate a TC object
+#'
+#' This function ensures that a given `GenomicRanges::GRanges` or
+#' `GenomicRanges::GRangesList` object meets the expected criteria.
+#'
+#' @param tc_object A `GenomicRanges::GRanges` or
+#' `GenomicRanges::GRangesList` object.
+#' @param ctss_rse The original CTSS dataset (for length and naming validation).
+#' @param ext_dis An integer value for extension distance. Default is 200.
+#'
+#' @return TRUE if validation passes; otherwise, throws an error.
+#'
+#' #' @examples
+#' # Validate an existing TC object:
+#' validate_tc_object(tc_object, ctss_rse)
+#'
+#' @import GenomicRanges
+#' @import assertthat
+#'
+#' @export
+#'
+validate_tc_object <- function(tc_object, ctss_rse, ext_dis = 200) {
+
+  len_vec <- ext_dis * 2 + 1
+
+  # Check if tc_object is a valid GRanges or GRangesList
+  assertthat::assert_that(
+    inherits(tc_object, "GenomicRanges::GRanges") || inherits(tc_object, "GenomicRanges::GRangesList"), # nolint: line_length_linter.
+    msg = "tc_object must be a GenomicRanges::GRanges or GenomicRanges::GRangesList object" # nolint: line_length_linter.
+  )
+
+  if (inherits(tc_object, "GenomicRanges::GRanges")) {
+    # Ensure all regions have the correct width
+    assertthat::assert_that(
+      all(GenomicRanges::width(tc_object) == len_vec),
+      msg = paste("All regions in tc_object (GenomicRanges::GRanges) must have width", len_vec) # nolint: line_length_linter.
+    )
+  }
+
+  if (inherits(tc_object, "GenomicRanges::GRangesList")) {
+    # Ensure all GRanges in GRangesList have correct widths
+    assertthat::assert_that(
+      all(sapply(tc_object,
+                 function(gr) all(GenomicRanges::width(gr) == len_vec))),
+      msg = paste("All regions in each GRanges of tc_object (GenomicRanges::GRangesList) must have width", len_vec) # nolint: line_length_linter.
+    )
+
+    # Ensure the length of tc_object matches ctss_rse
+    assertthat::assert_that(
+      length(tc_object) == length(ctss_rse),
+      msg = "tc_object (as GenomicRanges::GRangesList) must have the same length as ctss_rse" # nolint: line_length_linter.
+    )
+
+    # Ensure names match
+    assertthat::assert_that(
+      identical(names(tc_object), names(ctss_rse)),
+      msg = "tc_object (as GenomicRanges::GRangesList) must have the same names as ctss_rse" # nolint: line_length_linter.
+    )
+  }
+
+  message("TC object validation passed successfully.")
+  return(TRUE)
 }
