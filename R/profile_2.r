@@ -43,7 +43,7 @@ profile_log_message <- function(message, log_file) {
 #' @importFrom GenomicRanges GRanges seqnames
 #' @importFrom data.table fwrite
 #' @importFrom arrow write_parquet
-#' @importFrom PRIME heatmapData heatmapData_noSparse
+#' @importFrom PRIME heatmapData
 #' @importFrom utils write.table
 #'
 PRIMEloci_profile_chr_2 <- function(current_region_gr,
@@ -83,8 +83,7 @@ PRIMEloci_profile_chr_2 <- function(current_region_gr,
   # Compute count profiles
   profile_log_message(sprintf("🔹 Memory before heatmapData(): %.2f MB", sum(gc()[, 2])), log_file)
 
-  count_profiles <- PRIME::heatmapData_noSparse(current_region_gr, filtered_ctss_gr)
-  #count_profiles <- PRIME::heatmapData(current_region_gr, filtered_ctss_gr)
+  count_profiles <- PRIME::heatmapData(current_region_gr, filtered_ctss_gr, sparse = FALSE)
 
   profile_log_message(sprintf("🔹 Memory after heatmapData(): %.2f MB", sum(gc()[, 2])), log_file)
 
