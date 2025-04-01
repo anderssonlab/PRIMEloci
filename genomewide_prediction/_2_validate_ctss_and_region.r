@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 
-writeLines("\n### Running _2_get_tc_from_ctss.r ###")
+writeLines("\n### Running _2_validate_ctss_and_region.r ###")
 
 writeLines("\n# Importing R libraries..")
 suppressPackageStartupMessages({
@@ -16,12 +16,12 @@ parser <- ArgumentParser()
 # Input
 parser$add_argument("-i", "--ctss_rse", default = "./ctss_rse.rds",
                     help = "FULL PATH to input file name for ctss_rse rds object") # nolint: line_length_linter.
+parser$add_argument("-t", "--tc_grl", default = "./tc_grl.rds",
+                    help = "FULL PATH to input file name for input regions rds object") # nolint: line_length_linter.
 
 # Output
 parser$add_argument("-o", "--output_dir", default = "./",
                     help = "Output directory")
-parser$add_argument("-n", "--outfile", default = "tc_grl.rds",
-                    help = "Output file name for tc_grl object")
 parser$add_argument("-l", "--log", default = NULL,
                     help = "Log file name e.g. PRIMEloci-2.log")
 
@@ -37,9 +37,8 @@ ext_dis <- as.integer(args$ext_dis)
 infile_ctss_rse <- args$ctss_rse
 ctss_rse <- readRDS(infile_ctss_rse)
 
-output_dir <- args$output_dir
-create_output_dir(output_dir)
-outfile_tc_grl <- args$outfile
+infile_tc_grl <- args$tc_grl
+tc_grl <- readRDS(infile_tc_grl)
 
 log <- if (args$log == "NULL") NULL else args$log
 log_target <- setup_log_target(log, output_dir)
@@ -49,15 +48,8 @@ assertthat::assert_that(
   msg = "`ctss_rse` must be a RangedSummarizedExperiment object."
 )
 
-plc_log("\n\n\n 🚀 Running PRIMEloci -2: get extended tc and validate the tc object provided", # nolint: line_length_linter.
+plc_log("\n\n\n 🚀 Running PRIMEloci -2: validating the ctss and region object provided", # nolint: line_length_linter.
         log_target)
-plc_log(sprintf("🕒 Pipeline started at: %s", Sys.time()), log_target)
-
-plc_log("🔹 Creating tc object\n", log_target)
-tc_grl <- PRIME::get_tcs_and_extend_fromthick(ctss_rse,
-                                              ext_dis = ext_dis)
-plc_log("🔹 Saving tc object\n", log_target)
-saveRDS(tc_grl, file = file.path(output_dir, outfile_tc_grl))
 
 plc_log("🔹 Validating tc object\n", log_target)
 validate_tc <- PRIME::validate_tc_object(tc_grl, ctss_rse, ext_dis = ext_dis)
@@ -66,5 +58,5 @@ if (!validate_tc) {
   plc_log(msg, log_target, level = "❌ ERROR")
   stop(msg)
 }
-plc_log("✅ DONE :: TC object is created, validated, and ready to use.",
+plc_log("✅ DONE :: Region object is validated, and ready to use.",
         log_target)

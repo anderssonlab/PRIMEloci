@@ -7,7 +7,7 @@ suppressPackageStartupMessages({
   library(argparse)
   library(CAGEfightR)
   library(GenomicRanges)
-  library(PRIMEloci)
+  library(PRIME)
 })
 
 
@@ -39,7 +39,6 @@ design_matrix_file <- args$design_matrix
 
 output_dir <- args$output_dir
 outfile_ctss_rse <- args$outfile
-
 
 
 # Read in CAGE BigWig, based on design matrix provided,
