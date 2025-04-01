@@ -17,7 +17,7 @@ parser$add_argument("--profile_dir_name", default = "PRIMEloci_profiles",
                     help = "Name of the profile main directory (default: PRIMEloci_profiles)")
 parser$add_argument("--python_path", default = "~/.virtualenvs/prime-env/bin/python",
                     help = "Full path to the Python executable")
-parser$add_argument("-m", "--model_path", default = "PRIMEloci_GM12878_model_1.0.sav",
+parser$add_argument("-m", "--model_name", default = "PRIMEloci_GM12878_model_1.0.sav",
                     help = "Model file name (inside the PRIME R package 'model' folder)")
 parser$add_argument("--name_prefix", default = "PRIMEloci",
                     help = "Prefix for prediction output")
@@ -30,6 +30,7 @@ args <- parser$parse_args()
 
 # ---- Setup Directories and Logging ----
 output_dir <- create_output_dir(args$output_dir)
+
 primeloci_tmp <- setup_tmp_dir(output_dir)
 
 log <- if (args$log == "NULL") NULL else args$log
@@ -39,7 +40,8 @@ log_target <- setup_log_target(log, output_dir)
 profile_main_dir <- file.path(primeloci_tmp, args$profile_dir_name)
 profiles_subtnorm_dir <- file.path(profile_main_dir, "profiles_subtnorm")
 python_path <- path.expand(args$python_path)
-model_name <- args$model_path
+model_path <- file.path(system.file("model", package = "PRIME"), args$model_name)
+
 name_prefix <- args$name_prefix
 num_cores <- args$num_cores
 

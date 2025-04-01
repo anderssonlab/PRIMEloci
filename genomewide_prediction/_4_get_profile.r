@@ -27,7 +27,7 @@ parser$add_argument("--python_path", default = "~/.virtualenvs/prime-env",
 # Output
 parser$add_argument("-o", "--output_dir", default = "./",
                     help = "Profile output directory")
-parser$add_argument("-n", "--name", default = "profile",
+parser$add_argument("--profile_dir_name", default = "PRIMEloci_profiles",
                     help = "Name of main profile directory")
 parser$add_argument("-s", "--save_count_profiles", action = "store_true",
                     default = FALSE,
@@ -50,9 +50,9 @@ args <- parser$parse_args()
 # Setup
 infile_ctss_rse <- args$infile_ctss_rse
 infile_tc_grl <- args$infile_tc_grl
+
 output_dir <- create_output_dir(args$output_dir)
 primeloci_tmp <- setup_tmp_dir(output_dir)
-
 log <- if (args$log == "NULL") NULL else args$log
 log_target <- setup_log_target(log, output_dir)
 
@@ -95,7 +95,7 @@ PRIME::plc_profile(
   ctss_rse = ctss_rse,
   tc_for_profile = tc_grl,
   outdir = output_dir,
-  profile_dir_name = args$name,
+  profile_dir_name = args$profile_dir_name,
   file_type = file_format,
   python_path = py_conf$python,
   addtn_to_filename = "",
