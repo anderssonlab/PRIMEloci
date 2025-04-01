@@ -8,6 +8,7 @@ suppressPackageStartupMessages({
   library(CAGEfightR)
   library(GenomicRanges)
   library(PRIME)
+  library(assertthat)
 })
 
 ### ARGPARSE
@@ -22,7 +23,7 @@ parser$add_argument("-t", "--tc_grl", default = "./tc_grl.rds",
 # Output
 parser$add_argument("-o", "--output_dir", default = "./",
                     help = "Output directory")
-parser$add_argument("-l", "--log", default = NULL,
+parser$add_argument("-l", "--log", default = "PRIMEloci-2.log",
                     help = "Log file name e.g. PRIMEloci-2.log")
 
 # Parameters
@@ -40,7 +41,11 @@ ctss_rse <- readRDS(infile_ctss_rse)
 infile_tc_grl <- args$tc_grl
 tc_grl <- readRDS(infile_tc_grl)
 
-log <- if (args$log == "NULL") NULL else args$log
+output_dir <- args$output_dir
+create_output_dir(args$output_dir)
+outfile_ctss_rse <- args$outfile
+
+log <- if (is.null(args$log) || args$log == "NULL") NULL else args$log
 log_target <- setup_log_target(log, output_dir)
 
 assertthat::assert_that(

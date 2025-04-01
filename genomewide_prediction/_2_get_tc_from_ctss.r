@@ -8,6 +8,7 @@ suppressPackageStartupMessages({
   library(CAGEfightR)
   library(GenomicRanges)
   library(PRIME)
+  library(assertthat)
 })
 
 ### ARGPARSE

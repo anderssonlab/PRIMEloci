@@ -1,15 +1,13 @@
 #!/usr/bin/env Rscript
 
-writeLines("\n### Running _1_get_ctss_from_bw.r ###")
 
-writeLines("\n# Importing R libraries..")
 suppressPackageStartupMessages({
   library(argparse)
   library(CAGEfightR)
   library(GenomicRanges)
   library(PRIME)
+  library(assertthat)
 })
-
 
 
 ### ARGPARSE
@@ -26,6 +24,8 @@ parser$add_argument("-o", "--output_dir", default = "./",
                     help = "Output directory")
 parser$add_argument("-n", "--outfile", default = "ctss_rse.rds",
                     help = "Output file name for ctss_rse object")
+parser$add_argument("-l", "--log", default = NULL,
+                    help = "Log file name or NULL to log to console")
 
 # Parameters
 parser$add_argument("-k", "--keep_standard_chr", action = "store_true",
@@ -33,31 +33,46 @@ parser$add_argument("-k", "--keep_standard_chr", action = "store_true",
 
 args <- parser$parse_args()
 
+
 # Setting up variables
 input_dir <- args$input_dir
 design_matrix_file <- args$design_matrix
 
 output_dir <- args$output_dir
+create_output_dir(args$output_dir)
 outfile_ctss_rse <- args$outfile
 
+log <- if (is.null(args$log) || args$log == "NULL") NULL else args$log
+log_target <- setup_log_target(log, output_dir)
 
+
+plc_log("\n\n\n 🚀 Running PRIMEloci -1: Getting CTSS from bw files",
+        log_target)
 # Read in CAGE BigWig, based on design matrix provided,
 # no filtering/subsetBySupport steps are performed
-writeLines("\n# Reading in data..")
+plc_log("# Reading design matrix and importing BigWig files...", log_target)
 design_matrix <- read.table(design_matrix_file,
                             header = TRUE,
                             sep = "\t",
                             row.names = "Name")
-writeLines("\n# Getting CTSSs from BigWig files..")
-ctss_rse <- get_ctss_from_bw(input_dir, design_matrix)
+plc_log("🔹 Running get_ctss_from_bw() ...", log_target)
+ctss_log_output <- capture.output({
+  ctss_rse <- get_ctss_from_bw(input_dir, design_matrix)
+})
+plc_log(paste(ctss_log_output, collapse = "\n"), log_target)
 
 # Keep only standard chromosomes if specified
 if (args$keep_standard_chr) {
-  writeLines("\n# Keeping only standard chromosomes..")
+  plc_log("\n# Keeping only standard chromosomes..", log_target)
   ctss_rse <- GenomeInfoDb::keepStandardChromosomes(ctss_rse,
                                                     pruning.mode = "coarse")
 }
 
-# Save
-writeLines("\n# Saving ctss object..\n")
-saveRDS(ctss_rse, file.path(output_dir, outfile_ctss_rse))
+# Save the ctss_rse object
+file_path <- file.path(output_dir, outfile_ctss_rse)
+plc_log(sprintf("📝 Saving CTSS RSE to: %s", file_path), log_target)
+saveRDS(ctss_rse, file_path)
+
+plc_log(sprintf("✅ DONE :: CTSS RSE saved to: %s",
+                file.path(output_dir, outfile_ctss_rse)),
+        log_target)
