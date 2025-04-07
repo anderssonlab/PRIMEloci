@@ -1,8 +1,5 @@
 #!/usr/bin/env Rscript
 
-writeLines("\n### Running _2_get_tc_from_ctss.r ###")
-
-writeLines("\n# Importing R libraries..")
 suppressPackageStartupMessages({
   library(argparse)
   library(CAGEfightR)
@@ -42,7 +39,7 @@ output_dir <- args$output_dir
 create_output_dir(output_dir)
 outfile_tc_grl <- args$outfile
 
-log <- if (args$log == "NULL") NULL else args$log
+log <- if (is.null(args$log) || args$log == "NULL") NULL else args$log
 log_target <- setup_log_target(log, output_dir)
 
 assertthat::assert_that(
@@ -54,13 +51,17 @@ plc_log("\n\n\n 🚀 Running PRIMEloci -2: get extended tc and validate the tc o
         log_target)
 plc_log(sprintf("🕒 Pipeline started at: %s", Sys.time()), log_target)
 
-plc_log("🔹 Creating tc object\n", log_target)
-tc_grl <- PRIME::get_tcs_and_extend_fromthick(ctss_rse,
-                                              ext_dis = ext_dis)
-plc_log("🔹 Saving tc object\n", log_target)
+plc_log("Creating tc object ...\n", log_target)
+
+tc_log_output <- capture.output({
+  tc_grl <- PRIME::get_tcs_and_extend_fromthick(ctss_rse,
+                                                ext_dis = ext_dis)
+})
+plc_log(paste(tc_log_output, collapse = "\n"), log_target)
+plc_log("Saving tc object ...\n", log_target)
 saveRDS(tc_grl, file = file.path(output_dir, outfile_tc_grl))
 
-plc_log("🔹 Validating tc object\n", log_target)
+plc_log("Validating tc object ...\n", log_target)
 validate_tc <- PRIME::validate_tc_object(tc_grl, ctss_rse, ext_dis = ext_dis)
 if (!validate_tc) {
   msg <- "\nTC object validation failed. Ensure the TC object is valid."

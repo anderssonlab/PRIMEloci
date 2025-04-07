@@ -1,8 +1,5 @@
 #!/usr/bin/env Rscript
 
-writeLines("\n### Running _3_get_sld_window_from_tc.r ###")
-
-writeLines("\n# Importing R libraries..")
 suppressPackageStartupMessages({
   library(GenomicRanges)
   library(parallel)
@@ -43,7 +40,7 @@ outfile_sld_tc_grl <- args$outfile
 
 primeloci_tmp <- setup_tmp_dir(output_dir)
 
-log <- if (args$log == "NULL") NULL else args$log
+log <- if (is.null(args$log) || args$log == "NULL") NULL else args$log
 log_target <- setup_log_target(log, output_dir)
 
 # parameters

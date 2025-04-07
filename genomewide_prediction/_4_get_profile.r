@@ -1,14 +1,11 @@
 #!/usr/bin/env Rscript
 
-writeLines("\n### Running _4_get_profile.r ###")
-writeLines("\nImporting R libraries..")
-
 suppressPackageStartupMessages({
   library(argparse)
   library(CAGEfightR)
   library(parallel)
   library(GenomicRanges)
-  library(PRIMEloci)
+  library(PRIME)
   library(future.apply)
   library(SummarizedExperiment)
 })
@@ -52,8 +49,10 @@ infile_ctss_rse <- args$infile_ctss_rse
 infile_tc_grl <- args$infile_tc_grl
 
 output_dir <- create_output_dir(args$output_dir)
-primeloci_tmp <- setup_tmp_dir(output_dir)
-log <- if (args$log == "NULL") NULL else args$log
+
+#primeloci_tmp <- setup_tmp_dir(output_dir)
+
+log <- if (is.null(args$log) || args$log == "NULL") NULL else args$log
 log_target <- setup_log_target(log, output_dir)
 
 file_format <- args$file_format

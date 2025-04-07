@@ -1,8 +1,5 @@
 #!/usr/bin/env Rscript
 
-writeLines("\n### Running _2_validate_ctss_and_region.r ###")
-
-writeLines("\n# Importing R libraries..")
 suppressPackageStartupMessages({
   library(argparse)
   library(CAGEfightR)
@@ -15,15 +12,15 @@ suppressPackageStartupMessages({
 parser <- ArgumentParser()
 
 # Input
-parser$add_argument("-i", "--ctss_rse", default = "./ctss_rse.rds",
+parser$add_argument("--ctss_rse", default = "./ctss_rse.rds",
                     help = "FULL PATH to input file name for ctss_rse rds object") # nolint: line_length_linter.
-parser$add_argument("-t", "--tc_grl", default = "./tc_grl.rds",
+parser$add_argument("--region", default = "./tc_grl.rds",
                     help = "FULL PATH to input file name for input regions rds object") # nolint: line_length_linter.
 
 # Output
 parser$add_argument("-o", "--output_dir", default = "./",
                     help = "Output directory")
-parser$add_argument("-l", "--log", default = "PRIMEloci-2.log",
+parser$add_argument("-l", "--log", default = NULL,
                     help = "Log file name e.g. PRIMEloci-2.log")
 
 # Parameters
@@ -38,7 +35,7 @@ ext_dis <- as.integer(args$ext_dis)
 infile_ctss_rse <- args$ctss_rse
 ctss_rse <- readRDS(infile_ctss_rse)
 
-infile_tc_grl <- args$tc_grl
+infile_tc_grl <- args$region
 tc_grl <- readRDS(infile_tc_grl)
 
 output_dir <- args$output_dir

@@ -65,7 +65,7 @@ if (!is.null(num_cores)) {
 output_dir <- create_output_dir(args$output_dir)
 primeloci_tmp <- setup_tmp_dir(output_dir)
 
-log <- if (args$log == "NULL") NULL else args$log
+log <- if (is.null(args$log) || args$log == "NULL") NULL else args$log
 log_target <- setup_log_target(log, output_dir)
 
 postprocess_partial_name <- args$partial_name

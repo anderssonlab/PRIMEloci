@@ -1,6 +1,5 @@
 #!/usr/bin/env Rscript
 
-
 suppressPackageStartupMessages({
   library(argparse)
   library(CAGEfightR)
@@ -50,20 +49,20 @@ plc_log("\n\n\n 🚀 Running PRIMEloci -1: Getting CTSS from bw files",
         log_target)
 # Read in CAGE BigWig, based on design matrix provided,
 # no filtering/subsetBySupport steps are performed
-plc_log("# Reading design matrix and importing BigWig files...", log_target)
+plc_log("Reading design matrix and importing BigWig files...", log_target)
 design_matrix <- read.table(design_matrix_file,
                             header = TRUE,
                             sep = "\t",
                             row.names = "Name")
-plc_log("🔹 Running get_ctss_from_bw() ...", log_target)
+plc_log("Getting CTSS from BigWig ...", log_target)
 ctss_log_output <- capture.output({
-  ctss_rse <- get_ctss_from_bw(input_dir, design_matrix)
+  ctss_rse <- PRIME::get_ctss_from_bw(input_dir, design_matrix)
 })
 plc_log(paste(ctss_log_output, collapse = "\n"), log_target)
 
 # Keep only standard chromosomes if specified
 if (args$keep_standard_chr) {
-  plc_log("\n# Keeping only standard chromosomes..", log_target)
+  plc_log("Keeping only standard chromosomes..", log_target)
   ctss_rse <- GenomeInfoDb::keepStandardChromosomes(ctss_rse,
                                                     pruning.mode = "coarse")
 }
