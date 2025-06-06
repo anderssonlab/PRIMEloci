@@ -33,6 +33,7 @@ parser$add_argument("-s", "--save_count_profiles", action = "store_true",
 parser$add_argument("-f", "--file_format", type = "character",
                     default = "npz", choices = c("parquet", "csv", "npz"),
                     help = "File format for output files. Default is 'npz'.")
+parser$add_argument("--addtn_to_filename", default = "")
 
 # Parameters
 parser$add_argument("-p", "--num_cores", type = "integer", default = NULL,
@@ -47,8 +48,9 @@ args <- parser$parse_args()
 infile_ctss_rse <- args$ctss_rse
 infile_tc_grl <- args$region
 
-output_dir <- PRIME:::create_output_dir(args$output_dir)
-primeloci_tmp <- PRIME::plc_setup_tmp_dir(output_dir)
+output_dir <- args$output_dir
+PRIME:::create_output_dir(output_dir)
+PRIME::plc_setup_tmp_dir(output_dir)
 
 profile_dir_name <- args$profile_dir_name
 save_count_profiles <- args$save_count_profiles
@@ -81,16 +83,19 @@ if (num_cores == 1) {
   processing_method <- "callr"
   plc_message("⚠️ num_workers was set to 1. Using callr backend: tasks will run sequentially (despite using multiple R sessions).") # nolint: line_length_linter.
 } else {
-  processing_method <- plc_detect_parallel_plan()
+  processing_method <- PRIME:::plc_detect_parallel_plan()
 }
 
 # Python config
-plc_message("🚀 Setting up Python environment")
-if (is.null(python_path)) {
+PRIME::plc_message("🚀 Setting up Python environment")
+
+if (is.null(args$python_path)) {
   py <- reticulate::import("sys")
   python_path <- py$executable
+} else {
+  python_path <- args$python_path
 }
-py_conf <- PRIME::plc_configure_python(python_path = args$python_path)
+py_conf <- PRIME:::plc_configure_python(python_path = python_path)
 check_npz <- PRIME::plc_test_scipy_save_npz()
 if (!check_npz) {
   plc_message("⚠️ Falling back to .parquet format")
@@ -105,22 +110,20 @@ writeLines("\nReading input data..")
 ctss_rse <- readRDS(infile_ctss_rse)
 tc_grl <- readRDS(infile_tc_grl)
 
-# Logging start
-plc_log("🚀 Running PRIMEloci -4: compute count & normalized profiles for each sample", log_target) # nolint: line_length_linter.
-
 # Run profiling
+PRIME::plc_message("🚀 Running PRIMEloci -4: compute count & normalized profiles for each sample") # nolint: line_length_linter.
 PRIME::plc_profile(
   ctss_rse,
-  tc_for_profile,
-  outdir,
+  tc_grl,
+  output_dir,
   profile_dir_name,
   file_type = file_type,
   python_path = py_conf$python,
-  addtn_to_filename = addtn_to_filename,
+  addtn_to_filename = args$addtn_to_filename,
   save_count_profiles = save_count_profiles,
   num_cores = num_cores,
   processing_method = processing_method,
   ext_dis
 )
 
-plc_log("✅ DONE :: Profiles computed and saved.", log_target)
+PRIME::plc_message("✅ DONE :: Profiles computed and saved.")
