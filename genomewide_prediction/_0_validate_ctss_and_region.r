@@ -1,12 +1,12 @@
 #!/usr/bin/env Rscript
 
-suppressPackageStartupMessages({
+suppressWarnings(suppressMessages({
   library(argparse)
   library(CAGEfightR)
   library(GenomicRanges)
   library(PRIME)
   library(assertthat)
-})
+}))
 
 ### ARGPARSE
 parser <- ArgumentParser()
@@ -20,8 +20,6 @@ parser$add_argument("--region", default = "./tc_grl.rds",
 # Output
 parser$add_argument("-o", "--output_dir", default = "./",
                     help = "Output directory")
-parser$add_argument("-l", "--log", default = NULL,
-                    help = "Log file name e.g. PRIMEloci-2.log")
 
 # Parameters
 parser$add_argument("-e", "--ext_dis", default = 200,
@@ -39,26 +37,22 @@ infile_tc_grl <- args$region
 tc_grl <- readRDS(infile_tc_grl)
 
 output_dir <- args$output_dir
-create_output_dir(args$output_dir)
+PRIME:::create_output_dir(args$output_dir)
 outfile_ctss_rse <- args$outfile
-
-log <- if (is.null(args$log) || args$log == "NULL") NULL else args$log
-log_target <- setup_log_target(log, output_dir)
 
 assertthat::assert_that(
   methods::is(ctss_rse, "RangedSummarizedExperiment"),
   msg = "`ctss_rse` must be a RangedSummarizedExperiment object."
 )
 
-plc_log("\n\n\n 🚀 Running PRIMEloci -2: validating the ctss and region object provided", # nolint: line_length_linter.
-        log_target)
+plc_message("🚀 Running PRIMEloci -0: validating the ctss and region object provided") # nolint: line_length_linter.
 
-plc_log("🔹 Validating tc object\n", log_target)
-validate_tc <- PRIME::validate_tc_object(tc_grl, ctss_rse, ext_dis = ext_dis)
+plc_message("Validating tc object ...")
+validate_tc <- PRIME::plc_validate_tc_object(tc_grl,
+                                             ctss_rse,
+                                             ext_dis = ext_dis)
 if (!validate_tc) {
-  msg <- "\nTC object validation failed. Ensure the TC object is valid."
-  plc_log(msg, log_target, level = "❌ ERROR")
-  stop(msg)
+  plc_error("TC object validation failed. Ensure the TC object is valid.")
 }
-plc_log("✅ DONE :: Region object is validated, and ready to use.",
-        log_target)
+
+plc_message("✅ DONE :: Region object is validated, and ready to use.")
