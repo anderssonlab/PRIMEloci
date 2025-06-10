@@ -37,7 +37,7 @@ infile_tc_grl <- args$region
 tc_grl <- readRDS(infile_tc_grl)
 
 output_dir <- args$output_dir
-PRIME:::create_output_dir(args$output_dir)
+PRIME::plc_create_output_dir(args$output_dir)
 outfile_ctss_rse <- args$outfile
 
 assertthat::assert_that(

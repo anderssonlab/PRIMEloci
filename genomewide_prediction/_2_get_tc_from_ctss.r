@@ -34,7 +34,7 @@ infile_ctss_rse <- args$ctss_rse
 ctss_rse <- readRDS(infile_ctss_rse)
 
 output_dir <- args$output_dir
-PRIME:::create_output_dir(output_dir)
+PRIME::plc_create_output_dir(output_dir)
 outfile_tc_grl <- args$outfile
 
 

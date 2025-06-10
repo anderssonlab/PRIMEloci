@@ -36,7 +36,7 @@ input_dir <- args$input_dir
 design_matrix_file <- args$design_matrix
 
 output_dir <- args$output_dir
-PRIME:::create_output_dir(args$output_dir)
+PRIME::plc_create_output_dir(args$output_dir)
 outfile_ctss_rse <- args$outfile
 
 

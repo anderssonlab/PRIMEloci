@@ -49,7 +49,7 @@ infile_ctss_rse <- args$ctss_rse
 infile_tc_grl <- args$region
 
 output_dir <- args$output_dir
-PRIME:::create_output_dir(output_dir)
+PRIME::plc_create_output_dir(output_dir)
 PRIME::plc_setup_tmp_dir(output_dir)
 
 profile_dir_name <- args$profile_dir_name
@@ -83,7 +83,7 @@ if (num_cores == 1) {
   processing_method <- "callr"
   plc_message("⚠️ num_workers was set to 1. Using callr backend: tasks will run sequentially (despite using multiple R sessions).") # nolint: line_length_linter.
 } else {
-  processing_method <- PRIME:::plc_detect_parallel_plan()
+  processing_method <- PRIME::plc_detect_parallel_plan()
 }
 
 # Python config
@@ -95,7 +95,7 @@ if (is.null(args$python_path)) {
 } else {
   python_path <- args$python_path
 }
-py_conf <- PRIME:::plc_configure_python(python_path = python_path)
+py_conf <- PRIME::plc_configure_python(python_path = python_path)
 check_npz <- PRIME::plc_test_scipy_save_npz()
 if (!check_npz) {
   plc_message("⚠️ Falling back to .parquet format")

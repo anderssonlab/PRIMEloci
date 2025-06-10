@@ -33,7 +33,7 @@ tc_grl <- readRDS(args$infile)
 
 # Output
 output_dir <- args$output_dir
-PRIME:::create_output_dir(output_dir)
+PRIME::plc_create_output_dir(output_dir)
 outfile_sld_tc_grl <- args$outfile
 
 primeloci_tmp <- PRIME::plc_setup_tmp_dir(output_dir)
@@ -73,7 +73,7 @@ if (num_cores == 1) {
   processing_method <- "callr"
   plc_message("⚠️ num_workers was set to 1. Using callr backend: tasks will run sequentially (despite using multiple R sessions).") # nolint: line_length_linter.
 } else {
-  processing_method <- PRIME:::plc_detect_parallel_plan()
+  processing_method <- PRIME::plc_detect_parallel_plan()
 }
 
 
