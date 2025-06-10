@@ -1,69 +1,103 @@
 #!/usr/bin/env Rscript
 
-writeLines("\n### Running PRIMEloci Step 5: Prediction from profiles ###")
-
-suppressPackageStartupMessages({
+suppressWarnings(suppressMessages({
   library(argparse)
-  library(assertthat)
+  library(CAGEfightR)
+  library(parallel)
+  library(GenomicRanges)
   library(PRIME)
-})
+  library(future.apply)
+  library(SummarizedExperiment)
+}))
 
 # ---- Argument Parsing ----
 parser <- ArgumentParser()
 
-parser$add_argument("-o", "--output_dir", required = TRUE,
-                    help = "Path to the main output directory (where PRIMEloci_tmp lives)")
+parser$add_argument("-o", "--output_dir", default = "./",
+                    help = "Path to the main output directory (where PRIMEloci_tmp lives, from get profiles step)") # nolint: line_length_linter.
 parser$add_argument("--profile_dir_name", default = "PRIMEloci_profiles",
-                    help = "Name of the profile main directory (default: PRIMEloci_profiles)")
-parser$add_argument("--python_path", default = "~/.virtualenvs/prime-env/bin/python",
-                    help = "Full path to the Python executable")
-parser$add_argument("-m", "--model_name", default = "PRIMEloci_GM12878_model_1.0.sav",
-                    help = "Model file name (inside the PRIME R package 'model' folder)")
+                    help = "Name of the profile main directory (default: PRIMEloci_profiles)") # nolint: line_length_linter.
+
+parser$add_argument("--python_path", default = "~/.virtualenvs/prime-env",
+                    help = "Path to Python executable. If not provided, the system's default Python will be used.") # nolint: line_length_linter.
+
+parser$add_argument("-m", "--model_path",
+                    default = file.path(system.file("model", package = "PRIME"),
+                                        "PRIMEloci_GM12878_model_1.0.sav"),
+                    help = "Model full path")
 parser$add_argument("--name_prefix", default = "PRIMEloci",
                     help = "Prefix for prediction output")
-parser$add_argument("-l", "--log", default = NULL,
-                    help = "Log file name or NULL to log to console")
-parser$add_argument("-n", "--num_cores", type = "integer", default = NULL,
-                    help = "Number of cores for prediction. Default is NULL")
+
+parser$add_argument("-p", "--num_cores", type = "integer", default = NULL,
+                    help = "Number of cores to use for parallel processing")
 
 args <- parser$parse_args()
 
-# ---- Setup Directories and Logging ----
-output_dir <- create_output_dir(args$output_dir)
-
-primeloci_tmp <- setup_tmp_dir(output_dir)
-
-log <- if (is.null(args$log) || args$log == "NULL") NULL else args$log
-log_target <- setup_log_target(log, output_dir)
-
-# ---- Derived Paths ----
-profile_main_dir <- file.path(primeloci_tmp, args$profile_dir_name)
+# ---- Setup Directories ----
+# Setup
+output_dir <- args$output_dir
+profile_dir_name <- args$profile_dir_name
+profile_main_dir <- file.path(output_dir,
+                              "PRIMEloci_tmp",
+                              args$profile_dir_name)
 profiles_subtnorm_dir <- file.path(profile_main_dir, "profiles_subtnorm")
-python_path <- path.expand(args$python_path)
-model_path <- file.path(system.file("model", package = "PRIME"), args$model_name)
 
-name_prefix <- args$name_prefix
-num_cores <- args$num_cores
+if (!dir.exists(profiles_subtnorm_dir)) {
+  PRIME::plc_error("❌ Directory 'profiles_subtnorm' does not exist in the specified profile_main_dir.") # nolint: line_length_linter.
+}
 
-# ---- Input Checks ----
-profile_files <- list.files(profiles_subtnorm_dir, pattern = "\\.(npz|parquet|csv)$")
+profile_files <- list.files(profiles_subtnorm_dir,
+                            pattern = "\\.(npz|parquet|csv)$")
 assert_that(length(profile_files) > 0,
             msg = paste("❌ No profile files found in:", profiles_subtnorm_dir))
 
-model_path <- file.path(system.file("model", package = "PRIME"), model_name)
-predict_script_path <- file.path(system.file("python", package = "PRIME"), "main.py")
+model_path <- args$model_path
+predict_script_path <- file.path(system.file("python", package = "PRIME"),
+                                 "main.py")
 
 assert_that(file.exists(predict_script_path),
-            msg = paste("❌ Prediction script not found at:", predict_script_path))
+            msg = paste("❌ Prediction script not found at:",
+                        predict_script_path))
 assert_that(file.exists(model_path),
             msg = paste("❌ Model file not found at:", model_path))
 
-# ---- Python Configuration ----
-py_conf <- PRIME::configure_plc_python(python_path = python_path,
-                                       log_target = log_target)
+name_prefix <- args$name_prefix
 
-# ---- Logging and Execution ----
-plc_log("\n\n\n 🚀 Running PRIMEloci: Prediction using PRIMEloci model", log_target)
+num_cores <- args$num_cores
+
+# Assertions
+if (!is.null(num_cores)) {
+  assertthat::assert_that(
+    is.numeric(num_cores),
+    num_cores %% 1 == 0,
+    num_cores > 0,
+    msg = "`num_cores` must be a positive integer or NULL."
+  )
+}
+
+if (is.null(num_cores)) {
+  num_cores <- max(1, min(25, parallel::detectCores() %/% 2))
+}
+if (num_cores == 1) {
+  processing_method <- "callr"
+  plc_message("⚠️ num_workers was set to 1. Using callr backend: tasks will run sequentially (despite using multiple R sessions).") # nolint: line_length_linter.
+} else {
+  processing_method <- PRIME:::plc_detect_parallel_plan()
+}
+
+# Python config
+PRIME::plc_message("🚀 Setting up Python environment")
+
+if (is.null(args$python_path)) {
+  py <- reticulate::import("sys")
+  python_path <- py$executable
+} else {
+  python_path <- args$python_path
+}
+py_conf <- PRIME:::plc_configure_python(python_path = python_path)
+
+
+plc_message("🚀 Running PRIMEloci: Prediction using PRIMEloci model")
 
 prediction_cmd <- c(
   python_path, predict_script_path,
@@ -71,7 +105,7 @@ prediction_cmd <- c(
   "--profile_main_dir", profile_main_dir,
   "--combined_outdir", dirname(profile_main_dir),
   "--model_path", model_path,
-  "--log_file", if (is.character(log_target)) log_target else "stdout",
+  "--log_file", "stdout",
   "--name_prefix", name_prefix
 )
 
@@ -80,11 +114,10 @@ if (!is.null(num_cores)) {
   prediction_cmd <- c(prediction_cmd, "--num_core", as.character(num_cores))
 }
 
-plc_log(paste("🔧 Python command:",
-              paste(shQuote(prediction_cmd), collapse = " ")),
-        log_target, print_console = FALSE)
+plc_message(paste("🔧 Python command:",
+                  paste(shQuote(prediction_cmd), collapse = " ")))
 
-plc_log("🔹 Running Python prediction script...", log_target)
+plc_message("🔹 Running Python prediction script...")
 result <- tryCatch(
   {
     output <- system2(python_path,
@@ -96,14 +129,14 @@ result <- tryCatch(
   },
   error = function(e) {
     msg <- paste("❌ ERROR during prediction execution:", e$message)
-    plc_log(msg, log_target, level = "❌ ERROR")
+    plc_message(msg)
     attr(msg, "status") <- 1
     msg
   }
 )
 
 if (!is.null(attr(result, "status")) && attr(result, "status") != 0) {
-  stop("❌ Prediction script failed. Check the log for details.")
+  plc_error("❌ Prediction script failed.")
 } else {
-  plc_log("✅ DONE :: Prediction script executed successfully.", log_target)
+  plc_message("✅ DONE :: Prediction script executed successfully.")
 }
