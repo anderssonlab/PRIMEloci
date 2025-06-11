@@ -108,14 +108,14 @@ result_named_list <- lapply(seq_along(bed_files), function(i) {
   } else {
     pattern_match
   }
-  result_gr <- PRIME:::coreovl_with_d(bed_file = bed_file,
-                                      score_threshold = score_threshold,
-                                      score_diff = score_diff,
-                                      core_width = core_width,
-                                      return_gr = TRUE,
-                                      output_dir = output_dir,
-                                      num_cores = num_cores,
-                                      processing_method = processing_method)
+  result_gr <- PRIME::plc_coreovl_with_d(bed_file = bed_file,
+                                         score_threshold = score_threshold,
+                                         score_diff = score_diff,
+                                         core_width = core_width,
+                                         return_gr = TRUE,
+                                         output_dir = output_dir,
+                                         num_cores = num_cores,
+                                         processing_method = processing_method)
   if (!is.null(result_gr)) {
     list(name = sample_name, gr = result_gr)
   } else {
