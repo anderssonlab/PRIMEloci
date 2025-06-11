@@ -48,18 +48,20 @@ if (!dir.exists(profiles_subtnorm_dir)) {
 
 profile_files <- list.files(profiles_subtnorm_dir,
                             pattern = "\\.(npz|parquet|csv)$")
-assert_that(length(profile_files) > 0,
-            msg = paste("❌ No profile files found in:", profiles_subtnorm_dir))
+assertthat::assert_that(length(profile_files) > 0,
+                        msg = paste("❌ No profile files found in:",
+                                    profiles_subtnorm_dir))
 
 model_path <- args$model_path
 predict_script_path <- file.path(system.file("python", package = "PRIME"),
                                  "main.py")
 
-assert_that(file.exists(predict_script_path),
-            msg = paste("❌ Prediction script not found at:",
-                        predict_script_path))
-assert_that(file.exists(model_path),
-            msg = paste("❌ Model file not found at:", model_path))
+assertthat::assert_that(file.exists(predict_script_path),
+                        msg = paste("❌ Prediction script not found at:",
+                                    predict_script_path))
+assertthat::assert_that(file.exists(model_path),
+                        msg = paste("❌ Model file not found at:",
+                                    model_path))
 
 name_prefix <- args$name_prefix
 
@@ -110,7 +112,7 @@ prediction_cmd <- c(
 )
 
 if (!is.null(num_cores)) {
-  assert_that(is.numeric(num_cores), num_cores > 0)
+  assertthat::assert_that(is.numeric(num_cores), num_cores > 0)
   prediction_cmd <- c(prediction_cmd, "--num_core", as.character(num_cores))
 }
 
