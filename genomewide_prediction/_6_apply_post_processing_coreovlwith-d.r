@@ -131,3 +131,9 @@ if (length(result_named_list) == 0) {
 }
 plc_message(sprintf("✅ DONE :: Postprocessed %d file(s) successfully.",
                     length(result_named_list)))
+
+saveRDS(
+  result_named_list,
+  file = file.path(output_dir, "postprocessed_coreovl_with_d_results.rds")
+)
+plc_message("📦 Saved postprocessing results to 'postprocessed_coreovl_with_d_results.rds'.")

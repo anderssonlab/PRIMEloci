@@ -50,7 +50,6 @@ infile_tc_grl <- args$region
 
 output_dir <- args$output_dir
 PRIME::plc_create_output_dir(output_dir)
-PRIME::plc_setup_tmp_dir(output_dir)
 
 profile_dir_name <- args$profile_dir_name
 save_count_profiles <- args$save_count_profiles

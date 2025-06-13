@@ -13,8 +13,11 @@ suppressWarnings(suppressMessages({
 # ---- Argument Parsing ----
 parser <- ArgumentParser()
 
-parser$add_argument("-o", "--output_dir", default = "./",
-                    help = "Path to the main output directory (where PRIMEloci_tmp lives, from get profiles step)") # nolint: line_length_linter.
+parser$add_argument("-i", "--input_dir",
+                    default = "./PRIMEloci_tmp/PRIMEloci_profiles",
+                    help = "Path to the input directory containing the main PRIMEloci profiles (default: ./PRIMEloci_tmp/PRIMEloci_profiles)") # nolint: line_length_linter.
+#parser$add_argument("-o", "--output_dir", default = "./",
+#                    help = "Path to the output directory")
 parser$add_argument("--profile_dir_name", default = "PRIMEloci_profiles",
                     help = "Name of the profile main directory (default: PRIMEloci_profiles)") # nolint: line_length_linter.
 
@@ -35,11 +38,7 @@ args <- parser$parse_args()
 
 # ---- Setup Directories ----
 # Setup
-output_dir <- args$output_dir
-profile_dir_name <- args$profile_dir_name
-profile_main_dir <- file.path(output_dir,
-                              "PRIMEloci_tmp",
-                              args$profile_dir_name)
+profile_main_dir <- args$input_dir
 profiles_subtnorm_dir <- file.path(profile_main_dir, "profiles_subtnorm")
 
 if (!dir.exists(profiles_subtnorm_dir)) {
@@ -107,7 +106,7 @@ prediction_cmd <- c(
   "--profile_main_dir", profile_main_dir,
   "--combined_outdir", dirname(profile_main_dir),
   "--model_path", model_path,
-  "--log_file", "stdout",
+  "--log_file", file.path(profile_main_dir, "PRIMEloci_prediction.log"),
   "--name_prefix", name_prefix
 )
 

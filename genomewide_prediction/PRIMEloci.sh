@@ -86,7 +86,12 @@ source "$CONFIG_FILE"
 #    fi
 #    TMP_DIR="$OUTPUT_DIR/PRIMEloci_tmp"
 #}
-$TMP_DIR="$OUTPUT_DIR/PRIMEloci_tmp"
+TMP_DIR="$OUTPUT_DIR/PRIMEloci_tmp"
+
+ARGS=""
+if [ -n "$NUM_CORES" ]; then
+  ARGS="$ARGS -p $NUM_CORES"
+fi
 
 # Function to combine BED files based on prefix before "_chr"
 # Takes two arguments: input directory and output directory
@@ -163,22 +168,19 @@ for step in "${steps[@]}"; do
                 -i $OUTPUT_DIR/$TC_GRL_NAME \
                 -o $TMP_DIR \
                 -n $SLD_TC_GRL_NAME \
-                -p $NUM_CORES \
-                -s $SLD_WINDOW
+                -s $SLD_WINDOW \
+                $ARGS \
             ;;
         4)
             echo -e "\nRunning _4_get_tc_profile.r"
-
             if [ "$PRIMEloci_facet" = true ]; then
                 # If running PRIMEloci_facet, use the provided ctss_rse and region
                 CTSS_RSE="$CTSS_RSE_RDS"
                 REGION="$REGION_RDS"
-
             elif [ "$PRIMEloci" = true ]; then
                 # If running PRIMEloci, use the files from the previous steps
                 CTSS_RSE="$OUTPUT_DIR/$CTSS_RSE_NAME"
                 REGION="$TMP_DIR/$SLD_TC_GRL_NAME"
-
             else
                 # -4 was specified directly; fallback to config values if available
                 if [ -n "$CTSS_RSE_RDS" ] && [ -n "$REGION_RDS" ]; then
@@ -190,47 +192,42 @@ for step in "${steps[@]}"; do
                     REGION="$TMP_DIR/$SLD_TC_GRL_NAME"
                 fi
             fi
-
             Rscript _4_get_profile.r \
-                --ctss_rse $CTSS_RSE \ 
+                --ctss_rse $CTSS_RSE \
                 --region $REGION \
                 --python_path $PYTHON_PATH \
-                -o $TMP_DIR \
+                -o $OUTPUT_DIR \
                 --profile_dir_name $PROFILE_MAIN_DIR \
-                -s $SAVE_COUNT_PROFILES \
-                -f $PROFILE_FORMAT
-                --addtn_to_filename $ADDITIONAL_TO_FILENAME \
-                -p $NUM_CORES \
-                
+                -f $PROFILE_FORMAT \
+                $ARGS \
             ;;
         5)
-            echo -e "\nRunning _5_predict_profile_probability.py"
+            echo -e "\nRunning _5_predict_profile_probability.r"
 
-            if [ "$PRIMEloci" = true ]; then
-                # If running PRIMEloci, use the files from the previous steps
-                OUT="$TMP_DIR"
-            else
-                OUT="$OUTPUT_DIR"
-            fi
+            #if [ "$PRIMEloci" = true ]; then
+            #    # If running PRIMEloci, use the files from the previous steps
+            #    IN="$TMP_DIR"
+            #else
+            #    IN="$OUTPUT_DIR"
+            #fi
 
-            Rscript _5_predict_profile_probability.py \
+            Rscript _5_predict_profile_probability.r \
                 -i $TMP_DIR/$PROFILE_MAIN_DIR \
-                -o $OUT \
                 --python_path $PYTHON_PATH \
                 -m $MODEL_PATH \
                 --name_prefix $PREFIX_OUT_NAME \
-                -p $NUM_CORES
+                $ARGS \
             ;;
         6)
             echo -e "\nRunning _6_apply_post_processing_coreovlwith-d.r"
             Rscript _6_apply_post_processing_coreovlwith-d.r \
                 -i $TMP_DIR \
-                --partial_name pred_all \
+                --partial_name $PARTIAL_NAME \
                 -o $OUTPUT_DIR \
                 -t $THRESHOLD \
                 -d $SCORE_DIFF \
                 --core_width $CORE_WIDTH \
-                -p $NUM_CORES \
+                $ARGS \
             ;;
     esac
 done

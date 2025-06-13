@@ -17,7 +17,7 @@ parser$add_argument("-o", "--output_dir", default = "./",
 parser$add_argument("-n", "--outfile", default = "sld_tc_grl.rds",
                     help = "Output file name for sld_tc_grl object")
 
-parser$add_argument("-p", "--num_cores", type = "integer", default = NULL,
+parser$add_argument("-p", "--num_cores", default = NULL,
                     help = "Number of cores to use for parallel processing")
 parser$add_argument("-s", "--sld_by", type = "integer", default = 20,
                     help = "Slide by parameter")
@@ -35,8 +35,6 @@ tc_grl <- readRDS(args$infile)
 output_dir <- args$output_dir
 PRIME::plc_create_output_dir(output_dir)
 outfile_sld_tc_grl <- args$outfile
-
-primeloci_tmp <- PRIME::plc_setup_tmp_dir(output_dir)
 
 # parameters
 sld_by <- as.integer(args$sld_by)
@@ -118,8 +116,8 @@ if (inherits(tc_grl, "GenomicRanges::GRanges")) {
   plc_error("❌ tc_grl must be either a GRanges, GRangesList, or CompressedGRangesList object.") # nolint: line_length_linter.
 }
 
-plc_message(sprintf("Saving TC objects to PRIMEloci_tmp .."))
+plc_message(sprintf("Saving TC objects to output_dir .."))
 saveRDS(tc_sliding_window_grl,
-        file.path(primeloci_tmp, outfile_sld_tc_grl))
+        file.path(output_dir, outfile_sld_tc_grl))
 
-plc_message("✅ DONE :: Sliding window TC object is saved to PRIMEloci_tmp")
+plc_message("✅ DONE :: Sliding window TC object is saved to output_dir")
