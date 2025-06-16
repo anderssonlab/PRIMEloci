@@ -1,14 +1,11 @@
 #!/usr/bin/env Rscript
 
-writeLines("\n### Running _3_get_sld_window_from_tc.r ###")
-
-writeLines("\n# Importing R libraries..")
-suppressPackageStartupMessages({
+suppressWarnings(suppressMessages({
   library(GenomicRanges)
   library(parallel)
   library(argparse)
-  library(PRIMEloci)
-})
+  library(PRIME)
+}))
 
 # Create argument parser
 parser <- ArgumentParser(description = "Sliding window on genomic ranges")
@@ -20,10 +17,13 @@ parser$add_argument("-o", "--output_dir", default = "./",
 parser$add_argument("-n", "--outfile", default = "sld_tc_grl.rds",
                     help = "Output file name for sld_tc_grl object")
 
+parser$add_argument("-p", "--num_cores", default = NULL,
+                    help = "Number of cores to use for parallel processing")
 parser$add_argument("-s", "--sld_by", type = "integer", default = 20,
                     help = "Slide by parameter")
 parser$add_argument("-e", "--ext_dis", default = 200,
                     help = "Extension distance")
+
 
 # Parse arguments
 args <- parser$parse_args()
@@ -33,39 +33,91 @@ tc_grl <- readRDS(args$infile)
 
 # Output
 output_dir <- args$output_dir
+PRIME::plc_create_output_dir(output_dir)
 outfile_sld_tc_grl <- args$outfile
 
-# Log the current time
-current_datetime <- Sys.time()
-formatted_datetime <- format(current_datetime, "%Y-%m-%d %H:%M:%S")
-cat("Start time:", formatted_datetime, "\n")
+# parameters
+sld_by <- as.integer(args$sld_by)
+num_cores <- args$num_cores
+ext_dis <- as.integer(args$ext_dis)
 
-# Sliding window operation
-tc_sliding_window_grl <- lapply(seq_along(tc_grl), function(i) {
-  print("Sliding window operation..")
+assertthat::assert_that(
+  is.numeric(sld_by),
+  sld_by %% 1 == 0,
+  sld_by > 0,
+  msg = "`sld_by` must be a positive integer."
+)
 
-  # Print the name of the GRanges object
-  gr_name <- names(tc_grl)[i]  # Extract name from the list level
-  print(paste("Processing:", gr_name))
+assertthat::assert_that(
+  is.numeric(ext_dis),
+  ext_dis %% 1 == 0,
+  ext_dis > 0,
+  msg = "`ext_dis` must be a positive integer."
+)
 
-  # Get the actual GRanges object
-  gr <- tc_grl[[i]]
+if (!is.null(num_cores)) {
+  assertthat::assert_that(
+    is.numeric(num_cores),
+    num_cores %% 1 == 0,
+    num_cores > 0,
+    msg = "❌ `num_cores` must be a positive integer or NULL."
+  )
+}
 
-  # Run sliding window operation
-  tc_sliding_window(gr,
-                    slide_by = as.numeric(args$sld_by),
-                    expand_by = as.numeric(args$ext_dis),
-                    num_cores = NULL)
-})
+if (is.null(num_cores)) {
+  num_cores <- max(1, min(25, parallel::detectCores() %/% 2))
+}
+if (num_cores == 1) {
+  processing_method <- "callr"
+  plc_message("⚠️ num_workers was set to 1. Using callr backend: tasks will run sequentially (despite using multiple R sessions).") # nolint: line_length_linter.
+} else {
+  processing_method <- PRIME::plc_detect_parallel_plan()
+}
 
-# Convert to GRangesList
-tc_sliding_window_grl <- GenomicRanges::GRangesList(tc_sliding_window_grl) # nolint: line_length_linter.
 
-# Log the current time after processing
-current_datetime <- Sys.time()
-formatted_datetime <- format(current_datetime, "%Y-%m-%d %H:%M:%S")
-cat("End time:", formatted_datetime, "\n")
+plc_message("🚀 Running PRIMEloci -3: sliding windows covering reduced TC regions") # nolint: line_length_linter.
 
-# Save the result to the specified output file
-writeLines("\n# Saving tc objects..\n")
-saveRDS(tc_sliding_window_grl, file.path(output_dir, outfile_sld_tc_grl))
+if (inherits(tc_grl, "GenomicRanges::GRanges")) {
+  start_time <- Sys.time()
+  tc_sliding_window_grl <- PRIME::plc_tc_sliding_window(tc_grl,
+                                                        sld_by = sld_by,
+                                                        ext_dis = ext_dis,
+                                                        num_cores = num_cores,
+                                                        processing_method = processing_method) # nolint: line_length_linter.
+  plc_message(sprintf("⏱️ Time taken: %.2f minutes",
+                      as.numeric(difftime(Sys.time(),
+                                          start_time,
+                                          units = "mins"))))
+} else if (inherits(tc_grl, "GenomicRanges::GRangesList") ||
+             inherits(tc_grl, "CompressedGRangesList")) {
+  tc_sliding_window_grl <- lapply(seq_along(tc_grl), function(i) {
+    start_time <- Sys.time()
+    gr_name <- if (!is.null(names(tc_grl))) names(tc_grl)[i] else paste0("Sample_", i) # nolint: line_length_linter.
+    plc_message(sprintf("🔹 Processing: %s", gr_name))
+    result <- plc_tc_sliding_window(tc_grl[[i]],
+                                    sld_by = sld_by,
+                                    ext_dis = ext_dis,
+                                    num_cores = num_cores,
+                                    processing_method = processing_method)
+    plc_message(sprintf("⏱️ Time taken: %.2f minutes",
+                        as.numeric(difftime(Sys.time(),
+                                            start_time,
+                                            units = "mins"))))
+    result
+  })
+  if (!is.null(tc_sliding_window_grl) &&
+        length(tc_sliding_window_grl) > 0) {
+    tc_sliding_window_grl <- GenomicRanges::GRangesList(tc_sliding_window_grl) # nolint: line_length_linter.
+    names(tc_sliding_window_grl) <- names(tc_grl)
+  } else {
+    plc_error("❌ Processed TC object list is empty. Ensure tc_grl contains valid data.") # nolint: line_length_linter.
+  }
+} else {
+  plc_error("❌ tc_grl must be either a GRanges, GRangesList, or CompressedGRangesList object.") # nolint: line_length_linter.
+}
+
+plc_message(sprintf("Saving TC objects to output_dir .."))
+saveRDS(tc_sliding_window_grl,
+        file.path(output_dir, outfile_sld_tc_grl))
+
+plc_message("✅ DONE :: Sliding window TC object is saved to output_dir")

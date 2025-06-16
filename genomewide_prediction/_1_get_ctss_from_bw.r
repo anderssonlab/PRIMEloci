@@ -1,15 +1,12 @@
 #!/usr/bin/env Rscript
 
-writeLines("\n### Running _1_get_ctss_from_bw.r ###")
-
-writeLines("\n# Importing R libraries..")
-suppressPackageStartupMessages({
+suppressWarnings(suppressMessages({
   library(argparse)
   library(CAGEfightR)
   library(GenomicRanges)
-  library(PRIMEloci)
-})
-
+  library(PRIME)
+  library(assertthat)
+}))
 
 
 ### ARGPARSE
@@ -33,32 +30,38 @@ parser$add_argument("-k", "--keep_standard_chr", action = "store_true",
 
 args <- parser$parse_args()
 
+
 # Setting up variables
 input_dir <- args$input_dir
 design_matrix_file <- args$design_matrix
 
 output_dir <- args$output_dir
+PRIME::plc_create_output_dir(args$output_dir)
 outfile_ctss_rse <- args$outfile
 
 
-
+plc_message("🚀 Running PRIMEloci -1: Getting CTSS from bw files")
 # Read in CAGE BigWig, based on design matrix provided,
 # no filtering/subsetBySupport steps are performed
-writeLines("\n# Reading in data..")
+plc_message("Reading design matrix and importing BigWig files...")
 design_matrix <- read.table(design_matrix_file,
                             header = TRUE,
                             sep = "\t",
                             row.names = "Name")
-writeLines("\n# Getting CTSSs from BigWig files..")
-ctss_rse <- get_ctss_from_bw(input_dir, design_matrix)
+plc_message("Getting CTSS from BigWig ...")
+ctss_rse <- PRIME::plc_get_ctss_from_bw(input_dir, design_matrix)
 
 # Keep only standard chromosomes if specified
 if (args$keep_standard_chr) {
-  writeLines("\n# Keeping only standard chromosomes..")
+  plc_message("Keeping only standard chromosomes..")
   ctss_rse <- GenomeInfoDb::keepStandardChromosomes(ctss_rse,
                                                     pruning.mode = "coarse")
 }
 
-# Save
-writeLines("\n# Saving ctss object..\n")
-saveRDS(ctss_rse, file.path(output_dir, outfile_ctss_rse))
+# Save the ctss_rse object
+file_path <- file.path(output_dir, outfile_ctss_rse)
+plc_message(sprintf("📝 Saving CTSS RSE to: %s", file_path))
+saveRDS(ctss_rse, file_path)
+
+plc_message(sprintf("✅ DONE :: CTSS RSE saved to: %s",
+                    file.path(output_dir, outfile_ctss_rse)))
