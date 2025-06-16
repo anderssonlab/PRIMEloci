@@ -14,8 +14,8 @@ suppressWarnings(suppressMessages({
 parser <- ArgumentParser()
 
 parser$add_argument("-i", "--input_dir",
-                    default = "./PRIMEloci_tmp/PRIMEloci_profiles",
-                    help = "Path to the input directory containing the main PRIMEloci profiles (default: ./PRIMEloci_tmp/PRIMEloci_profiles)") # nolint: line_length_linter.
+                    default = "./PRIMEloci_profiles",
+                    help = "Path to the input directory containing the main PRIMEloci profiles (default: ./PRIMEloci_profiles)") # nolint: line_length_linter.
 #parser$add_argument("-o", "--output_dir", default = "./",
 #                    help = "Path to the output directory")
 parser$add_argument("--profile_dir_name", default = "PRIMEloci_profiles",

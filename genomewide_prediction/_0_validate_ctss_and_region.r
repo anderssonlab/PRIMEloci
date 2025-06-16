@@ -33,8 +33,8 @@ ext_dis <- as.integer(args$ext_dis)
 infile_ctss_rse <- args$ctss_rse
 ctss_rse <- readRDS(infile_ctss_rse)
 
-infile_tc_grl <- args$region
-tc_grl <- readRDS(infile_tc_grl)
+infile_region_gr <- args$region
+region_gr <- readRDS(infile_region_gr)
 
 output_dir <- args$output_dir
 PRIME::plc_create_output_dir(args$output_dir)
@@ -45,10 +45,30 @@ assertthat::assert_that(
   msg = "`ctss_rse` must be a RangedSummarizedExperiment object."
 )
 
+plc_message("🚀 Validating the region gr object provided")
+len_vec <- args$ext_dis * 2 + 1
+
+# Check if region object is a GRanges
+assertthat::assert_that(
+  inherits(region_gr, "GRanges"),
+  msg = "❌ The object must be a GRanges object."
+)
+# Ensure all regions have the correct width
+if (all(GenomicRanges::width(region_gr) != len_vec)) {
+  msg <- paste("⚠️ All regions in the object (GRanges) must have width",
+               len_vec,
+               " : extend 401 bp from thick if existed")
+  region_gr <- PIMRE::plc_extend_fromthick(tc_gr = region_gr,
+                                           ext_dis = ext_dis)
+} else {
+  msg <- paste("✅ All regions in the object (GRanges) have width", len_vec) # nolint: line_length_linter.
+}
+plc_message(msg)
+
 plc_message("🚀 Running PRIMEloci -0: validating the ctss and region object provided") # nolint: line_length_linter.
 
 plc_message("Validating tc object ...")
-validate_tc <- PRIME::plc_validate_tc_object(tc_grl,
+validate_tc <- PRIME::plc_validate_tc_object(region_gr,
                                              ctss_rse,
                                              ext_dis = ext_dis)
 if (!validate_tc) {

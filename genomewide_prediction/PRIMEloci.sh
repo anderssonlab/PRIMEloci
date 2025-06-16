@@ -8,9 +8,9 @@ CONFIG_FILE=""
 
 # Usage message
 usage() {
-    echo "Usage: $0 --config <config_file> [-1] [-2] [-3] [-4] [-5] [-6] [--PRIMEloci] [--PRIMEloci_facet] [--keeptmp] [--num_cores <num_cores>]"
+    echo "Usage: $0 --config <config_file> [-1] [-2] [-3] [-4] [-5] [-6] [--PRIMEloci] [--PRIMEloci_focal] [--keeptmp] [--num_cores <num_cores>]"
     echo "  --config            Specify the bash configuration file to use (required for all commands)"
-    echo "  -0                  Run the check for input files for PRIMEloci_facet"
+    echo "  -0                  Run the check for input files for PRIMEloci_focal"
     echo "  -1                  Run step 1: _1_get_ctss_from_bw.r"
     echo "  -2                  Run step 2: _2_get_tc_from_ctss.r"
     echo "  -3                  Run step 3: _3_get_sld_window_from_tc.r"
@@ -18,8 +18,8 @@ usage() {
     echo "  -5                  Run step 5: _5_predict_profile_probability.py"
     echo "  -6                  Run step 6: _6_apply_post_processing_coreovlwith-d.r"
     echo "  --PRIMEloci         Run all steps"
-    echo "  --PRIMEloci_facet   Run only steps 0, 4, and 5 as ctss and tc rds objects are provided"
-    echo "  --keeptmp           Keep temporary files created in steps 3-5, only if running PRIMEloci and PRIMEloci_facet"
+    echo "  --PRIMEloci_focal   Run only steps 0, 4, and 5 as ctss and tc rds objects are provided"
+    echo "  --keeptmp           Keep temporary files created in steps 3-5, only if running PRIMEloci and PRIMEloci_focal"
     echo "  --num_cores         Number of cores to use for parallel processing"
     exit 1
 }
@@ -31,7 +31,7 @@ fi
 
 # Initialize flags
 PRIMEloci=false
-PRIMEloci_facet=false
+PRIMEloci_focal=false
 keeptmp=false
 steps=()
 
@@ -50,7 +50,7 @@ while [[ "$#" -gt 0 ]]; do
         -5) steps+=("5") ;;
         -6) steps+=("6") ;;
         --PRIMEloci) PRIMEloci=true ;;
-        --PRIMEloci_facet) PRIMEloci_facet=true ;;
+        --PRIMEloci_focal) PRIMEloci_focal=true ;;
         --keeptmp) keeptmp=true ;;
         *) echo "Invalid option: $1" >&2; usage ;;
     esac
@@ -86,7 +86,7 @@ source "$CONFIG_FILE"
 #    fi
 #    TMP_DIR="$OUTPUT_DIR/PRIMEloci_tmp"
 #}
-TMP_DIR="$OUTPUT_DIR/PRIMEloci_tmp"
+#TMP_DIR="$OUTPUT_DIR/PRIMEloci_tmp"
 
 ARGS=""
 if [ -n "$NUM_CORES" ]; then
@@ -129,8 +129,8 @@ if $PRIMEloci; then
     steps=("1" "2" "3" "4" "5" "6")
 fi
 
-# If --PRIMEloci_facet is specified, add only steps 0, 3-5
-if $PRIMEloci_facet; then
+# If --PRIMEloci_focal is specified, add only steps 0, 3-5
+if $PRIMEloci_focal; then
     steps=("0" "4" "5")
 fi
 
@@ -138,7 +138,7 @@ fi
 for step in "${steps[@]}"; do
     case $step in
         0)
-            echo -e "\nRunning check for input files for PRIMEloci_facet"
+            echo -e "\nRunning check for input files for PRIMEloci_focal"
             Rscript _0_validate_ctss_and_region.r \
                 --ctss_rse $CTSS_RSE_RDS \
                 --region $REGION_RDS \
@@ -166,21 +166,21 @@ for step in "${steps[@]}"; do
             echo -e "\nRunning _3_get_sld_window_from_tc.r"
             Rscript _3_get_sld_window_from_tc.r \
                 -i $OUTPUT_DIR/$TC_GRL_NAME \
-                -o $TMP_DIR \
+                -o $OUTPUT_DIR \
                 -n $SLD_TC_GRL_NAME \
                 -s $SLD_WINDOW \
                 $ARGS \
             ;;
         4)
             echo -e "\nRunning _4_get_tc_profile.r"
-            if [ "$PRIMEloci_facet" = true ]; then
-                # If running PRIMEloci_facet, use the provided ctss_rse and region
+            if [ "$PRIMEloci_focal" = true ]; then
+                # If running PRIMEloci_focal, use the provided ctss_rse and region
                 CTSS_RSE="$CTSS_RSE_RDS"
                 REGION="$REGION_RDS"
             elif [ "$PRIMEloci" = true ]; then
                 # If running PRIMEloci, use the files from the previous steps
                 CTSS_RSE="$OUTPUT_DIR/$CTSS_RSE_NAME"
-                REGION="$TMP_DIR/$SLD_TC_GRL_NAME"
+                REGION="$OUTPUT_DIR/$SLD_TC_GRL_NAME"
             else
                 # -4 was specified directly; fallback to config values if available
                 if [ -n "$CTSS_RSE_RDS" ] && [ -n "$REGION_RDS" ]; then
@@ -189,7 +189,7 @@ for step in "${steps[@]}"; do
                 else
                     # Fallback to previous step outputs
                     CTSS_RSE="$OUTPUT_DIR/$CTSS_RSE_NAME"
-                    REGION="$TMP_DIR/$SLD_TC_GRL_NAME"
+                    REGION="$OUTPUT_DIR/$SLD_TC_GRL_NAME"
                 fi
             fi
             Rscript _4_get_profile.r \
@@ -212,7 +212,7 @@ for step in "${steps[@]}"; do
             #fi
 
             Rscript _5_predict_profile_probability.r \
-                -i $TMP_DIR/$PROFILE_MAIN_DIR \
+                -i $OUTPUT_DIR/$PROFILE_MAIN_DIR \
                 --python_path $PYTHON_PATH \
                 -m $MODEL_PATH \
                 --name_prefix $PREFIX_OUT_NAME \
@@ -221,7 +221,7 @@ for step in "${steps[@]}"; do
         6)
             echo -e "\nRunning _6_apply_post_processing_coreovlwith-d.r"
             Rscript _6_apply_post_processing_coreovlwith-d.r \
-                -i $TMP_DIR \
+                -i $OUTPUT_DIR \
                 --partial_name $PARTIAL_NAME \
                 -o $OUTPUT_DIR \
                 -t $THRESHOLD \
@@ -241,7 +241,7 @@ done
 #}
 
 # Clean up the temporary directory only if running steps 3-5
-if ($PRIMEloci || $PRIMEloci_facet) && ! $keeptmp; then
-    echo "Cleaning up temporary directory: $TMP_DIR"
-    rm -rf $TMP_DIR
-fi
+#if ($PRIMEloci || $PRIMEloci_focal) && ! $keeptmp; then
+#    echo "Cleaning up temporary directory: $TMP_DIR"
+#    rm -rf $TMP_DIR
+#fi

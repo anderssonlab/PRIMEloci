@@ -13,7 +13,7 @@ suppressWarnings(suppressMessages({
 # Argument parser setup
 parser <- ArgumentParser()
 
-parser$add_argument("-i", "--input_dir", default = "./PRIMEloci_tmp",
+parser$add_argument("-i", "--input_dir", default = "./",
                     help = "Path to the input BED file.")
 parser$add_argument("--partial_name", default = "pred_all",
                     help = "Partial name to search for in BED files.")
@@ -136,4 +136,4 @@ saveRDS(
   result_named_list,
   file = file.path(output_dir, "postprocessed_coreovl_with_d_results.rds")
 )
-plc_message("📦 Saved postprocessing results to 'postprocessed_coreovl_with_d_results.rds'.")
+plc_message("📦 Saved postprocessing results to 'postprocessed_coreovl_with_d_results.rds'.") # nolint: line_length_linter.

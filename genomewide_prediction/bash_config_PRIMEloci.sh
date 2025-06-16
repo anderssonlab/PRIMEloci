@@ -18,7 +18,7 @@ TC_GRL_NAME="tc_grl.rds"
 
 ### 3 ### _3_get_sld_window_from_tc.r
 # OUTPUT_DIR and TC_GRL_NAME from above
-SLD_TC_GRL_NAME="tc_grl_sld.rds"
+SLD_TC_GRL_NAME="sld_tc_grl.rds"
 SLD_WINDOW=20
 # optional; if not set, defaults to NULL → will use 1, or half of available cores, up to a maximum of 21
 # NUM_CORES=4
