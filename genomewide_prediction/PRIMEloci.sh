@@ -138,7 +138,7 @@ fi
 for step in "${steps[@]}"; do
     case $step in
         0)
-            echo -e "\nRunning check for input files for PRIMEloci_focal"
+            echo -e "\nRunning _0_validate_ctss_and_region.r"
             Rscript _0_validate_ctss_and_region.r \
                 --ctss_rse $CTSS_RSE_RDS \
                 --region $REGION_RDS \

@@ -85,7 +85,7 @@ if (num_cores == 1) {
 }
 
 
-plc_message("🚀 Running PRIMEloci: Postprocessing prediction BEDs")
+plc_message("🚀 Running PRIMEloci -6: Postprocessing prediction BEDs")
 bed_files <- PRIME::plc_find_bed_files_by_partial_name(input_dir,
                                                        partial_name = postprocess_partial_name) # nolint: line_length_linter.
 if (length(bed_files) == 0) {
@@ -114,7 +114,7 @@ result_named_list <- lapply(seq_along(bed_files), function(i) {
                                          core_width = core_width,
                                          return_gr = TRUE,
                                          output_dir = output_dir,
-                                         save_rds = TRUE,
+                                         save_rds = FALSE,
                                          num_cores = num_cores,
                                          processing_method = processing_method)
   if (!is.null(result_gr)) {

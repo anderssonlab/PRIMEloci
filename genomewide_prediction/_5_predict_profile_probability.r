@@ -98,7 +98,7 @@ if (is.null(args$python_path)) {
 py_conf <- PRIME:::plc_configure_python(python_path = python_path)
 
 
-plc_message("🚀 Running PRIMEloci: Prediction using PRIMEloci model")
+plc_message("🚀 Running PRIMEloci -5: Prediction using PRIMEloci model")
 
 prediction_cmd <- c(
   python_path, predict_script_path,

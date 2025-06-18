@@ -2,7 +2,7 @@
 
 ### 0 ### _0_validate_ctss_and_region.r
 CTSS_RSE_RDS="../example/results/ctss_rse.rds"
-REGION_RDS="../example/results/K562_on_PRIMEloci_pred_all_K562_C1_combined_thresh0.75_d0.1_extended.rds"
+REGION_RDS="../example/results/K562_on_PRIMEloci_pred_all_K562_C1_combined_thresh0.75_d0.1_extfromthick.rds"
 OUTPUT_DIR="../example/results"
 
 ### 4 ### _4_get_profile.r
