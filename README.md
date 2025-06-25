@@ -9,7 +9,6 @@ Execute a full pipeline or some parts of the pipeline using pre-configured bash 
 
 ## Table of Contents
 
-- [Overview](#overview)
 - [Installation](#installation)
 - [Main concept of PRIMEloci for genomewide prediction](#mainconceptofPRIMElociforgenomewideprediction)
 - [Usage of Bash Script](#usageofbashscript)
