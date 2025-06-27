@@ -137,7 +137,7 @@ result <- tryCatch(
 )
 
 if (!is.null(attr(result, "status")) && attr(result, "status") != 0) {
-  plc_error("❌ Prediction script failed.")
+  plc_error("❌ Prediction script failed. Check PRIMEloci.log for details.")
 } else {
   plc_message("✅ DONE :: Prediction script executed successfully.")
 }
