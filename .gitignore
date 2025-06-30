@@ -9,3 +9,4 @@
 **/.csv/*
 **/.parquet/*
 **/.bw/*
+**/.RData/*
