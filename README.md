@@ -60,9 +60,9 @@ These steps will set up the necessary environment for running PRIMEloci scripts.
 
 ​	3) **Sliding Through TCs** : Slide through the identified TCs, default setting the window size to 20, to prepare data for downstream analysis.
 
-​	4) **Creating Normalized Profiles **: Generate normalized profiles for input into the prediction model.
+​	4) **Creating Normalized Profiles** : Generate normalized profiles for input into the prediction model.
 
-​	5) **Predicting Profile Probabilities **: Use PRIMEloci models to predict the probabilities of regulatory elements.
+​	5) **Predicting Profile Probabilities** : Use PRIMEloci models to predict the probabilities of regulatory elements.
 
 ​	6) **Post-Processing** : Refine and filter predictions using additional criteria for improved accuracy, outputting non-overlapping loci in `.bed` format for further analysis in R.
 
