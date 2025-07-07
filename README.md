@@ -12,7 +12,6 @@ Execute a full pipeline or some parts of the pipeline using pre-configured bash 
 - [Installation](#installation)
 - [Main concept of PRIMEloci for genomewide prediction](#mainconceptofPRIMElociforgenomewideprediction)
 - [Usage of Bash Script](#usageofbashscript)
-- [Contributing](#contributing)
 - [License](#license)
 
 
@@ -148,12 +147,6 @@ To use PRIMEloci, follow these steps:
      ​	Each step is designed to run independently, allowing users to execute one step at a time and stack the outputs sequentially. This modular design is useful for customizing the workflow, reusing intermediate results, or managing large datasets step by step.
    
      ​	Note that The **PRIMEloci** workflow consists of steps **-1 to -6**, each corresponding to an individual script. The **PRIMEloci_focal** workflow includes steps **-0**, **-4**, and **-5**, which are designed to be run on individual libraries using the predicted regions.
-
-
-
-## Contributing
-
-Contributions are welcome! Please submit a pull request or open an issue to discuss any changes or improvements.
 
 
 
