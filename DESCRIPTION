@@ -13,9 +13,6 @@ RoxygenNote: 7.3.2
 Imports:
     CAGEfightR,
     GenomicRanges,
-    IRanges,
-    S4Vectors,
-    SummarizedExperiment,
     assertthat,
     rtracklayer,
     GenomicRanges,
@@ -23,7 +20,6 @@ Imports:
     S4Vectors,
     SummarizedExperiment,
     arrow,
-    assertthat,
     data.table,
     future,
     future.apply,
