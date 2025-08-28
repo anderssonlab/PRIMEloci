@@ -18,32 +18,13 @@ Execute a full pipeline or some parts of the pipeline using pre-configured bash 
 
 ## Installation
 
-To install PRIMEloci, follow these steps:
+Ensure you have R version 4.4 or higher (The PRIMEloci R package was implemented under R.4.4). To install PRIMEloci, follow these steps:
 
 1. **Install PRIME R package**:
 
-   Ensure you have R version 4.4 or higher (It was implemented under R.4.4). Open R or RStudio and install the PRIME package. The instruction can be found at https://github.com/anderssonlab/PRIME/. Note that PRIME is R package, however, python is also needed to run the prediction as instructed in PRIME repository.
+   Open R or RStudio and install the PRIME package. The instruction can be found at https://github.com/anderssonlab/PRIME/.
 
-2. **Clone the repository**:
-
-   ```bash
-   git clone https://github.com/anderssonlab/PRIMEloci
-   ```
-
-3. **Make sure that the main script executable**:
-
-   ```bash
-   cd PRIMEloci/genomewide_prediction
-   chmod +x PRIMEloci.sh
-   ```
-
-4. **Copy the example resources and model for demonstration**:
-
-   ```bash
-   
-   ```
-
-These steps will set up the necessary environment for running PRIMEloci scripts. You can now proceed with executing the main script or individual scripts as needed.
+2. **Install PRIMEloci R package**:
 
 
 
