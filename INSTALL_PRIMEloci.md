@@ -1,13 +1,14 @@
-# 🧪 PRIME Installation Preparation Guide
+# PRIME Installation Preparation Guide
 
-This guide explains how to set up the required **R** and **Python** environments to use the `PRIME` R package. The Python environment is compatible with `PRIMEloci()` if used.
+This guide explains how to set up the required **R** and **Python** environments to use the `PRIMEloci` R package.
 
 ```bash
 # In terminal
-git clone ⁦https://github.com/anderssonlab/PRIME.git
+git clone ⁦https://github.com/anderssonlab/PRIMEloci.git
 ```
 
 For macOS users: libomp is required for LightGBM to enable OpenMP (multithreading). Without libomp, LightGBM may fail to use multithreading properly and can produce silent errors or crashes during training without clear messages. (To follow this setup, Xcode Command Line Tools and Homebrew are required.)
+
 ```bash
 # Check if libomp exists
 
@@ -22,13 +23,13 @@ ls /usr/local/opt/libomp/lib/libomp.dylib
 
 brew install libomp
 ```
-On macOS, R (via Homebrew libomp) and Python environments (via Conda or Virtualenv libomp) can conflict when used together through reticulate, potentially causing crashes with errors. If this occurs, managing environment variables (DYLD_LIBRARY_PATH, KMP_DUPLICATE_LIB_OK, OMP_NUM_THREADS) or aligning libomp paths may be necessary to avoid conflicts while maintaining multithreaded performance.
+On macOS, R (via Homebrew libomp) and Python environments (via Conda or Virtualenv libomp) can conflict when used together through reticulate, potentially causing crashes with errors. If this occurs, managing environment variables or aligning libomp paths may be necessary to avoid conflicts while maintaining multithreaded performance.
 
 ---
 
-## 📦 R Installation for PRIME
+## R Installation for PRIMEloci
 
-The R package `PRIME` depends on a mix of CRAN and Bioconductor packages, and a custom GitHub version of `bcp`.
+The R package `PRIMEocil` depends on a mix of CRAN and Bioconductor packages, and a custom GitHub version of `PRIME`.
 
 Note that we recommend using R 4.4 or higher. While R versions >4.2 can also be used, they may require additional setup steps. For example, on macOS, you may need to run:
 ```bash
@@ -51,10 +52,16 @@ To avoid X11-related warnings and enable x11() graphics, install XQuartz. This i
 
 ### ✅ Full R Setup
 
+```bash
+R
+```
+
 ```r
 # 1. Install required CRAN packages
 install.packages(c(
   "R.utils",
+  "assertthat",
+  "data.table",
   "future",
   "future.apply",
   "future.callr",
@@ -63,9 +70,10 @@ install.packages(c(
   "doParallel",
   "reticulate",
   "arrow",
-  "igraph",
-  "caTools",
-  "zoo"
+  "stringr",
+  "parallel",
+  "magrittr"
+  "tools"
 ))
 
 # 2. Install BiocManager (if not already installed)
@@ -94,22 +102,12 @@ BiocManager::install("CAGEfightR")
 if (!requireNamespace("devtools", quietly = TRUE))
   install.packages("devtools")
 
-# 5. Install bcp from GitHub (custom version)
-
-devtools::install_github("swang87/bcp")
-
-# If installing bcp on macOS fails due to missing gcc,
-# check with << gfortran --version >>. 
-# If not found, install Xcode command line tools and Homebrew.
-# Then run << brew install gcc >>, check << gfortran --version >>, 
-# and reinstall bcp.
-
-# Using remotes package with << remote::install_github("swang87/bcp") >>
-# instead of devtools if not successfully install devtools
-
 # 6. Install PRIME
 ## Install from .tar.gz (model will be set up at PRIME inst directory),
+install.packages("/PATH/TO/PRIME/PRIME_0.1.1.6.tar.gz")
 
+# 7. Install PRIMEloci
+## Install from .tar.gz (model will be set up at PRIME inst directory),
 install.packages("/PATH/TO/PRIME/PRIME_0.1.1.6.tar.gz")
 
 ## otherwise, make sure that the model in the path was exist.
@@ -167,6 +165,26 @@ run_PRIMEloci_example(python_path = py_config()$python)
 ```
 
 ---
+
+
+### 🔧 Option 4: Use existing Python installation with `requirements.txt`
+
+If you already have a working Python installation and want to use it directly:
+
+```bash
+pip3 install --upgrade pip
+pip3 install -r inst/envfile/environment.txt
+which python3
+
+# Use this path in your R function call
+```
+
+```r
+library(PRIME)
+library(GenomicRanges)
+run_PRIMEloci_focal_example(python_path = "/path/to/your/python")
+run_PRIMEloci_example(python_path = "/path/to/your/python")
+```
 
 ### 🌬️ Option 2: Conda
 
@@ -226,24 +244,6 @@ run_PRIMEloci_example(python_path = "~/prime_env/bin/python3")
 
 ---
 
-### 🔧 Option 4: Use existing Python installation with `requirements.txt`
-
-If you already have a working Python installation and want to use it directly:
-
-```bash
-pip3 install --upgrade pip
-pip3 install -r inst/envfile/environment.txt
-which python3
-
-# Use this path in your R function call
-```
-
-```r
-library(PRIME)
-library(GenomicRanges)
-run_PRIMEloci_focal_example(python_path = "/path/to/your/python")
-run_PRIMEloci_example(python_path = "/path/to/your/python")
-```
 
 ---
 
