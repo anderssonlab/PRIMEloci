@@ -9,15 +9,15 @@ Execute a full pipeline or some parts of the pipeline using pre-configured bash 
 
 ## Table of Contents
 
-- [Main concept of PRIMEloci for genomewide prediction](#mainconceptofPRIMElociforgenomewideprediction)
+- [Main Concept of PRIMEloci for Genomewide Prediction](#mainconceptofPRIMElociforgenomewideprediction)
 - [Installation](#installation)
 - [Usage of Bash Script](#usageofbashscript)
 - [License](#license)
 
 
-## Main concept of PRIMEloci for genomewide prediction
+## Main Concept of PRIMEloci for Genomewide Prediction
 
-1. the main **PRIMEloci workflow** [running with **./PRIMEloci.sh --PRIMEloci**]
+1. The main **PRIMEloci workflow** [running with **./PRIMEloci.sh --PRIMEloci**]
 
 ​	The workflow focuses on the prediction of regulatory elements using machine learning, encompassing six key steps:	![PRIMEloci workflow](img/PRIMEloci_31Jan2025-02.png)
 
