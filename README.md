@@ -15,19 +15,6 @@ Execute a full pipeline or some parts of the pipeline using pre-configured bash 
 - [License](#license)
 
 
-
-## Installation
-
-Ensure you have R version 4.4 or higher (The PRIMEloci R package was implemented under R.4.4). To install PRIMEloci, follow these steps:
-
-1. **Install PRIME R package**:
-
-   Open R or RStudio and install the PRIME package. The instruction can be found at https://github.com/anderssonlab/PRIME/.
-
-2. **Install PRIMEloci R package**:
-
-
-
 ## Main concept of PRIMEloci for genomewide prediction
 
 1. the main **PRIMEloci workflow** [running with **./PRIMEloci.sh --PRIMEloci**]
@@ -64,6 +51,16 @@ Ensure you have R version 4.4 or higher (The PRIMEloci R package was implemented
    ​	*[Add reference + figure for PRIMEloci × FANTOM5 here]*
 
 
+## Installation
+
+   To install the PRIMEloci R package:
+      - R ≥ 4.4 is recommended (PRIMEloci was developed and tested under R 4.4).
+      - R ≥ 4.2 is also possible, but may require additional installation steps.
+      - Python ≥ 3.9 is required.
+   PRIMEloci is implemented based on two other R packages:
+      - CAGEfightR (https://bioconductor.org/packages/devel/bioc/vignettes/CAGEfightR/inst/doc/Introduction_to_CAGEfightR.html)
+      - PRIME (https://github.com/anderssonlab/PRIME)
+   Please make sure both are installed before installing PRIMEloci. The complete installation procedure can be found here: [link]
 
 ## Usage of Bash Script
 
