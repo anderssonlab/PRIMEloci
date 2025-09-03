@@ -1,0 +1,1 @@
+The initial GM12878 whole-cell and nuclei CAGE data for model training, according to the design matrix, is available at [GEO LINK].

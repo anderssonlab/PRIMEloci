@@ -9,47 +9,15 @@ Execute a full pipeline or some parts of the pipeline using pre-configured bash 
 
 ## Table of Contents
 
+- [Main Concept of PRIMEloci for Genomewide Prediction](#mainconceptofPRIMElociforgenomewideprediction)
 - [Installation](#installation)
-- [Main concept of PRIMEloci for genomewide prediction](#mainconceptofPRIMElociforgenomewideprediction)
 - [Usage of Bash Script](#usageofbashscript)
 - [License](#license)
 
 
+## Main Concept of PRIMEloci for Genomewide Prediction
 
-## Installation
-
-To install PRIMEloci, follow these steps:
-
-1. **Install PRIME R package**:
-
-   Ensure you have R version 4.4 or higher (It was implemented under R.4.4). Open R or RStudio and install the PRIME package. The instruction can be found at https://github.com/anderssonlab/PRIME/. Note that PRIME is R package, however, python is also needed to run the prediction as instructed in PRIME repository.
-
-2. **Clone the repository**:
-
-   ```bash
-   git clone https://github.com/anderssonlab/PRIMEloci
-   ```
-
-3. **Make sure that the main script executable**:
-
-   ```bash
-   cd PRIMEloci/genomewide_prediction
-   chmod +x PRIMEloci.sh
-   ```
-
-4. **Copy the example resources and model for demonstration**:
-
-   ```bash
-   
-   ```
-
-These steps will set up the necessary environment for running PRIMEloci scripts. You can now proceed with executing the main script or individual scripts as needed.
-
-
-
-## Main concept of PRIMEloci for genomewide prediction
-
-1. the main **PRIMEloci workflow** [running with **./PRIMEloci.sh --PRIMEloci**]
+1. The main **PRIMEloci workflow** [running with **./PRIMEloci.sh --PRIMEloci**]
 
 ​	The workflow focuses on the prediction of regulatory elements using machine learning, encompassing six key steps:	![PRIMEloci workflow](img/PRIMEloci_31Jan2025-02.png)
 
@@ -83,6 +51,16 @@ These steps will set up the necessary environment for running PRIMEloci scripts.
    ​	*[Add reference + figure for PRIMEloci × FANTOM5 here]*
 
 
+## Installation
+
+   To install the PRIMEloci R package:
+      - R ≥ 4.4 is recommended (PRIMEloci was developed and tested under R 4.4).
+      - R ≥ 4.2 is also possible, but may require additional installation steps.
+      - Python ≥ 3.9 is required.
+   PRIMEloci is implemented based on two other R packages:
+      - CAGEfightR (https://bioconductor.org/packages/devel/bioc/vignettes/CAGEfightR/inst/doc/Introduction_to_CAGEfightR.html)
+      - PRIME (https://github.com/anderssonlab/PRIME)
+   Please make sure both are installed before installing PRIMEloci. The complete installation procedure can be found here: [link]
 
 ## Usage of Bash Script
 
