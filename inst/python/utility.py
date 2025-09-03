@@ -254,8 +254,6 @@ def combine_bed_files(input_dir, output_dir):
     bed_files = [f for f in glob.glob(os.path.join(input_dir, "*.bed"))
                  if not f.endswith("_combined.bed")]
 
-    #bed_files = glob.glob(os.path.join(input_dir, "*.bed"))
-
     if not bed_files:
         print("⚠️ No .bed files found to combine.")
         return

@@ -22,10 +22,10 @@ run_PRIMEloci_focal_example <- function(python_path = NULL,
 
   rds_ctss <- system.file("extdata",
                           "ctss_rse_chr16to17.rds",
-                          package = "PRIME")
+                          package = "PRIMEloci")
   rds_tc <- system.file("extdata",
                         "predicted_regions_gr.rds",
-                        package = "PRIME")
+                        package = "PRIMEloci")
 
   stopifnot(file.exists(rds_ctss))
   stopifnot(file.exists(rds_tc))

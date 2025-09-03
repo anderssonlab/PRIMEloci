@@ -327,9 +327,10 @@ PRIMEloci <- function(
     plc_error(paste("❌ No profile files found in:", profile_main_dir))
   }
 
-  model_path <- file.path(system.file("model", package = "PRIME"), model_name)
+  model_path <- file.path(system.file("model", package = "PRIMEloci"),
+                          model_name)
 
-  python_script_dir <- system.file("python", package = "PRIME")
+  python_script_dir <- system.file("python", package = "PRIMEloci")
   predict_script_path <- file.path(python_script_dir, "main.py")
   assertthat::assert_that(
     file.exists(predict_script_path),

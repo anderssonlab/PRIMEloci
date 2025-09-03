@@ -12,7 +12,7 @@ run_PRIMEloci_example <- function(python_path = NULL,
                                   ...) {
   rds_path <- system.file("extdata",
                           "ctss_rse_chr16to17.rds",
-                          package = "PRIME")
+                          package = "PRIMEloci")
   stopifnot(file.exists(rds_path))
 
   ctss_rse <- readRDS(rds_path)
