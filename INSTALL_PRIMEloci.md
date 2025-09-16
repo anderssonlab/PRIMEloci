@@ -51,13 +51,14 @@ Optional (Recommended for macOS users on R 4.2.x):
 To avoid X11-related warnings and enable x11() graphics, install XQuartz. This is not required if you only use RStudio or file-based plots, but it ensures maximum compatibility with all packages and plotting functions in R.
 
 ### ✅ Full R Setup
+CAGEfightR (install via Bioconductor) and PRIME (from https://github.com/anderssonlab/PRIME) are needed for installing PRIMEloci. Before installing, additional packages need to be installed.
 
 ```bash
 R
 ```
 
+1. Install required CRAN packages
 ```r
-# 1. Install required CRAN packages
 install.packages(c(
   "R.utils",
   "assertthat",
@@ -71,48 +72,40 @@ install.packages(c(
   "reticulate",
   "arrow",
   "stringr",
-  "parallel",
   "magrittr"
-  "tools"
 ))
+```
 
-# 2. Install BiocManager (if not already installed)
+2. Install BiocManager (if not already installed)
+```r
 if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
+```
 
-# 3. Install required Bioconductor packages
-## General principle: Installing `CAGEfightR` with:
-
-BiocManager::install("CAGEfightR")
-
-## will automatically pull in dependencies.
-## You do NOT need to install these manually unless an error occurs.**
-
-## If errors occur, install in layers:
-## core:
-BiocManager::install("S4Vectors", "IRanges", "GenomeInfoDb")
-## data structures:
-BiocManager::install("SummarizedExperiment", "GenomicRanges", "sparseMatrixStats")
-## utilities
-BiocManager::install("BiocParallel", "BSgenome", "rtracklayer")
-## CAGEfightR
-BiocManager::install("CAGEfightR")
-
-# 4. Install devtools if needed
+3. Install devtools (if not already installed)
+```r
 if (!requireNamespace("devtools", quietly = TRUE))
   install.packages("devtools")
-
-# 6. Install PRIME
-## Install from .tar.gz (model will be set up at PRIME inst directory),
-install.packages("/PATH/TO/PRIME/PRIME_0.1.1.6.tar.gz")
-
-# 7. Install PRIMEloci
-## Install from .tar.gz (model will be set up at PRIME inst directory),
-install.packages("/PATH/TO/PRIME/PRIME_0.1.1.6.tar.gz")
-
-## otherwise, make sure that the model in the path was exist.
-## The published PRIMEloci model can be found at XXXXXXXXXXXXXXXXXXXXX.
 ```
+
+4. Install CAGEfightR and PRIME
+If errors occur from prerequisite packages, the full installation protocol for PRIME can be found at: https://github.com/anderssonlab/PRIME/blob/main/PRIME_installation.md
+```r
+BiocManager::install("CAGEfightR")
+devtools::install_github("anderssonlab/PRIME")
+```
+
+5. Install additional Bioconductor packages (not installed automatically with PRIME)
+```r
+BiocManager::install("sparseMatrixStats")
+```
+
+6. Install PRIMEloci
+```r
+## Install from a local .tar.gz (the model will be set up in the PRIME installation directory):
+install.packages("/PATH/TO/PRIME/PRIME_0.2.1.tar.gz")
+```
+Alternatively, if installing via devtools, make sure that the model exists in the path. The published PRIMEloci model can be found at: XXXXXXXXXXXXXXXXXXXXX
 
 ---
 
