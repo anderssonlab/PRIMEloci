@@ -23,7 +23,7 @@ ls /usr/local/opt/libomp/lib/libomp.dylib
 
 brew install libomp
 ```
-On macOS, R (via Homebrew libomp) and Python environments (via Conda or Virtualenv libomp) can conflict when used together through reticulate, potentially causing crashes with errors. If this occurs, managing environment variables or aligning libomp paths may be necessary to avoid conflicts while maintaining multithreaded performance.
+On macOS, R (via homebrew libomp) and Python environments (via conda or virtualenv libomp) can conflict when used together through reticulate, potentially causing crashes with errors. If this occurs, managing environment variables or aligning libomp paths may be necessary to avoid conflicts while maintaining multithreaded performance.
 
 ---
 
