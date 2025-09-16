@@ -107,9 +107,15 @@ install.packages("/PATH/TO/PRIME/PRIME_0.2.1.tar.gz")
 ```
 Alternatively, if installing via devtools, make sure that the model exists in the path. The published PRIMEloci model can be found at: XXXXXXXXXXXXXXXXXXXXX
 
----
+--- [now here]
 
-## 🐍 Python Environment Setup (Compatible with PRIMEloci functions)
+
+
+
+
+
+
+## 🐍 Python Environment Setup
 
 You can prepare the Python environment in **four ways**. The recommended default is the `reticulate`-managed virtualenv using **NumPy 2.x** (use NumPy 1.x only if required for legacy compatibility)
 
