@@ -4,7 +4,7 @@ This guide explains how to set up the required **R** and **Python** environments
 
 ```bash
 # In terminal
-git clone ⁦https://github.com/anderssonlab/PRIMEloci.git
+git clone https://github.com/anderssonlab/PRIMEloci.git
 ```
 
 For macOS users: libomp is required for LightGBM to enable OpenMP (multithreading). Without libomp, LightGBM may fail to use multithreading properly and can produce silent errors or crashes during training without clear messages. (To follow this setup, Xcode Command Line Tools and Homebrew are required.)
