@@ -117,20 +117,43 @@ Alternatively, if installing via devtools, make sure that the model exists in th
 
 ## 🐍 Python Environment Setup
 
-You can prepare the Python environment in **four ways**. The recommended default is the `reticulate`-managed virtualenv using **NumPy 2.x** (use NumPy 1.x only if required for legacy compatibility)
-
+You can prepare the Python environment in different ways. 
 ---
 
-### 🌐 Option 1 : Virtualenv via `reticulate` in R
+### 🔧 Option 1: Use existing Python installation by installing required packages indicated in `requirements.txt`
 
-This is the **default and recommended** method for setting up the Python environment using only R. It ensures full compatibility with `PRIME` and `PRIMEloci()` 
+If you already have a working Python installation and want to use it directly:
+
+```bash
+cd PRIMEloci
+
+# Install the required packages
+pip3 install -r inst/envfile/environment.txt
+
+# Check the path to python
+# Use this path in PRIMEloci functions
+which python3
+```
+
+#### Example usage: check the completeness of the installation in R
+```r
+library(GenomicRanges)
+library(PRIMEloci)
+
+PRIMEloci_focal_example <- run_PRIMEloci_focal_example(python_path = "/PATH/TO/YOUR/PYTHON")
+PRIMEloci_example <- run_PRIMEloci_example(python_path = "/PATH/TO/YOUR/PYTHON")
+```
+
+### 🌐 Option 2 : Virtualenv via `reticulate` in R
+
+This is the method for setting up the Python environment using only R.
 
 Reticulate virtualenv (in R) is easiest for R-focused workflows without needing external software, **but requires running `use_virtualenv()` in each session** and is not ideal for CLI use.
 
 #### Setup instructions in R:
 
 ```bash
-cd PRIME
+cd PRIMEloci
 R
 ```
 
@@ -147,98 +170,79 @@ virtualenv_create(envname = env_name)
 use_virtualenv(env_name, required = TRUE)
 
 # Install Python packages
-required_pkgs <- readLines("/PATH/TO/PRIME/inst/envfile/environment.txt")
+required_pkgs <- readLines(system.file("envfile", "environment.txt", package = "PRIMEloci"))
 reticulate::py_install(packages = required_pkgs, envname = env_name, method = "virtualenv")
 
 # Confirm active Python path
 py_config()$python
 ```
 
-#### Example usage:
-
+#### Example usage: check the completeness of the installation in R
 ```r
-library(PRIME)
 library(GenomicRanges)
-run_PRIMEloci_focal_example(python_path = py_config()$python)
-run_PRIMEloci_example(python_path = py_config()$python)
+library(PRIMEloci)
+
+PRIMEloci_focal_example <- run_PRIMEloci_focal_example(python_path = py_config()$python)
+PRIMEloci_example <- run_PRIMEloci_example(python_path = py_config()$python)
 ```
 
 ---
 
-
-### 🔧 Option 4: Use existing Python installation with `requirements.txt`
-
-If you already have a working Python installation and want to use it directly:
-
-```bash
-pip3 install --upgrade pip
-pip3 install -r inst/envfile/environment.txt
-which python3
-
-# Use this path in your R function call
-```
-
-```r
-library(PRIME)
-library(GenomicRanges)
-run_PRIMEloci_focal_example(python_path = "/path/to/your/python")
-run_PRIMEloci_example(python_path = "/path/to/your/python")
-```
-
-### 🌬️ Option 2: Conda
+### 🌬️ Option 3: Conda
 
 `environment.yml` is included in the `inst/envfile` folder.
 
 #### How to create the environment:
 
 ```bash
-cd PRIME
+cd PRIMEloci
 
-# Recommended: NumPy 2.x
 conda env create -f inst/envfile/environment.yml
 
 # Activate the environment
 conda activate prime-env
 which python3
-conda deactivate
-
 # Copy this path to use as python_path in R when calling run_PRIMEloci_example() or run_PRIMEloci_facet_example()
+
+conda deactivate
 ```
 
-#### Example in R:
-
+#### Example usage: check the completeness of the installation in R
 ```r
-library(PRIME)
 library(GenomicRanges)
-run_PRIMEloci_focal_example(python_path = "~/.conda/envs/prime-env/bin/python3")
-run_PRIMEloci_example(python_path = "~/.conda/envs/prime-env/bin/python3")
+library(PRIMEloci)
+
+PRIMEloci_focal_example <- run_PRIMEloci_focal_example(python_path = "~/.conda/envs/prime-env/bin/python3")
+PRIMEloci_example <- un_PRIMEloci_example(python_path = "~/.conda/envs/prime-env/bin/python3")
 ```
 
 ---
 
-### 🧪 Option 3: Virtualenv (manual setup)
+### 🧪 Option 4: Virtualenv (manual setup)
 
 This is an advanced manual option for setting up the environment outside of R. It is useful if managing environments via shell or external tools.
 
 #### Setup instructions
 
 ```bash
+cd PRIMEloci
+
+# Python virtual environmetn set up
 python3 -m venv ~/prime_env
 source ~/prime_env/bin/activate
-pip3 install --upgrade pip
 pip3 install -r inst/envfile/environment.txt
 which python3
-
 # Copy this path to use as python_path in R when calling run_PRIMEloci_example() or run_PRIMEloci_facet_example()
+
 ```
 
-#### Example in R:
-
+#### Example usage: check the completeness of the installation in R
 ```r
-library(PRIME)
 library(GenomicRanges)
-run_PRIMEloci_focal_example(python_path = "~/prime_env/bin/python3")
-run_PRIMEloci_example(python_path = "~/prime_env/bin/python3")
+library(PRIMEloci)
+
+PRIMEloci_focal_example <- run_PRIMEloci_focal_example(python_path = "~/prime_env/bin/python3")
+PRIMEloci_example <- run_PRIMEloci_example(python_path = "~/prime_env/bin/python3")
 ```
 
 ---
@@ -250,8 +254,6 @@ run_PRIMEloci_example(python_path = "~/prime_env/bin/python3")
 
 - Always check the current Python path with `which python3` **after** activating your environment.
 - Use that full path in the `python_path` argument in R.
-- All four environments (reticulate virtualenv, conda, manual virtualenv, and existing Python) are compatible with `PRIMEloci()`.
-
 ---
 
-© 2025 PRIME setup protocol | Supports PRIMEloci-compatible Python integration
+© 2025 PRIMEloci setup protocol
