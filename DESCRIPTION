@@ -9,7 +9,7 @@ Description: The PRIMEloci repository offers tools for genome-wide prediction of
 Depends: R (>= 4.4.0)
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Imports:
     CAGEfightR,
     GenomicRanges,
