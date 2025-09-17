@@ -107,13 +107,7 @@ install.packages("/PATH/TO/PRIME/PRIME_0.2.1.tar.gz")
 ```
 Alternatively, if installing via devtools, make sure that the model exists in the path. The published PRIMEloci model can be found at: XXXXXXXXXXXXXXXXXXXXX
 
---- [now here]
-
-
-
-
-
-
+---
 
 ## 🐍 Python Environment Setup
 
@@ -137,6 +131,7 @@ which python3
 
 #### Example usage: check the completeness of the installation in R
 ```r
+# in R
 library(GenomicRanges)
 library(PRIMEloci)
 
@@ -179,6 +174,7 @@ py_config()$python
 
 #### Example usage: check the completeness of the installation in R
 ```r
+# in R
 library(GenomicRanges)
 library(PRIMEloci)
 
@@ -201,6 +197,7 @@ conda env create -f inst/envfile/environment.yml
 
 # Activate the environment
 conda activate prime-env
+
 which python3
 # Copy this path to use as python_path in R when calling run_PRIMEloci_example() or run_PRIMEloci_facet_example()
 
@@ -209,6 +206,7 @@ conda deactivate
 
 #### Example usage: check the completeness of the installation in R
 ```r
+# in R
 library(GenomicRanges)
 library(PRIMEloci)
 
@@ -231,13 +229,16 @@ cd PRIMEloci
 python3 -m venv ~/prime_env
 source ~/prime_env/bin/activate
 pip3 install -r inst/envfile/environment.txt
+
 which python3
 # Copy this path to use as python_path in R when calling run_PRIMEloci_example() or run_PRIMEloci_facet_example()
 
+deactivate
 ```
 
 #### Example usage: check the completeness of the installation in R
 ```r
+# in R
 library(GenomicRanges)
 library(PRIMEloci)
 
