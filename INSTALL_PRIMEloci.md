@@ -1,4 +1,4 @@
-# PRIME Installation Preparation Guide
+# PRIMEloci Installation Preparation Guide
 
 This guide explains how to set up the required **R** and **Python** environments to use the `PRIMEloci` R package.
 
