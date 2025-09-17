@@ -104,7 +104,7 @@ BiocManager::install("sparseMatrixStats")
 ## Install from a local .tar.gz (the model will be set up in the PRIME installation directory):
 install.packages("/PATH/TO/PRIME/PRIME_0.2.1.tar.gz")
 ```
-Alternatively, if installing via devtools, make sure that the model exists in the path. The published PRIMEloci model can be found at: XXXXXXXXXXXXXXXXXXXXX
+Alternatively, if installing via devtools, make sure that the model exists in the path. The published PRIMEloci model can be found at: https://doi.org/10.5281/zenodo.17142494
 
 ---
 
