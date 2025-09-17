@@ -1,6 +1,6 @@
 Package: PRIMEloci
 Title: An R package for genome-wide prediction of regulatory elements from CAGE data using machine learning models
-Version: 0.2.1
+Version: 1.0
 Author: 
     c(person("Natsuda", "Navamajiti", email = "", role = "aut"),
     person("Robin", "Andersson", email = "robin@bio.ku.dk", role = c("aut","cre")))
