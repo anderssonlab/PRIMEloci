@@ -29,7 +29,7 @@ On macOS, R (via homebrew libomp) and Python environments (via conda or virtuale
 
 ## R Installation for PRIMEloci
 
-The R package `PRIMEocil` depends on a mix of CRAN and Bioconductor packages, and a custom GitHub version of `PRIME`.
+The R package `PRIMEloci` depends on a mix of CRAN and Bioconductor packages, and a custom GitHub version of `PRIME`.
 
 Note that we recommend using R 4.4 or higher. While R versions >4.2 can also be used, they may require additional setup steps. For example, on macOS, you may need to run:
 ```bash
