@@ -139,7 +139,7 @@ PRIMEloci_focal_example <- run_PRIMEloci_focal_example(python_path = "/PATH/TO/Y
 PRIMEloci_example <- run_PRIMEloci_example(python_path = "/PATH/TO/YOUR/PYTHON")
 ```
 
-### 🌐 Option 2 : Virtualenv via `reticulate` in R
+### 🔧 Option 2 : Virtualenv via `reticulate` in R
 
 This is the method for setting up the Python environment using only R.
 
@@ -184,7 +184,7 @@ PRIMEloci_example <- run_PRIMEloci_example(python_path = py_config()$python)
 
 ---
 
-### 🌬️ Option 3: Conda
+### 🔧 Option 3: Conda
 
 `environment.yml` is included in the `inst/envfile` folder.
 
@@ -216,7 +216,7 @@ PRIMEloci_example <- un_PRIMEloci_example(python_path = "~/.conda/envs/prime-env
 
 ---
 
-### 🧪 Option 4: Virtualenv (manual setup)
+### 🔧 Option 4: Virtualenv (manual setup)
 
 This is an advanced manual option for setting up the environment outside of R. It is useful if managing environments via shell or external tools.
 
@@ -252,7 +252,7 @@ PRIMEloci_example <- run_PRIMEloci_example(python_path = "~/prime_env/bin/python
 ---
 
 ## 🧠 Tips
-
+- If you don’t have full control over your R and Python environments, errors may occur when they try to communicate. We recommend setting up a dedicated virtual environment (such as a conda environment). You can find an example here [LINK XXXXXXXXX].
 - Always check the current Python path with `which python3` **after** activating your environment.
 - Use that full path in the `python_path` argument in R.
 ---
