@@ -252,7 +252,7 @@ PRIMEloci_example <- run_PRIMEloci_example(python_path = "~/prime_env/bin/python
 ---
 
 ## 🧠 Tips
-- If you don’t have full control over your R and Python environments, errors may occur when they try to communicate. We recommend setting up a dedicated virtual environment (such as a conda environment). You can find an example here [LINK XXXXXXXXX].
+- If you don’t have full control over your R and Python environments, errors may occur when they try to communicate. We recommend setting up a dedicated virtual environment (such as a conda environment). You can find an example here [https://github.com/anderssonlab/PRIMEloci/blob/main/KUIT_user/KUIT_PRIME_SETUP_CONDA.md].
 - Always check the current Python path with `which python3` **after** activating your environment.
 - Use that full path in the `python_path` argument in R.
 ---
