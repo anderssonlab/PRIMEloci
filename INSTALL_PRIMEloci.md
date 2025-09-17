@@ -94,7 +94,7 @@ BiocManager::install("CAGEfightR")
 devtools::install_github("anderssonlab/PRIME")
 ```
 
-5. Install additional Bioconductor packages (not installed automatically with PRIME)
+5. Install additional Bioconductor packages (not installed with PRIME)
 ```r
 BiocManager::install("sparseMatrixStats")
 ```
