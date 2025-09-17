@@ -49,7 +49,7 @@ when using R 4.2 to install system libraries required for building certain R pac
 Optional (Recommended for macOS users on R 4.2.x):
 To avoid X11-related warnings and enable x11() graphics, install XQuartz. This is not required if you only use RStudio or file-based plots, but it ensures maximum compatibility with all packages and plotting functions in R.
 
-### ⚙ Full R Setup
+### Full R Setup
 CAGEfightR (install via Bioconductor) and PRIME (from https://github.com/anderssonlab/PRIME) are needed for installing PRIMEloci. Before installing, additional packages need to be installed.
 
 ```bash
