@@ -5,6 +5,7 @@ suppressWarnings(suppressMessages({
   library(CAGEfightR)
   library(GenomicRanges)
   library(PRIME)
+  library(PRIMEloci)
   library(assertthat)
 }))
 
@@ -36,14 +37,14 @@ bed_colnames <- c("chrom", "chromStart", "chromEnd",
                   "thickStart", "thickEnd")
 colnames(bed_data) <- bed_colnames
 
-gr <- PRIME::plc_create_granges_from_bed(bed_data)
+gr <- PRIMEloci::plc_create_granges_from_bed(bed_data)
 
 if (all(GenomicRanges::width(gr) != len_vec)) {
   msg <- paste("⚠️ All regions in the object (GRanges) must have width",
                len_vec,
                " : extend 401 bp from thick if existed. It was saved as an extended object.") # nolint: line_length_linter.
-  region_gr <- PRIME::plc_extend_fromthick(tc_gr = gr,
-                                           ext_dis = ext_dis)
+  region_gr <- PRIMEloci::plc_extend_fromthick(tc_gr = gr,
+                                               ext_dis = ext_dis)
   saveRDS(region_gr, file = paste0(tools::file_path_sans_ext(bed_path), # nolint: line_length_linter.
                                    "_extfromthick.rds"))
 
