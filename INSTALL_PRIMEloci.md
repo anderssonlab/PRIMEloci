@@ -1,4 +1,4 @@
-# PRIME Installation Preparation Guide
+# PRIMEloci Installation Preparation Guide
 
 This guide explains how to set up the required **R** and **Python** environments to use the `PRIMEloci` R package.
 
@@ -94,7 +94,7 @@ BiocManager::install("CAGEfightR")
 devtools::install_github("anderssonlab/PRIME")
 ```
 
-5. Install additional Bioconductor packages (not installed automatically with PRIME)
+5. Install additional Bioconductor packages (not installed with PRIME)
 ```r
 BiocManager::install("sparseMatrixStats")
 ```
@@ -134,8 +134,8 @@ which python3
 library(GenomicRanges)
 library(PRIMEloci)
 
-PRIMEloci_focal_example <- run_PRIMEloci_focal_example(python_path = "/PATH/TO/YOUR/PYTHON")
-PRIMEloci_example <- run_PRIMEloci_example(python_path = "/PATH/TO/YOUR/PYTHON")
+plc_focal_example <- run_PRIMEloci_focal_example(python_path = "/PATH/TO/YOUR/PYTHON")
+plc_example <- run_PRIMEloci_example(python_path = "/PATH/TO/YOUR/PYTHON")
 ```
 
 ### 🔧 Option 2 : Virtualenv via `reticulate` in R
@@ -177,8 +177,8 @@ py_config()$python
 library(GenomicRanges)
 library(PRIMEloci)
 
-PRIMEloci_focal_example <- run_PRIMEloci_focal_example(python_path = py_config()$python)
-PRIMEloci_example <- run_PRIMEloci_example(python_path = py_config()$python)
+plc_focal_example <- run_PRIMEloci_focal_example(python_path = py_config()$python)
+plc_example <- run_PRIMEloci_example(python_path = py_config()$python)
 ```
 
 ---
@@ -209,8 +209,8 @@ conda deactivate
 library(GenomicRanges)
 library(PRIMEloci)
 
-PRIMEloci_focal_example <- run_PRIMEloci_focal_example(python_path = "~/.conda/envs/prime-env/bin/python3")
-PRIMEloci_example <- un_PRIMEloci_example(python_path = "~/.conda/envs/prime-env/bin/python3")
+plc_focal_example <- run_PRIMEloci_focal_example(python_path = "~/.conda/envs/prime-env/bin/python3")
+plc_example <- un_PRIMEloci_example(python_path = "~/.conda/envs/prime-env/bin/python3")
 ```
 
 ---
@@ -241,8 +241,8 @@ deactivate
 library(GenomicRanges)
 library(PRIMEloci)
 
-PRIMEloci_focal_example <- run_PRIMEloci_focal_example(python_path = "~/prime_env/bin/python3")
-PRIMEloci_example <- run_PRIMEloci_example(python_path = "~/prime_env/bin/python3")
+plc_focal_example <- run_PRIMEloci_focal_example(python_path = "~/prime_env/bin/python3")
+plc_example <- run_PRIMEloci_example(python_path = "~/prime_env/bin/python3")
 ```
 
 ---
