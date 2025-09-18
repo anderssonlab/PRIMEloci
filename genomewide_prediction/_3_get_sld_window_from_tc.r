@@ -5,6 +5,7 @@ suppressWarnings(suppressMessages({
   library(parallel)
   library(argparse)
   library(PRIME)
+  library(PRIMEloci)
 }))
 
 # Create argument parser
@@ -33,7 +34,7 @@ tc_grl <- readRDS(args$infile)
 
 # Output
 output_dir <- args$output_dir
-PRIME::plc_create_output_dir(output_dir)
+PRIMEloci::plc_create_output_dir(output_dir)
 outfile_sld_tc_grl <- args$outfile
 
 # parameters
@@ -79,11 +80,11 @@ plc_message("🚀 Running PRIMEloci -3: sliding windows covering reduced TC regi
 
 if (inherits(tc_grl, "GenomicRanges::GRanges")) {
   start_time <- Sys.time()
-  tc_sliding_window_grl <- PRIME::plc_tc_sliding_window(tc_grl,
-                                                        sld_by = sld_by,
-                                                        ext_dis = ext_dis,
-                                                        num_cores = num_cores,
-                                                        processing_method = processing_method) # nolint: line_length_linter.
+  tc_sliding_window_grl <- PRIMEloci::plc_tc_sliding_window(tc_grl,
+                                                            sld_by = sld_by,
+                                                            ext_dis = ext_dis,
+                                                            num_cores = num_cores,
+                                                            processing_method = processing_method) # nolint: line_length_linter.
   plc_message(sprintf("⏱️ Time taken: %.2f minutes",
                       as.numeric(difftime(Sys.time(),
                                           start_time,
