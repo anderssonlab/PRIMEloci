@@ -5,6 +5,7 @@ suppressWarnings(suppressMessages({
   library(CAGEfightR)
   library(GenomicRanges)
   library(PRIME)
+  library(PRIMEloci)
   library(assertthat)
 }))
 
@@ -36,7 +37,7 @@ input_dir <- args$input_dir
 design_matrix_file <- args$design_matrix
 
 output_dir <- args$output_dir
-PRIME::plc_create_output_dir(args$output_dir)
+PRIMEloci::plc_create_output_dir(args$output_dir)
 outfile_ctss_rse <- args$outfile
 
 
@@ -49,7 +50,7 @@ design_matrix <- read.table(design_matrix_file,
                             sep = "\t",
                             row.names = "Name")
 plc_message("Getting CTSS from BigWig ...")
-ctss_rse <- PRIME::plc_get_ctss_from_bw(input_dir, design_matrix)
+ctss_rse <- PRIMEloci::plc_get_ctss_from_bw(input_dir, design_matrix)
 
 # Keep only standard chromosomes if specified
 if (args$keep_standard_chr) {
