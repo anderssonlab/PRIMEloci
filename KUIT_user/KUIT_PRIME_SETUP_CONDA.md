@@ -27,7 +27,10 @@ conda config --set channel_priority strict
 ## 2. Remove old env (if exists) and create new one
 
 ```bash
+# remove old env (if exists)
 conda env remove -n prime-conda-env -y >/dev/null 2>&1 || true
+
+# create the new env
 conda create -y -n prime-conda-env -c conda-forge python=3.11 r-base=4.4
 ```
 
@@ -123,7 +126,7 @@ PY
 ## 7. Install prebuilt CRAN R packages
 
 ```bash
-conda install -y -c conda-forge r-r.utils r-future r-future.apply r-future.callr r-foreach r-argparse r-doparallel r-reticulate r-arrow r-igraph r-catools r-zoo r-biocmanager r-remotes r-devtools
+conda install -y -c conda-forge r-r.utils r-future r-future.apply r-future.callr r-foreach r-argparse r-doparallel r-reticulate r-arrow r-igraph r-catools r-zoo r-biocmanager r-remotes r-devtools r-sparsematrixstats
 ```
 
 **Expect:** R packages installed without compilation.
@@ -233,9 +236,6 @@ library(PRIME, lib.loc=target_lib); cat("PRIME loaded from: ", system.file(packa
 ## 11. Install PRIMEloci from local tarball
 
 ```bash
-## Change path to PRIMEloci directiry before running this command
-cd PRIMEloci
-
 R -q -e 'Sys.setenv(RETICULATE_PYTHON="~/.conda/envs/prime-conda-env/bin/python3", PYTHONNOUSERSITE="1"); install.packages("/PATH/TO/PRIMEloci/PRIMEloci_1.0.tar.gz", repos=NULL, type="source", lib=.libPaths()[1]); library(PRIMEloci); packageVersion("PRIMEloci"); library(reticulate); print(py_config()); cat("\nPRIMEloci loaded OK ✅\n")'
 ```
 

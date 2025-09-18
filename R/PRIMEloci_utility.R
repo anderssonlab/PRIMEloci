@@ -437,6 +437,7 @@ plc_configure_python <- function(python_path = NULL) {
 #' a sparse matrix. Used to determine compatibility with `.npz` export.
 #'
 #' @return Logical value indicating success (`TRUE`) or failure (`FALSE`).
+#' @importFrom PRIME vectorListToMatrix
 #' @export
 plc_test_scipy_save_npz <- function() {
   tryCatch({
@@ -447,7 +448,7 @@ plc_test_scipy_save_npz <- function() {
                                   length = 20)
       as(vec, "dsparseVector")
     })
-    test_matrix <- vectorListToMatrix(sparse_vectors)  # dgCMatrix
+    test_matrix <- PRIME::vectorListToMatrix(sparse_vectors)  # dgCMatrix
 
     scipy <- reticulate::import("scipy.sparse", delay_load = FALSE)
 
