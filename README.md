@@ -54,13 +54,11 @@ Execute a full pipeline or some parts of the pipeline using pre-configured bash 
 ## Installation
 
    To install the PRIMEloci R package:
-   
       - R ≥ 4.4 is recommended (PRIMEloci was developed and tested under R 4.4).
       - R ≥ 4.2 is also possible, but may require additional installation steps.
       - Python ≥ 3.9 is required.
       
    PRIMEloci is implemented based on two other R packages:
-   
       - CAGEfightR (https://bioconductor.org/packages/devel/bioc/vignettes/CAGEfightR/inst/doc/Introduction_to_CAGEfightR.html)
       - PRIME (https://github.com/anderssonlab/PRIME)
       
