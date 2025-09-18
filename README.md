@@ -118,8 +118,6 @@ To use PRIMEloci, follow these steps:
    
    - `-6`: Apply post-processing to refine predictions
    
-   - `-7`: Prepare the post-processed bed for focal input
-   
      ​	This step structure can also be used flexibly as needed. For example, if PRIMEloci step -1 (CTSS calling) has already been completed externally and CTSS data are available, you can start directly from step -2 and continue with steps -3, -4, -5, and -6.
    
      ​	Each step is designed to run independently, allowing users to execute one step at a time and stack the outputs sequentially. This modular design is useful for customizing the workflow, reusing intermediate results, or managing large datasets step by step.
