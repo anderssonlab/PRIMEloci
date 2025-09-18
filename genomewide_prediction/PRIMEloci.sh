@@ -72,57 +72,10 @@ fi
 # Load the specified configuration file
 source "$CONFIG_FILE"
 
-# Check if output directory is provided, if not, create one
-#if [[ ! -d $OUTPUT_DIR ]]; then
-#    echo "Creating output directory..."
-#    mkdir -p $OUTPUT_DIR
-#fi
-
-# Function to create /PRIMEloci_tmp directory if needed
-#create_tmp_dir() {
-#    if [[ ! -d "$OUTPUT_DIR/PRIMEloci_tmp" ]]; then
-#        echo "Creating /PRIMEloci_tmp directory inside $OUTPUT_DIR..."
-#        mkdir -p "$OUTPUT_DIR/PRIMEloci_tmp"
-#    fi
-#    TMP_DIR="$OUTPUT_DIR/PRIMEloci_tmp"
-#}
-#TMP_DIR="$OUTPUT_DIR/PRIMEloci_tmp"
-
 ARGS=""
 if [ -n "$NUM_CORES" ]; then
   ARGS="$ARGS -p $NUM_CORES"
 fi
-
-# Function to combine BED files based on prefix before "_chr"
-# Takes two arguments: input directory and output directory
-#combine_bed_files() {
-#  local input_dir="$1"
-#  local output_dir="$2"
-#
-#  # Ensure the output directory exists
-#  mkdir -p "$output_dir"
-#
-#  # Step 1: Find all unique prefixes before "_chr"
-#  prefixes=$(ls "$input_dir"/*.bed | sed -E 's/(.*)(_chr[^_]+).*/\1/' | sort -u)
-#
-#  # Step 2: For each unique prefix, concatenate all matching files
-#  for prefix in $prefixes; do
-#    # Find all files that match the prefix (with any chr)
-#    matching_files=$(ls "$input_dir"/$(basename "$prefix")_chr*.bed)
-#
-#    # Combine those files into one file in the output directory
-#    combined_file="$output_dir/$(basename "$prefix")_combined.bed"
-#
-#    # Handle headers: Include header from the first file, skip for others
-#    head -n 1 $(echo $matching_files | cut -d ' ' -f1) > "$combined_file"  # Extract header from the first file
-#    for file in $matching_files; do
-#      tail -n +2 "$file" >> "$combined_file"  # Skip header (start from line 2)
-#    done
-#
-#    echo "Combined files into $combined_file"
-#  done
-#
-#}
 
 # If --PRIMEloci is specified, add all steps 1-6
 if $PRIMEloci; then
@@ -204,13 +157,6 @@ for step in "${steps[@]}"; do
         5)
             echo -e "\nRunning _5_predict_profile_probability.r"
 
-            #if [ "$PRIMEloci" = true ]; then
-            #    # If running PRIMEloci, use the files from the previous steps
-            #    IN="$TMP_DIR"
-            #else
-            #    IN="$OUTPUT_DIR"
-            #fi
-
             Rscript _5_predict_profile_probability.r \
                 -i $OUTPUT_DIR/$PROFILE_MAIN_DIR \
                 --python_path $PYTHON_PATH \
@@ -231,17 +177,3 @@ for step in "${steps[@]}"; do
             ;;
     esac
 done
-
-# Function to clean up the temporary directory if needed
-#cleanup() {
-#    if ! $keeptmp && [[ -d "$TMP_DIR" ]]; then
-#        echo "Cleaning up temporary directory: $TMP_DIR"
-#        rm -rf "$TMP_DIR"
-#    fi
-#}
-
-# Clean up the temporary directory only if running steps 3-5
-#if ($PRIMEloci || $PRIMEloci_focal) && ! $keeptmp; then
-#    echo "Cleaning up temporary directory: $TMP_DIR"
-#    rm -rf $TMP_DIR
-#fi
