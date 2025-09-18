@@ -6,6 +6,7 @@ suppressWarnings(suppressMessages({
   library(parallel)
   library(GenomicRanges)
   library(PRIME)
+  library(PRIMEloci)
   library(future.apply)
   library(SummarizedExperiment)
 }))
@@ -49,7 +50,7 @@ infile_ctss_rse <- args$ctss_rse
 infile_tc_grl <- args$region
 
 output_dir <- args$output_dir
-PRIME::plc_create_output_dir(output_dir)
+PRIMEloci::plc_create_output_dir(output_dir)
 
 profile_dir_name <- args$profile_dir_name
 save_count_profiles <- args$save_count_profiles
@@ -82,11 +83,11 @@ if (num_cores == 1) {
   processing_method <- "callr"
   plc_message("⚠️ num_workers was set to 1. Using callr backend: tasks will run sequentially (despite using multiple R sessions).") # nolint: line_length_linter.
 } else {
-  processing_method <- PRIME::plc_detect_parallel_plan()
+  processing_method <- PRIMEloci::plc_detect_parallel_plan()
 }
 
 # Python config
-PRIME::plc_message("🚀 Setting up Python environment")
+plc_message("🚀 Setting up Python environment")
 
 if (is.null(args$python_path)) {
   py <- reticulate::import("sys")
@@ -94,8 +95,8 @@ if (is.null(args$python_path)) {
 } else {
   python_path <- args$python_path
 }
-py_conf <- PRIME::plc_configure_python(python_path = python_path)
-check_npz <- PRIME::plc_test_scipy_save_npz()
+py_conf <- PRIMEloci::plc_configure_python(python_path = python_path)
+check_npz <- PRIMEloci::plc_test_scipy_save_npz()
 if (!check_npz) {
   plc_message("⚠️ Falling back to .parquet format")
   file_type <- "parquet"
@@ -110,8 +111,8 @@ ctss_rse <- readRDS(infile_ctss_rse)
 tc_grl <- readRDS(infile_tc_grl)
 
 # Run profiling
-PRIME::plc_message("🚀 Running PRIMEloci -4: compute count & normalized profiles for each sample") # nolint: line_length_linter.
-PRIME::plc_profile(
+plc_message("🚀 Running PRIMEloci -4: compute count & normalized profiles for each sample") # nolint: line_length_linter.
+PRIMEloci::plc_profile(
   ctss_rse,
   tc_grl,
   output_dir,
@@ -124,4 +125,4 @@ PRIME::plc_profile(
   processing_method = processing_method,
   ext_dis
 )
-PRIME::plc_message("✅ DONE :: Profiles computed and saved.")
+plc_message("✅ DONE :: Profiles computed and saved.")
