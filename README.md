@@ -60,7 +60,7 @@ Execute a full pipeline or some parts of the pipeline using pre-configured bash 
    PRIMEloci is implemented based on two other R packages:
       - CAGEfightR (https://bioconductor.org/packages/devel/bioc/vignettes/CAGEfightR/inst/doc/Introduction_to_CAGEfightR.html)
       - PRIME (https://github.com/anderssonlab/PRIME)
-   Please make sure both are installed before installing PRIMEloci. The complete installation procedure can be found here: [link]
+   Please make sure both are installed before installing PRIMEloci. The complete installation procedure can be found here: https://github.com/anderssonlab/PRIMEloci/blob/main/INSTALL_PRIMEloci.md
 
 ## Usage of Bash Script
 
