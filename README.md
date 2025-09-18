@@ -57,10 +57,13 @@ Execute a full pipeline or some parts of the pipeline using pre-configured bash 
       - R ≥ 4.4 is recommended (PRIMEloci was developed and tested under R 4.4).
       - R ≥ 4.2 is also possible, but may require additional installation steps.
       - Python ≥ 3.9 is required.
+      
    PRIMEloci is implemented based on two other R packages:
       - CAGEfightR (https://bioconductor.org/packages/devel/bioc/vignettes/CAGEfightR/inst/doc/Introduction_to_CAGEfightR.html)
       - PRIME (https://github.com/anderssonlab/PRIME)
-   Please make sure both are installed before installing PRIMEloci. The complete installation procedure can be found here: https://github.com/anderssonlab/PRIMEloci/blob/main/INSTALL_PRIMEloci.md
+      
+   Please make sure both are installed before installing PRIMEloci. 
+   The complete installation procedure can be found here: https://github.com/anderssonlab/PRIMEloci/blob/main/INSTALL_PRIMEloci.md
 
 ## Usage of Bash Script
 
