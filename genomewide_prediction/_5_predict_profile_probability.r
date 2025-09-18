@@ -6,6 +6,7 @@ suppressWarnings(suppressMessages({
   library(parallel)
   library(GenomicRanges)
   library(PRIME)
+  library(PRIMEloci)
   library(future.apply)
   library(SummarizedExperiment)
 }))
@@ -42,7 +43,7 @@ profile_main_dir <- args$input_dir
 profiles_subtnorm_dir <- file.path(profile_main_dir, "profiles_subtnorm")
 
 if (!dir.exists(profiles_subtnorm_dir)) {
-  PRIME::plc_error("❌ Directory 'profiles_subtnorm' does not exist in the specified profile_main_dir.") # nolint: line_length_linter.
+  plc_error("❌ Directory 'profiles_subtnorm' does not exist in the specified profile_main_dir.") # nolint: line_length_linter.
 }
 
 profile_files <- list.files(profiles_subtnorm_dir,
@@ -52,7 +53,7 @@ assertthat::assert_that(length(profile_files) > 0,
                                     profiles_subtnorm_dir))
 
 model_path <- args$model_path
-predict_script_path <- file.path(system.file("python", package = "PRIME"),
+predict_script_path <- file.path(system.file("python", package = "PRIMEloci"),
                                  "main.py")
 
 assertthat::assert_that(file.exists(predict_script_path),
@@ -83,11 +84,11 @@ if (num_cores == 1) {
   processing_method <- "callr"
   plc_message("⚠️ num_workers was set to 1. Using callr backend: tasks will run sequentially (despite using multiple R sessions).") # nolint: line_length_linter.
 } else {
-  processing_method <- PRIME:::plc_detect_parallel_plan()
+  processing_method <- PRIMEloci:::plc_detect_parallel_plan()
 }
 
 # Python config
-PRIME::plc_message("🚀 Setting up Python environment")
+plc_message("🚀 Setting up Python environment")
 
 if (is.null(args$python_path)) {
   py <- reticulate::import("sys")
@@ -95,7 +96,7 @@ if (is.null(args$python_path)) {
 } else {
   python_path <- args$python_path
 }
-py_conf <- PRIME:::plc_configure_python(python_path = python_path)
+py_conf <- PRIMEloci:::plc_configure_python(python_path = python_path)
 
 
 plc_message("🚀 Running PRIMEloci -5: Prediction using PRIMEloci model")
