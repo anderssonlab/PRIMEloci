@@ -125,7 +125,7 @@ To use PRIMEloci, follow these steps:
      ​	Note that The **PRIMEloci** workflow consists of steps **-1 to -6**, each corresponding to an individual script. The **PRIMEloci_focal** workflow includes steps **-0**, **-4**, and **-5**, which are designed to be run on individual libraries using the predicted regions.
 
 4. **Run extra-step preparation for PRIMEloci focal**
-    We prepare the automatic script for creating the RDS XXXXXXX
+    We prepare the automatic script for creating the RDS file for the PRIMEloci focal input:
      ```bash
      Rscript _7_prepare_postprocessed_bed_for_focal_input.r --bed_path /path/to/bed/file.bed
      ```
