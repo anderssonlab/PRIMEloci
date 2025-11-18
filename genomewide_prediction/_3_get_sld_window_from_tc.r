@@ -72,7 +72,7 @@ if (num_cores == 1) {
   processing_method <- "callr"
   plc_message("⚠️ num_workers was set to 1. Using callr backend: tasks will run sequentially (despite using multiple R sessions).") # nolint: line_length_linter.
 } else {
-  processing_method <- PRIME::plc_detect_parallel_plan()
+  processing_method <- PRIMEloci::plc_detect_parallel_plan()
 }
 
 
