@@ -213,7 +213,8 @@ library(bcp, lib.loc=target_lib); cat("bcp loaded from: ", system.file(package="
 ```
 
 **Expect:** `bcp` loads and version prints.
-if devtools cannot be installed, use "remotes" instead.
+
+**If devtools cannot be installed, use "remotes" instead.**
 
 ---
 
