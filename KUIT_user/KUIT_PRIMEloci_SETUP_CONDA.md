@@ -98,7 +98,7 @@ R -q -e "print(.libPaths())"
 
 ```bash
 ## Change path to PRIMEloci directiry before running this command
-conda install -y -c conda-forge --update-specs --file /PATH/TO/PRIME/inst/envfile/environment.txt
+conda install -y -c conda-forge --update-specs --file /PATH/TO/PRIMEloci/inst/envfile/environment.txt
 ```
 
 **Expect:** Conda installs specified versions based on the environment file.
