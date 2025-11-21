@@ -266,6 +266,7 @@ plc_example <- run_PRIMEloci_example(python_path = "~/.conda/envs/prime-conda-en
 ```
 
 **Expect:** Example runs without error.
+**Error:** Error might occurs calling python3 on prediction script with << ~ >>, full path might be needed.
 
 ---
 
